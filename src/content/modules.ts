@@ -1,0 +1,114 @@
+import { WorkshopModule } from "@/types/presentation";
+
+export const WORKSHOP_MODULES: WorkshopModule[] = [
+  {
+    id: 1,
+    title: "Blockchain Fundamentals",
+    shortTitle: "Fundamentals",
+    durationMinutes: 45,
+    summary:
+      "Core principles of distributed ledgers, cryptographic hashing with SHA-256, chained block structures, immutability, tampering detection, and topology resilience.",
+    topics: [
+      "What is Blockchain & Why Was It Created?",
+      "Traditional Databases vs. Blockchains",
+      "Cryptographic SHA-256 Hashing & Live Simulation",
+      "Centralized vs. Decentralized Networks & Simulation",
+      "Anatomy of a Block & Chained Links",
+      "Blockchain Builder & Tamper Detection Simulation",
+      "The Cascade of Immutability",
+    ],
+    slideRange: [1, 13],
+    primaryColor: "#2563EB",
+  },
+  {
+    id: 2,
+    title: "Blockchain Architecture & Concepts",
+    shortTitle: "Architecture",
+    durationMinutes: 50,
+    summary:
+      "Network topologies, public vs. permissioned models, transaction validation lifecycle, account states, consensus mechanics, and Proof of Work mining.",
+    topics: [
+      "Network Nodes & Distributed Ledgers",
+      "Public, Private & Permissioned Networks",
+      "Public Transaction Lifecycle & Live Simulation",
+      "Distributed State Synchronization",
+      "Introduction to Consensus Algorithms",
+      "Proof of Work (PoW) Mining & Simulation",
+      "Proof of Work vs. Enterprise Consensus",
+    ],
+    slideRange: [14, 24],
+    primaryColor: "#2563EB",
+  },
+  {
+    id: 3,
+    title: "Introduction to Hyperledger Fabric",
+    shortTitle: "Enterprise Fabric",
+    durationMinutes: 60,
+    summary:
+      "Enterprise permissioned blockchain architecture, membership service providers (MSP), channel data isolation, Raft ordering service, and the 8-step transaction flow.",
+    topics: [
+      "Enterprise vs. Public Blockchains",
+      "Why Hyperledger Fabric for Business?",
+      "Identity, PKI & Membership Service Providers (MSP)",
+      "Peer Roles: Endorsing vs. Committing Peers",
+      "Channels & World State (StateDB)",
+      "The 8-Step Transaction Lifecycle & Simulation",
+      "Execute-Order-Validate Paradigm",
+    ],
+    slideRange: [25, 32],
+    primaryColor: "#0D9488",
+  },
+  {
+    id: 4,
+    title: "Ubuntu, Docker & Network Setup",
+    shortTitle: "Dev Environment",
+    durationMinutes: 45,
+    summary:
+      "Development environment setup, Linux terminal workflows, Docker container isolation, Fabric test-network topology, and channel creation commands.",
+    topics: [
+      "Why Linux / Ubuntu for Enterprise Blockchain",
+      "Docker Containers & Virtual Network Architecture",
+      "Docker Architecture & Virtual Terminal Simulation",
+      "Containerized Multi-Party Consortium Security",
+      "Terminal Walkthrough: Starting the Test Network",
+    ],
+    slideRange: [33, 37],
+    primaryColor: "#0D9488",
+  },
+  {
+    id: 5,
+    title: "Smart Contract Development",
+    shortTitle: "Smart Contracts",
+    durationMinutes: 50,
+    summary:
+      "Smart contract anatomy, writing JavaScript chaincode with the Fabric Contract API, ledger state interaction (PutState, GetState), and deployment lifecycle.",
+    topics: [
+      "Smart Contracts vs. Traditional Backend Logic",
+      "Fabric Chaincode Architecture",
+      "Fabric Contract API in JavaScript",
+      "State Management: ctx.stub.putState & getState",
+      "Asset Transfer & MVCC Concurrency Protection",
+      "Deploying Chaincode with network.sh",
+    ],
+    slideRange: [38, 43],
+    primaryColor: "#2563EB",
+  },
+  {
+    id: 6,
+    title: "Hands-on Mini Project",
+    shortTitle: "Mini Project",
+    durationMinutes: 60,
+    summary:
+      "Interactive asset management system based on asset-transfer-basic. Real-time simulated state updates, asset creation, ownership transfers, audit logs, and terminal commands.",
+    topics: [
+      "Project Goal: Asset Management System",
+      "Asset Data Model & World State Schema",
+      "Live Interactive Asset Management Simulation",
+      "World State vs. Historical Ledgers",
+      "CLI Interaction: Invoking Chaincode via Terminal",
+      "Workshop Conclusion & Engineering Next Steps",
+    ],
+    slideRange: [44, 50],
+    primaryColor: "#059669",
+  },
+];
