@@ -29,7 +29,7 @@ export interface Slide {
       filename?: string;
     };
   };
-  simulationType?: "hasher" | "blockchain" | "network" | "transaction" | "mining" | "fabric" | "docker" | "asset-demo" | "consensus";
+  simulationType?: "hasher" | "blockchain" | "network" | "transaction" | "mining" | "fabric" | "docker" | "asset-demo" | "consensus" | "hello-blockchain";
   quiz?: QuizQuestion;
   speakerNotes: string;
 }

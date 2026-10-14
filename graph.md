@@ -19,14 +19,15 @@ Interactive Blockchain Workshop Platform built with Next.js (App Router), TypeSc
     - `MiningSim.tsx` — Proof of work non-blocking mining simulator with difficulty targets and hashrate metrics
     - `FabricExplorerSim.tsx` — Hyperledger Fabric 8-step lifecycle simulator (Endorsement, Raft Ordering, MVCC validation, StateDB commit)
     - `DockerArchitectureSim.tsx` — Linux host container visualizer and interactive terminal
-    - `AssetDemoSim.tsx` — Asset-transfer-basic interactive mini-project with CRUD, transfer, history, and World State inspector
+    - `AssetDemoSim.tsx` — Legacy asset-transfer-basic interactive mini-project
+    - `HelloBlockchainSim.tsx` — "Hello Blockchain: Store, Retrieve, and Update a Message" interactive mini-project with JavaScript chaincode, StateDB inspector, block ledger append, and Ubuntu Docker CLI tabs
 - `src/lib/`
   - `crypto.ts` — Web Crypto SHA-256 helper
   - `blockchain-engine.ts` — Educational blockchain data structure, validation, and tampering logic
   - `fabric-engine.ts` — Hyperledger Fabric component and lifecycle step definitions
   - `utils.ts` — Styling helpers, string formatters, and clipboard utilities
 - `src/content/`
-  - `modules.ts` — 6 Workshop Modules metadata and descriptions
+  - `modules.ts` — 6 Workshop Modules metadata and descriptions (including Hello Blockchain)
   - `slides.ts` — 50 pedagogical slides with speaker notes, code snippets, comparisons, and embedded simulation mappings
   - `quizzes.ts` — Knowledge check interactive quizzes with explanations
 
@@ -39,6 +40,11 @@ Interactive Blockchain Workshop Platform built with Next.js (App Router), TypeSc
 - `Slide`: id, moduleId, slideNumber, title, subtitle, category, content, simulationType, quiz, speakerNotes
 
 ## Change Log
+- 2026-10-14: Upgraded Mini Project (Module 6) from complex Asset Management to "Hello Blockchain: Store, Retrieve, and Update a Message":
+  - Created `HelloBlockchainSim.tsx` featuring store, retrieve, and update operations using Fabric `putState`/`getState`, live StateDB vs. Block Ledger sync, JavaScript chaincode preview (`InitLedger`, `ReadMessage`, `UpdateMessage`), and Docker Ubuntu CLI execution simulator.
+  - Updated slides 44–48 and Module 6 syllabus to teach the Hello Blockchain lifecycle.
+  - Added slide 21 multi-consensus simulator for PoW, PoS, and Raft comparison.
+  - Fixed JSX syntax in `SlideViewer.tsx` and validated static build (13/13 pages generated cleanly).
 - 2026-10-14: Added `vercel.json` with `"framework": "nextjs"` preset and added `public/` directory with `robots.txt` and `favicon.svg` to resolve Vercel deployment error where Vercel defaulted to looking for a static `public` output directory.
 - 2026-10-14: Enhanced visual simulations and data flow animations across all 8 workshop components:
   - `Sha256HasherSim.tsx`: Added 5-stage animated hashing process visualizer (ASCII encoding -> 512-bit padding -> message schedule -> 64 compression rounds with working registers A-H -> 256-bit digest) alongside live interactive avalanche hasher.

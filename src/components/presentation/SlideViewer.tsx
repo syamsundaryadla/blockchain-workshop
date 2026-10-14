@@ -11,7 +11,7 @@ import { TransactionSim } from "@/components/simulations/TransactionSim";
 import { MiningSim } from "@/components/simulations/MiningSim";
 import { FabricExplorerSim } from "@/components/simulations/FabricExplorerSim";
 import { DockerArchitectureSim } from "@/components/simulations/DockerArchitectureSim";
-import { AssetDemoSim } from "@/components/simulations/AssetDemoSim";
+import { HelloBlockchainSim } from "@/components/simulations/HelloBlockchainSim";
 import { copyToClipboard } from "@/lib/utils";
 import Link from "next/link";
 import {
@@ -233,145 +233,187 @@ export function SlideViewer() {
 
       {/* Main Slide Content Canvas (Optimized for 16:9 Projector Screens) */}
       <main className="flex-1 flex flex-col justify-between p-6 sm:p-12 max-w-6xl w-full mx-auto space-y-8">
-        {/* Slide Header */}
-        <div className="space-y-3">
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-mono font-bold text-blue-700 tracking-wider uppercase bg-blue-50 px-2.5 py-0.5 rounded border border-blue-200">
-              {currentSlide.category}
-            </span>
-            <span className="text-slate-400 text-xs">•</span>
-            <span className="text-xs font-mono font-bold text-slate-500">
-              Slide {currentSlide.slideNumber} of {PRESENTATION_SLIDES.length}
-            </span>
-          </div>
-
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 font-display leading-tight">
-            {currentSlide.title}
-          </h1>
-
-          {currentSlide.subtitle && (
-            <p className="text-base sm:text-xl text-slate-600 font-medium leading-relaxed">
-              {currentSlide.subtitle}
+        {/* Opening Slide Hero vs Standard Slide Header */}
+        {currentSlide.slideNumber === 1 ? (
+          <div className="p-8 sm:p-12 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm space-y-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-mono font-bold">
+              Engineering Workshop • 6 Modules • Hands-on Lab
+            </div>
+            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 font-display leading-[1.1]">
+              BLOCKCHAIN LAB
+            </h1>
+            <p className="text-xl sm:text-2xl text-slate-600 font-medium max-w-3xl leading-relaxed">
+              Interactive Technical Workshop for Engineers: Cryptographic primitives, distributed P2P consensus, and enterprise Hyperledger Fabric.
             </p>
-          )}
-        </div>
+            <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 pt-4 border-t border-slate-200">
+              <div className="p-4 rounded-xl bg-white border border-slate-200">
+                <span className="text-xs font-mono font-bold text-blue-600 block">01 / Fundamentals</span>
+                <span className="text-sm font-bold text-slate-900 mt-1 block">SHA-256 &amp; Chain Linking</span>
+              </div>
+              <div className="p-4 rounded-xl bg-white border border-slate-200">
+                <span className="text-xs font-mono font-bold text-blue-600 block">02 / Architecture</span>
+                <span className="text-sm font-bold text-slate-900 mt-1 block">P2P Mesh &amp; Consensus</span>
+              </div>
+              <div className="p-4 rounded-xl bg-white border border-slate-200">
+                <span className="text-xs font-mono font-bold text-teal-600 block">03 / Fabric &amp; Docker</span>
+                <span className="text-sm font-bold text-slate-900 mt-1 block">Execute-Order-Validate</span>
+              </div>
+              <div className="p-4 rounded-xl bg-white border border-slate-200">
+                <span className="text-xs font-mono font-bold text-teal-600 block">04 / Mini Project</span>
+                <span className="text-sm font-bold text-slate-900 mt-1 block">Hello Blockchain Store</span>
+              </div>
+            </div>
+            <div className="pt-2">
+              <button
+                onClick={goToNextSlide}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition-colors"
+              >
+                <span>Start Workshop</span>
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-mono font-bold text-blue-700 tracking-wider uppercase bg-blue-50 px-2.5 py-0.5 rounded border border-blue-200">
+                {currentSlide.category}
+              </span>
+              <span className="text-slate-400 text-xs">•</span>
+              <span className="text-xs font-mono font-bold text-slate-500">
+                Slide {currentSlide.slideNumber} of {PRESENTATION_SLIDES.length}
+              </span>
+            </div>
+
+            <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold tracking-tight text-slate-900 font-display leading-[1.15]">
+              {currentSlide.title}
+            </h1>
+
+            {currentSlide.subtitle && (
+              <p className="text-lg sm:text-xl lg:text-[22px] text-slate-600 font-medium leading-relaxed">
+                {currentSlide.subtitle}
+              </p>
+            )}
+          </div>
+        )}
 
         {/* Slide Body */}
-        <div className="space-y-6 flex-1">
-          {/* Lead Paragraph */}
-          {currentSlide.content.lead && (
-            <p className="text-base sm:text-xl text-slate-700 leading-relaxed font-sans font-normal">
-              {currentSlide.content.lead}
-            </p>
-          )}
-
-          {/* Core Bullet Points */}
-          {currentSlide.content.points && (
-            <div className="space-y-3.5 pt-1">
-              {currentSlide.content.points.map((pt, idx) => (
-                <div key={idx} className="flex items-start gap-3.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-blue-600 mt-2.5 flex-shrink-0" />
-                  <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-                    {pt}
-                  </p>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Architectural Comparison Grid */}
-          {currentSlide.content.comparison && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-              <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 shadow-sm space-y-4">
-                <h3 className="font-bold text-base text-slate-900 border-b border-slate-200 pb-2.5">
-                  {currentSlide.content.comparison.leftTitle}
-                </h3>
-                <ul className="space-y-2.5 text-sm sm:text-base text-slate-600">
-                  {currentSlide.content.comparison.leftItems.map((item, i) => (
-                    <li key={i} className="flex items-start gap-2.5">
-                      <span className="text-slate-400 font-bold">•</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="p-6 rounded-2xl bg-blue-50/60 border border-blue-200 shadow-sm space-y-4">
-                <h3 className="font-bold text-base text-blue-900 border-b border-blue-200 pb-2.5">
-                  {currentSlide.content.comparison.rightTitle}
-                </h3>
-                <ul className="space-y-2.5 text-sm sm:text-base text-slate-700">
-                  {currentSlide.content.comparison.rightItems.map((item, i) => (
-                    <li key={i} className="flex items-start gap-2.5">
-                      <span className="text-blue-600 font-bold">•</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          )}
-
-          {/* Code Snippet Box (Light Theme, Projector Optimized) */}
-          {currentSlide.content.codeSnippet && (
-            <div className="rounded-2xl bg-white border border-slate-300 overflow-hidden shadow-sm text-slate-900">
-              <div className="flex items-center justify-between px-5 py-3 bg-slate-100/90 border-b border-slate-200">
-                <span className="text-xs font-mono font-bold text-blue-800">
-                  {currentSlide.content.codeSnippet.filename ||
-                    `${currentSlide.content.codeSnippet.language.toUpperCase()} Snippet`}
-                </span>
-                <button
-                  onClick={() =>
-                    handleCopyCode(currentSlide.content.codeSnippet!.code)
-                  }
-                  className="flex items-center gap-1.5 text-xs text-slate-600 hover:text-slate-900 transition-colors font-mono font-semibold"
-                >
-                  {copiedCode === currentSlide.content.codeSnippet.code ? (
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                  ) : (
-                    <Copy className="w-4 h-4 text-slate-500" />
-                  )}
-                  <span>{copiedCode === currentSlide.content.codeSnippet.code ? "Copied" : "Copy"}</span>
-                </button>
-              </div>
-              <pre className="p-5 text-xs sm:text-sm font-mono text-slate-800 overflow-x-auto leading-relaxed bg-slate-50/60">
-                {currentSlide.content.codeSnippet.code}
-              </pre>
-            </div>
-          )}
-
-          {/* Key Takeaway / Inspirational Quote Box */}
-          {currentSlide.content.quote && (
-            <div className="p-6 sm:p-8 rounded-2xl bg-slate-50 border-l-4 border-blue-600 shadow-sm text-center sm:text-left">
-              <p className="text-xl sm:text-2xl font-display font-bold text-slate-900 tracking-tight">
-                &ldquo;{currentSlide.content.quote}&rdquo;
+        {currentSlide.slideNumber !== 1 && (
+          <div className="space-y-6 flex-1">
+            {/* Lead Paragraph */}
+            {currentSlide.content.lead && (
+              <p className="text-lg sm:text-xl lg:text-[22px] text-slate-700 leading-relaxed font-sans font-normal">
+                {currentSlide.content.lead}
               </p>
-            </div>
-          )}
+            )}
 
-          {/* Integrated Interactive Simulation (Appears directly within presentation flow) */}
-          {currentSlide.simulationType && (
-            <div className="pt-2 space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-xs uppercase font-bold text-blue-700 tracking-wider flex items-center gap-2">
-                  <Sliders className="w-4 h-4" />
-                  Live Interactive Demonstration
-                </span>
-                <span className="text-xs text-slate-500 font-medium">
-                  Presenter controls are fully interactive
-                </span>
+            {/* Core Bullet Points */}
+            {currentSlide.content.points && (
+              <div className="space-y-3.5 pt-1">
+                {currentSlide.content.points.map((pt, idx) => (
+                  <div key={idx} className="flex items-start gap-3.5">
+                    <div className="w-2.5 h-2.5 rounded-full bg-blue-600 mt-2.5 flex-shrink-0" />
+                    <p className="text-base sm:text-lg lg:text-[20px] text-slate-700 leading-relaxed font-normal">
+                      {pt}
+                    </p>
+                  </div>
+                ))}
               </div>
+            )}
 
-              {currentSlide.simulationType === "hasher" && <Sha256HasherSim />}
-              {currentSlide.simulationType === "blockchain" && <BlockchainSim />}
-              {currentSlide.simulationType === "network" && <NetworkTopologySim />}
-              {currentSlide.simulationType === "transaction" && <TransactionSim />}
-              {(currentSlide.simulationType === "mining" || currentSlide.simulationType === "consensus") && <MiningSim />}
-              {currentSlide.simulationType === "fabric" && <FabricExplorerSim />}
-              {currentSlide.simulationType === "docker" && <DockerArchitectureSim />}
-              {currentSlide.simulationType === "asset-demo" && <AssetDemoSim />}
-            </div>
-          )}
+            {/* Architectural Comparison Grid */}
+            {currentSlide.content.comparison && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 shadow-sm space-y-4">
+                  <h3 className="font-bold text-lg text-slate-900 border-b border-slate-200 pb-2.5">
+                    {currentSlide.content.comparison.leftTitle}
+                  </h3>
+                  <ul className="space-y-2.5 text-sm sm:text-base text-slate-700">
+                    {currentSlide.content.comparison.leftItems.map((item, i) => (
+                      <li key={i} className="flex items-start gap-2.5">
+                        <span className="text-slate-400 font-bold">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="p-6 rounded-2xl bg-blue-50/60 border border-blue-200 shadow-sm space-y-4">
+                  <h3 className="font-bold text-lg text-blue-900 border-b border-blue-200 pb-2.5">
+                    {currentSlide.content.comparison.rightTitle}
+                  </h3>
+                  <ul className="space-y-2.5 text-sm sm:text-base text-slate-700">
+                    {currentSlide.content.comparison.rightItems.map((item, i) => (
+                      <li key={i} className="flex items-start gap-2.5">
+                        <span className="text-blue-600 font-bold">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
+
+            {/* Code Snippet Box (Light Theme, Projector Optimized) */}
+            {currentSlide.content.codeSnippet && (
+              <div className="rounded-2xl bg-white border border-slate-300 overflow-hidden shadow-sm text-slate-900">
+                <div className="flex items-center justify-between px-5 py-3 bg-slate-100/90 border-b border-slate-200">
+                  <span className="text-xs font-mono font-bold text-blue-800">
+                    {currentSlide.content.codeSnippet.filename ||
+                      `${currentSlide.content.codeSnippet.language.toUpperCase()} Snippet`}
+                  </span>
+                  <button
+                    onClick={() =>
+                      handleCopyCode(currentSlide.content.codeSnippet!.code)
+                    }
+                    className="flex items-center gap-1.5 text-xs text-slate-600 hover:text-slate-900 transition-colors font-mono font-semibold"
+                  >
+                    {copiedCode === currentSlide.content.codeSnippet.code ? (
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                    ) : (
+                      <Copy className="w-4 h-4 text-slate-500" />
+                    )}
+                    <span>{copiedCode === currentSlide.content.codeSnippet.code ? "Copied" : "Copy"}</span>
+                  </button>
+                </div>
+                <pre className="p-5 text-xs sm:text-sm font-mono text-slate-800 overflow-x-auto leading-relaxed bg-slate-50/60">
+                  {currentSlide.content.codeSnippet.code}
+                </pre>
+              </div>
+            )}
+
+            {/* Key Takeaway / Inspirational Quote Box */}
+            {currentSlide.content.quote && (
+              <div className="p-6 sm:p-8 rounded-2xl bg-slate-50 border-l-4 border-blue-600 shadow-sm text-center sm:text-left">
+                <p className="text-xl sm:text-2xl font-display font-bold text-slate-900 tracking-tight">
+                  &ldquo;{currentSlide.content.quote}&rdquo;
+                </p>
+              </div>
+            )}
+
+            {/* Integrated Interactive Simulation (Appears directly within presentation flow) */}
+            {currentSlide.simulationType && (
+              <div className="pt-2 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs uppercase font-bold text-blue-700 tracking-wider flex items-center gap-2">
+                    <Sliders className="w-4 h-4" />
+                    Live Interactive Demonstration
+                  </span>
+                  <span className="text-xs text-slate-500 font-medium">
+                    Presenter controls are fully interactive
+                  </span>
+                </div>
+
+                {currentSlide.simulationType === "hasher" && <Sha256HasherSim />}
+                {currentSlide.simulationType === "blockchain" && <BlockchainSim />}
+                {currentSlide.simulationType === "network" && <NetworkTopologySim />}
+                {currentSlide.simulationType === "transaction" && <TransactionSim />}
+                {(currentSlide.simulationType === "mining" || currentSlide.simulationType === "consensus") && <MiningSim />}
+                {currentSlide.simulationType === "fabric" && <FabricExplorerSim />}
+                {currentSlide.simulationType === "docker" && <DockerArchitectureSim />}
+                {(currentSlide.simulationType === "asset-demo" || currentSlide.simulationType === "hello-blockchain") && <HelloBlockchainSim />}
+              </div>
+            )}
 
           {/* Knowledge Check Quiz */}
           {currentSlide.quiz && (
@@ -456,6 +498,7 @@ export function SlideViewer() {
             </div>
           )}
         </div>
+        )}
 
         {/* Bottom Slide Navigation Controls */}
         <div className="flex items-center justify-between border-t border-slate-200 pt-5">

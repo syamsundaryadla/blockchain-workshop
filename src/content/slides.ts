@@ -902,111 +902,131 @@ async TransferAsset(ctx, id, newOwner) {
     id: "slide-44",
     moduleId: 6,
     slideNumber: 44,
-    title: "Mini Project: Asset Management System",
-    subtitle: "End-to-End Enterprise Blockchain Implementation",
+    title: "Mini Project: Hello Blockchain Message Store",
+    subtitle: "Store, Retrieve, and Update a Message with Hyperledger Fabric",
     category: "Module 6 • Mini Project",
     content: {
-      lead: "Now we will apply everything we have learned into an interactive Asset Management System based on the official Hyperledger Fabric sample.",
+      lead: "In this hands-on project, we implement the quintessential distributed ledger application: storing, querying, and updating a message string across multiple organizations using JavaScript chaincode.",
       points: [
-        "Business Goal: Enable multiple enterprise organizations to register, inspect, update, and transfer commercial assets with an immutable audit log.",
-        "Data Schema: Each asset has an alphanumeric ID, Color, Dimensions (Size), Registered Owner, and Appraised Value ($USD).",
-        "Operations Supported: InitLedger, CreateAsset, ReadAsset, UpdateAsset, TransferAsset, and GetAssetHistory.",
-        "Live Interactive Demonstration: Test all operations directly in our embedded console on the next slide.",
+        "Project Goal: Build a decentralized, tamper-evident message store using Hyperledger Fabric, Docker containers, Ubuntu, and Node.js.",
+        "Core Operations: InitLedger (sets default greeting), ReadMessage (fast O(1) query from StateDB), and UpdateMessage (endorsed write transaction).",
+        "Multi-Org Governance: Updating the message requires cryptographic endorsement from both Org1 and Org2 peers before ordering.",
+        "Live Interactive Demonstration: Test the complete lifecycle directly in our embedded simulation on the following slides.",
       ],
     },
     speakerNotes:
-      "Set up the project scenario: Imagine an international consortium of logistics companies and equipment manufacturers tracking high-value machinery. Transparent ownership provenance eliminates disputes and counterfeit goods.",
+      "Introduce the Hello Blockchain project: Rather than getting bogged down in complex multi-field schemas, we focus on the fundamental primitives of blockchain: storing a string, reading it with sub-millisecond latency from StateDB, and updating it through consensus.",
   },
   {
     id: "slide-45",
     moduleId: 6,
     slideNumber: 45,
-    title: "Asset Data Model & World State Schema",
-    subtitle: "Object Attributes and Key-Value Representation",
+    title: "JavaScript Chaincode: putState & getState",
+    subtitle: "The Fabric Contract API in Node.js",
     category: "Module 6 • Mini Project",
     content: {
-      lead: "Every asset is stored as a JSON object serialized into a binary byte buffer in the StateDB key-value store.",
+      lead: "Smart contracts interact with the ledger via the chaincode stub (`ctx.stub`). Data is always written and read as raw binary byte buffers.",
       codeSnippet: {
-        language: "json",
-        code: `{
-  "ID": "asset1",
-  "Color": "blue",
-  "Size": 5,
-  "Owner": "Tomoko",
-  "AppraisedValue": 300
-}`,
+        language: "javascript",
+        code: `// Fabric Contract API — hello-blockchain.js
+const { Contract } = require('fabric-contract-api');
+
+class HelloBlockchainContract extends Contract {
+  // 1. Initialize ledger with default greeting
+  async InitLedger(ctx) {
+    const defaultMsg = 'Hello Blockchain! Welcome to Hyperledger Fabric.';
+    await ctx.stub.putState('GLOBAL_MESSAGE', Buffer.from(defaultMsg));
+    return defaultMsg;
+  }
+
+  // 2. Read message from World State (fast query, no consensus overhead)
+  async ReadMessage(ctx, key) {
+    const bytes = await ctx.stub.getState(key);
+    if (!bytes || bytes.length === 0) {
+      throw new Error(\`Message with key \${key} does not exist\`);
+    }
+    return bytes.toString('utf8');
+  }
+
+  // 3. Update message (requires endorsement & Raft ordering)
+  async UpdateMessage(ctx, key, newText) {
+    await ctx.stub.putState(key, Buffer.from(newText));
+    return \`Message updated successfully to: \${newText}\`;
+  }
+}
+module.exports = HelloBlockchainContract;`,
       },
-      points: [
-        "`ID` (string): Primary key uniquely indexing the record in the StateDB.",
-        "`Owner` (string): Current registered legal custodian authorized to execute transfers.",
-        "`AppraisedValue` (integer): Valuation in USD recorded at last appraisal.",
-      ],
     },
     speakerNotes:
-      "Explain the data model before testing it live in the simulation on the next slide.",
+      "Explain the distinction between getState and putState. ReadMessage calls getState, which executes entirely locally on the client's peer without sending anything to the Orderer. UpdateMessage calls putState, which must go through the full 8-step endorsement and ordering flow.",
   },
   {
     id: "slide-46",
     moduleId: 6,
     slideNumber: 46,
-    title: "Interactive Simulation: Asset Management System",
-    subtitle: "Execute Create, Read, Update, and Transfer Live",
+    title: "Interactive Simulation: Hello Blockchain",
+    subtitle: "Store, Retrieve, and Update Messages on the Simulated Ledger",
     category: "Module 6 • Mini Project",
-    simulationType: "asset-demo",
+    simulationType: "hello-blockchain",
     content: {
-      lead: "Test the smart contract operations below: create a new asset, transfer ownership, inspect the live World State JSON, and review audit history.",
+      lead: "Submit new message strings below to trigger the Execute-Order-Validate lifecycle. Compare the current World State with the immutable chronological block history.",
     },
     speakerNotes:
-      "Demonstrate live: 1. Click 'Create Asset' and add asset7 (Gold, size 20, owner Charlie, value $1200). 2. Transfer asset1 from Tomoko to Brad. 3. Open the History modal on asset1 to show the immutable audit trail. 4. Point to the StateDB World State box showing live JSON updates.",
+      "Demonstrate live: 1. Submit a new message from Org1 ('Decentralized consensus verified'). 2. Point out the 4-stage pipeline (Execute -> Order -> Validate -> Commit). 3. Switch sender to Org2 and update again. 4. Contrast the World State card (which shows only the current string) with the History log (which shows every edit with block numbers and TxIDs).",
   },
   {
     id: "slide-47",
     moduleId: 6,
     slideNumber: 47,
-    title: "Key Takeaway: World State vs. Historical Ledgers",
-    subtitle: "Operational Queries vs. Complete Auditability",
+    title: "Key Takeaway: World State vs. Immutable Block History",
+    subtitle: "Current Value ('Hello World') vs. Full Provenance History",
     category: "Module 6 • Mini Project",
     content: {
       points: [
-        "The World State (StateDB) stores only the current owner ('Brad'), providing instant O(1) query performance.",
-        "The Blockchain Log stores the complete chronological transaction history ('Tomoko' -> 'Brad'), providing mathematical proof of provenance.",
-        "If the World State database is ever wiped or corrupted, it can be 100% regenerated by replaying the block log.",
+        "World State (StateDB): Overwritten with each update. When you update 'GLOBAL_MESSAGE', CouchDB/LevelDB stores only the latest string for instant O(1) query performance.",
+        "Blockchain Append Log: Strictly immutable and append-only. Every message revision remains permanently recorded inside numbered blocks with cryptographic hashes.",
+        "Disaster Recovery: If the World State database is ever wiped, it can be 100% reconstructed by replaying all historical blocks from Genesis.",
       ],
       quote: "World State is current reality; the Blockchain Log is undeniable history.",
     },
     speakerNotes:
-      "Emphasize this architectural distinction: it is fundamental to understanding enterprise ledgers.",
+      "Reiterate this fundamental distinction: databases overwrite records, but blockchains append transactions while maintaining the latest state in a companion database.",
   },
   {
     id: "slide-48",
     moduleId: 6,
     slideNumber: 48,
-    title: "CLI Interaction: Invoking Chaincode via Terminal",
-    subtitle: "Executing Operations with the peer CLI Tool",
+    title: "CLI Interaction: Invoking Chaincode via Ubuntu Terminal",
+    subtitle: "Executing peer chaincode query and invoke Commands",
     category: "Module 6 • Mini Project",
     content: {
-      lead: "In a real Linux terminal environment, engineers invoke chaincode transactions using the `peer chaincode invoke` CLI tool.",
+      lead: "In a production Linux terminal environment, operators interact with chaincode containers using the `peer chaincode` CLI utility.",
       codeSnippet: {
         language: "bash",
-        code: `# Query asset1
-peer chaincode query -C mychannel -n basic -c '{"Args":["ReadAsset","asset1"]}'
+        code: `# 1. Query current message from World State (no transaction fee/ordering)
+peer chaincode query \\
+  -C mychannel \\
+  -n hello-blockchain \\
+  -c '{"Args":["ReadMessage","GLOBAL_MESSAGE"]}'
 
-# Transfer asset1 to a new owner 'Dave'
-peer chaincode invoke -o localhost:7050 \\
+# 2. Invoke transaction to update message with multi-org endorsement
+peer chaincode invoke \\
+  -o localhost:7050 \\
   --ordererTLSHostnameOverride orderer.example.com \\
-  --tls --cafile \${ORDERER_CA} \\
-  -C mychannel -n basic \\
-  --peerAddresses localhost:7051 --tlsRootCertFiles \${PEER0_ORG1_CA} \\
-  --peerAddresses localhost:9051 --tlsRootCertFiles \${PEER0_ORG2_CA} \\
-  -c '{"function":"TransferAsset","Args":["asset1","Dave"]}'`,
+  --tls --cafile "\$ORDERER_CA" \\
+  -C mychannel \\
+  -n hello-blockchain \\
+  --peerAddresses localhost:7051 --tlsRootCertFiles "\$PEER0_ORG1_CA" \\
+  --peerAddresses localhost:9051 --tlsRootCertFiles "\$PEER0_ORG2_CA" \\
+  -c '{"Args":["UpdateMessage","GLOBAL_MESSAGE","Hello from Ubuntu CLI!"]}'`,
       },
       points: [
-        "Notice the `--peerAddresses` flag: specifies both Org1 and Org2 peer addresses to satisfy the endorsement policy.",
-        "The orderer coordinates block creation and delivers the update to committing peers.",
+        "`peer chaincode query`: Reads directly from the local peer's StateDB in under 2 milliseconds.",
+        "`peer chaincode invoke`: Submits the proposal to both Org1 and Org2 peers to satisfy the endorsement policy, then routes to the Raft orderer.",
       ],
     },
     speakerNotes:
-      "Point out the `--peerAddresses` flag: notice that we specify both Org1 and Org2 peer addresses! Why? Because the endorsement policy requires endorsements from both organizations.",
+      "Highlight the difference between 'peer chaincode query' and 'peer chaincode invoke'. Point out that query never creates a block; invoke always sequences through Raft.",
   },
   {
     id: "slide-49",
