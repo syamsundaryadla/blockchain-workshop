@@ -39,6 +39,7 @@ Interactive Blockchain Workshop Platform built with Next.js (App Router), TypeSc
 - `Slide`: id, moduleId, slideNumber, title, subtitle, category, content, simulationType, quiz, speakerNotes
 
 ## Change Log
+- 2026-10-14: Added `vercel.json` with `"framework": "nextjs"` preset and added `public/` directory with `robots.txt` and `favicon.svg` to resolve Vercel deployment error where Vercel defaulted to looking for a static `public` output directory.
 - 2026-10-14: Enhanced visual simulations and data flow animations across all 8 workshop components:
   - `Sha256HasherSim.tsx`: Added 5-stage animated hashing process visualizer (ASCII encoding -> 512-bit padding -> message schedule -> 64 compression rounds with working registers A-H -> 256-bit digest) alongside live interactive avalanche hasher.
   - `BlockchainSim.tsx`: Added step-by-step block creation & cryptographic linking flow (mempool ingestion -> header assembly -> hashing -> link locking -> ledger append) alongside live tamper cascade detection with broken link isolation and raw block schema inspector.
