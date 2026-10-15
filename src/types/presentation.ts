@@ -30,6 +30,7 @@ export interface Slide {
     };
   };
   simulationType?: "hasher" | "blockchain" | "network" | "transaction" | "mining" | "fabric" | "docker" | "asset-demo" | "consensus" | "hello-blockchain";
+  infographicType?: "centralized-vs-decentralized" | "sha256-pipeline" | "block-anatomy" | "transaction-lifecycle" | "consensus-comparison" | "docker-architecture" | "fabric-eov-flow" | "state-vs-ledger" | string;
   quiz?: QuizQuestion;
   speakerNotes: string;
 }

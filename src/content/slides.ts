@@ -30,6 +30,7 @@ export const PRESENTATION_SLIDES: Slide[] = [
     title: "Why Was Blockchain Introduced?",
     subtitle: "The Double-Spending Problem and Intermediary Trust",
     category: "Module 1 • Fundamentals",
+    infographicType: "centralized-vs-decentralized",
     content: {
       lead: "In the physical world, cash can only be spent once. In digital environments, binary data can be copied infinitely without degradation.",
       points: [
@@ -78,6 +79,7 @@ export const PRESENTATION_SLIDES: Slide[] = [
     title: "Cryptographic Hashing (SHA-256)",
     subtitle: "The One-Way Mathematical Foundation of Blockchain",
     category: "Module 1 • Fundamentals",
+    infographicType: "sha256-pipeline",
     content: {
       lead: "A cryptographic hash function transforms arbitrary digital data into a fixed-length mathematical fingerprint.",
       points: [
@@ -179,6 +181,7 @@ export const PRESENTATION_SLIDES: Slide[] = [
     title: "Anatomy of a Block & Chained Links",
     subtitle: "How Cryptographic Pointers Form an Immutable Ledger",
     category: "Module 1 • Fundamentals",
+    infographicType: "block-anatomy",
     content: {
       lead: "A block is a timestamped container of transactions bound together by the hash of the preceding block.",
       points: [
@@ -305,6 +308,7 @@ export const PRESENTATION_SLIDES: Slide[] = [
     title: "The Public Transaction Lifecycle",
     subtitle: "From ECDSA Digital Signature to Confirmed Block",
     category: "Module 2 • Architecture",
+    infographicType: "transaction-lifecycle",
     content: {
       lead: "How does a financial transaction move from a user's wallet into an immutable, confirmed block?",
       points: [
@@ -356,6 +360,7 @@ export const PRESENTATION_SLIDES: Slide[] = [
     title: "Introduction to Consensus Mechanisms",
     subtitle: "Solving the Byzantine Generals Problem Without Central Control",
     category: "Module 2 • Architecture",
+    infographicType: "consensus-comparison",
     content: {
       lead: "In a network with network latency and potentially dishonest peers, consensus algorithms guarantee that all honest nodes agree on one valid history.",
       points: [
@@ -534,6 +539,7 @@ function isValidProof(headerData, nonce, difficulty) {
     title: "World State (StateDB) vs. Blockchain Append Log",
     subtitle: "Current Values vs. Full Audit History",
     category: "Module 3 • Enterprise Fabric",
+    infographicType: "state-vs-ledger",
     content: {
       comparison: {
         leftTitle: "World State (StateDB — LevelDB / CouchDB)",
@@ -562,6 +568,7 @@ function isValidProof(headerData, nonce, difficulty) {
     title: "The 8-Step Transaction Lifecycle",
     subtitle: "Endorsement • Ordering • Validation & Commit",
     category: "Module 3 • Enterprise Fabric",
+    infographicType: "fabric-eov-flow",
     content: {
       lead: "A production Hyperledger Fabric transaction follows a precise 8-step lifecycle across three distinct architectural phases.",
       points: [
@@ -648,6 +655,7 @@ function isValidProof(headerData, nonce, difficulty) {
     title: "Docker Containers & Network Architecture",
     subtitle: "Virtualizing a Multi-Organization Consortium on One Machine",
     category: "Module 4 • Dev Environment",
+    infographicType: "docker-architecture",
     content: {
       lead: "Hyperledger Fabric leverages Docker containers to isolate organizations, cryptographic authorities, and smart contract runtimes.",
       points: [
