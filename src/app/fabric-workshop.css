@@ -528,6 +528,54 @@
 .workshop-slide-footer {
   padding-top: 12px;
 }
+/* One optional explanation shares the title's left edge in every viewing mode. */
+.workshop-slide .workshop-slide-heading {
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.workshop-slide .workshop-slide-heading h1 {
+  max-width: 1000px;
+}
+.workshop-slide .workshop-slide-heading .eyebrow {
+  justify-content: flex-start;
+}
+.workshop-slide .workshop-slide-heading > .workshop-explanation,
+.studio-fullscreen .workshop-slide-heading > .workshop-explanation {
+  display: block;
+  flex-basis: auto;
+  max-width: 850px;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+.workshop-slide .lesson-prompt,
+.workshop-slide .workshop-slide-footer {
+  flex-shrink: 0;
+}
+.workshop-resource-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 18px;
+  flex-shrink: 0;
+}
+@media (max-width: 700px) {
+  .workshop-slide .workshop-slide-heading > .workshop-explanation {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  .workshop-slide .lesson-prompt {
+    align-items: flex-start;
+  }
+  .workshop-resource-actions {
+    flex-wrap: wrap;
+    gap: 10px 16px;
+  }
+}
 .lab-context-label {
   font:
     10px/1.6 var(--font-jetbrains-mono),

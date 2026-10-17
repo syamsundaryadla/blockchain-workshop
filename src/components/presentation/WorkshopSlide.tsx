@@ -76,7 +76,8 @@ export function WorkshopSlide({
   onDetails: () => void;
 }) {
   const editorial = LESSON_EDITORIAL[slide.slideNumber - 1],
-    frame = WORKSHOP_FRAMES[slide.slideNumber];
+    frame = WORKSHOP_FRAMES[slide.slideNumber],
+    lesson = BEGINNER_LESSONS[slide.slideNumber - 1];
   const [revealed, setRevealed] = useState<number | null>(null);
   const steps = frame.steps ?? 0,
     isCode = ["code", "code-pair", "terminal"].includes(frame.layout);
@@ -90,7 +91,9 @@ export function WorkshopSlide({
           <span className="eyebrow">{frame.eyebrow}</span>
           <h1>{editorial.title}</h1>
         </div>
-        <p>{editorial.idea}</p>
+        {lesson.explanation && (
+          <p className="workshop-explanation">{lesson.explanation}</p>
+        )}
       </header>
       {isCode ? (
         <div
@@ -127,11 +130,7 @@ export function WorkshopSlide({
       ) : (
         <FabricWorkshopDiagram scene={frame.scene!} />
       )}
-      {BEGINNER_LESSONS[slide.slideNumber - 1].activity && (
-        <LessonPrompt
-          activity={BEGINNER_LESSONS[slide.slideNumber - 1].activity!}
-        />
-      )}
+      {lesson.activity && <LessonPrompt activity={lesson.activity} />}
       <footer className="workshop-slide-footer">
         <div>
           {steps > 0 ? (

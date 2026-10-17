@@ -6,6 +6,7 @@ export interface LessonActivity {
 export interface BeginnerLesson {
   title: string;
   idea: string;
+  explanation?: string;
   scene: string;
   notes: string;
   labels?: string[];
@@ -139,6 +140,7 @@ export const BEGINNER_LESSONS: BeginnerLesson[] = [
     title: "Shared records. Shared rules.",
     idea: "Organizations keep copies and agree how changes are accepted.",
     scene: "shared",
+    explanation: "A shared ledger lets organizations verify the same record using agreed rules.",
     notes:
       "Use three volunteers as independent organizations. Read the same proposed update aloud. Explain replicated records and agreed validation rules; independent copies alone do not establish agreement.",
     labels: ["Replicated records", "Agreed rules", "Known responsibilities"],
@@ -163,6 +165,7 @@ export const BEGINNER_LESSONS: BeginnerLesson[] = [
     title: "A fingerprint for a message.",
     idea: "The same input gives the same SHA-256 output.",
     scene: "hash",
+    explanation: "SHA-256 turns any message into a fixed-length fingerprint.",
     notes:
       "10:35–11:10. Introduce a hash as a digital fingerprint. It is deterministic and fixed length. Similar-looking messages need not have similar hashes. Avoid promising that collisions are mathematically impossible.",
     labels: ["Input", "SHA-256", "256-bit fingerprint"],
@@ -187,6 +190,7 @@ export const BEGINNER_LESSONS: BeginnerLesson[] = [
     title: "A hash is not a secret message.",
     idea: "Fingerprinting and encryption solve different problems.",
     scene: "hash-vs-encryption",
+    explanation: "Hashing checks for change; encryption hides content from unauthorized readers.",
     notes:
       "Contrast verifying that a file changed with encrypting content for an authorized reader. A hash is not decoded back into the original. Hashing predictable data does not make it confidential.",
     labels: ["Integrity check", "Not encryption", "Not automatic privacy"],
@@ -249,6 +253,7 @@ export const BEGINNER_LESSONS: BeginnerLesson[] = [
     title: "Who is asking for the change?",
     idea: "A name on a screen is not proof of identity.",
     scene: "identity",
+    explanation: "Sign with a private key. Verify with the matching public key.",
     notes:
       "11:20–11:50. Distinguish a user label from signing credentials. A public identifier can be copied. Keeping a private signing key secret is what matters. Fabric later associates signing identities with certificates and organizations.",
     labels: ["Public identity", "Private signing key", "Authorization rule"],
@@ -271,6 +276,7 @@ export const BEGINNER_LESSONS: BeginnerLesson[] = [
     title: "A transaction is a request.",
     idea: "Who, what, and which rules?",
     scene: "transaction",
+    explanation: "A signed request names the action and its inputs; acceptance is checked later.",
     notes:
       "Use a simple Alice-to-Bob request. Separate the requested change from a confirmed result. Ask which fields must be checked; remind students that a sender label is not itself authorization.",
     labels: ["Signing identity", "Requested action", "Input values"],
@@ -299,6 +305,7 @@ export const BEGINNER_LESSONS: BeginnerLesson[] = [
     title: "Turn a promise into a rule.",
     idea: "Only the owner. Positive amount. Enough balance.",
     scene: "rules",
+    explanation: "A smart contract is code that checks rules before records can change.",
     notes:
       "11:50–12:10. Ask the room to invent rejection cases before revealing the three rules. A smart contract is code that applies agreed rules to recorded state. It cannot make a bad business rule sensible.",
     labels: ["Who may spend?", "Is the amount valid?", "Is there enough?"],
@@ -313,6 +320,7 @@ export const BEGINNER_LESSONS: BeginnerLesson[] = [
     title: "Shared agreement is a process.",
     idea: "A valid request still needs an agreed place in the history.",
     scene: "agreement",
+    explanation: "Consensus is how a network agrees which records to accept, and in what order.",
     notes:
       "Keep consensus conceptual: participants follow a protocol to agree on a sequence of accepted records. Do not imply every blockchain uses voting, mining, or the same fault model. Introduce smart contract versus chaincode: Fabric packages contract logic as chaincode.",
     labels: ["Execute rules", "Agree sequence", "Validate and record"],
@@ -336,6 +344,7 @@ export const BEGINNER_LESSONS: BeginnerLesson[] = [
     title: "Meet Hyperledger Fabric.",
     idea: "A permissioned network for participating organizations.",
     scene: "permissioned",
+    explanation: "Permissioned means identities are known and access follows agreed policies.",
     notes:
       "12:10–12:35. Introduce Fabric as the required platform. Participation uses organizational identities and policies. No cryptocurrency, mining race, MetaMask or Solidity is needed. Permissioned does not mean every piece of data is automatically private.",
     labels: ["Known organizations", "Certified identities", "Agreed policies"],
@@ -350,6 +359,7 @@ export const BEGINNER_LESSONS: BeginnerLesson[] = [
     title: "Two organizations. One shared channel.",
     idea: "Peers keep ledgers. The orderer sequences transactions.",
     scene: "fabric-network",
+    explanation: "Peers execute and validate; the ordering service puts transactions in sequence.",
     notes:
       "Trace Org1 and Org2, one peer per organization, and one ordering node in this local test network. Each laptop runs its own network. Production networks use additional infrastructure and resilience; a single orderer here is a learning simplification.",
     labels: ["Org1 peer", "Org2 peer", "Ordering service"],
@@ -384,6 +394,7 @@ export const BEGINNER_LESSONS: BeginnerLesson[] = [
     title: "A certificate connects a key to an organization.",
     idea: "CA issues it. MSP defines which identities to trust.",
     scene: "certificate",
+    explanation: "CA = certificate authority. MSP = membership service provider: defines trusted identities.",
     notes:
       "Use a campus ID analogy carefully: a certificate binds a key to an identity under an issuer's trust; it is not the same as business permission to spend any wallet. Explain CA and MSP in plain terms; students will not configure them from scratch.",
     labels: ["Certificate authority", "Signed certificate", "Membership rules"],
@@ -398,6 +409,7 @@ export const BEGINNER_LESSONS: BeginnerLesson[] = [
     title: "A channel has its own ledger.",
     idea: "Only its participating organizations share that channel.",
     scene: "channel",
+    explanation: "A channel gives its member organizations a shared ledger with separate access rules.",
     notes:
       "Before lunch, ask a volunteer to locate the channel boundary and explain peer versus orderer. A channel is not an assurance that all data within it is secret from its members. Announce lunch 12:35–13:15.",
     labels: ["mychannel", "Org1 + Org2", "One channel ledger"],
@@ -412,6 +424,7 @@ export const BEGINNER_LESSONS: BeginnerLesson[] = [
     title: "Current balance. Recorded history.",
     idea: "Two views of the same ledger.",
     scene: "state-history",
+    explanation: "World state stores current values; the blockchain records the transaction history.",
     notes:
       "13:15–13:40. Reorient students after lunch. World state is the latest key-value data; the blockchain records blocks and transactions. Invalid ordered transactions do not update current balances. Not every proposal rejection appears on the ledger.",
     labels: ["Current state", "Transaction history", "Different jobs"],
@@ -435,6 +448,7 @@ export const BEGINNER_LESSONS: BeginnerLesson[] = [
     title: "An endorsement is not a receipt.",
     idea: "Execution prepares a result; validation decides whether it applies.",
     scene: "endorsement",
+    explanation: "An endorsement is a signed proposed result. A valid commit updates the saved balances.",
     notes:
       "Compare proposed 80/70 with committed 100/50. Endorsements attest to a simulated result. Required endorsement policy and version checks are validated before current state changes. Do not teach the orderer as the component that executes the transfer rule.",
     labels: ["Simulated result", "Required endorsements", "Valid commit"],
@@ -512,6 +526,7 @@ export const BEGINNER_LESSONS: BeginnerLesson[] = [
     title: "A wallet is a small stored record.",
     idea: "A balance belongs to an actual signing identity.",
     scene: "wallet",
+    explanation: "The owner is a signing identity, not a name typed in the browser.",
     notes:
       "Introduce only the JavaScript needed: object fields, function arguments, if/throw, basic arithmetic, await. The supplied contract binds owner certificate fingerprints and MSPs. Students complete the arithmetic guards; they do not write certificate handling.",
     labels: ["Wallet ID", "Owner identity + MSP", "Whole-number balance"],
