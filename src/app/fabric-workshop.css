@@ -2,22 +2,96 @@
 .cover-stage:has(.title-only-slide) {
   display: block;
   min-height: 620px;
+  background: #102a43;
 }
 .title-only-slide {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   min-height: 620px;
-  display: grid;
-  place-items: center;
-  padding: 55px;
+  display: flex;
+  align-items: center;
+  padding: 70px;
+  background: #102a43;
 }
 .title-only-slide h1 {
+  position: relative;
+  z-index: 1;
   font:
-    500 clamp(50px, 6.7vw, 108px) / 1.1 var(--font-display),
+    600 clamp(50px, 7.3vw, 126px) / 1.07 var(--font-display),
     sans-serif;
-  letter-spacing: -0.055em;
-  color: #17344b;
-  max-width: 1000px;
-  text-align: center;
-  text-wrap: balance;
+  letter-spacing: -0.065em;
+  color: #edf4f7;
+  margin: 0;
+  animation: title-arrive 650ms ease-out both;
+}
+.title-subject,
+.title-fundamentals {
+  display: block;
+}
+.title-subject {
+  font-size: 0.62em;
+  font-weight: 450;
+  letter-spacing: -0.045em;
+  color: #b5cbd9;
+  margin-bottom: 17px;
+}
+.title-ledger-art {
+  position: absolute;
+  z-index: 0;
+  width: 79%;
+  height: 100%;
+  top: 0;
+  right: -3%;
+  pointer-events: none;
+}
+.title-block-edge {
+  fill: none;
+  stroke: #7c9eb5;
+  stroke-opacity: 0.42;
+  stroke-width: 1.25;
+  stroke-linejoin: round;
+}
+.title-block-records {
+  fill: none;
+  stroke: #90b9c7;
+  stroke-opacity: 0.4;
+  stroke-width: 2;
+}
+.title-block-highlight {
+  fill: none;
+  stroke: #a8c9d2;
+  stroke-opacity: 0.65;
+  stroke-width: 1.5;
+}
+.title-chain-track {
+  fill: none;
+  stroke: #89b4c2;
+  stroke-opacity: 0.08;
+  stroke-width: 13;
+}
+.title-chain-link {
+  fill: none;
+  stroke: #63a6ad;
+  stroke-opacity: 0.65;
+  stroke-width: 1.5;
+}
+.title-ledger-trace {
+  fill: none;
+  stroke: #517e93;
+  stroke-opacity: 0.38;
+  stroke-width: 1;
+}
+.title-trace-node {
+  fill: #6ba3af;
+  fill-opacity: 0.7;
+}
+@keyframes title-arrive {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .title-only-slide h1 { animation: none; }
 }
 .about-me-slide {
   padding: 40px;
@@ -90,11 +164,102 @@
   height: 100%;
   min-height: 0;
 }
+.studio-cover .studio-main {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100dvh - 84px);
+}
+.studio-cover .cover-stage {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+.studio-cover .title-only-slide {
+  flex: 1;
+  min-width: 0;
+  min-height: 480px;
+}
+.studio-cover .studio-colophon {
+  display: none;
+}
+.studio-cover.studio-fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  height: 100dvh;
+  background: #102a43;
+}
+.studio-cover.studio-fullscreen .studio-workspace {
+  width: 100%;
+}
+.studio-cover.studio-fullscreen .studio-main {
+  max-width: none;
+  height: 100dvh;
+  min-height: 0;
+  padding: 0;
+}
+.studio-cover.studio-fullscreen .studio-topbar {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  z-index: 2;
+  height: auto;
+  padding: 0;
+  background: transparent;
+}
+.studio-cover.studio-fullscreen .studio-topbar > .wordmark,
+.studio-cover.studio-fullscreen .topbar-center,
+.studio-cover.studio-fullscreen .topbar-actions > a,
+.studio-cover.studio-fullscreen .lesson-context {
+  display: none;
+}
+.studio-cover.studio-fullscreen .topbar-actions > .icon-button {
+  background: #1c3c55;
+  color: #b5cbd9;
+}
+.studio-cover.studio-fullscreen .cover-stage {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.studio-cover.studio-fullscreen .title-only-slide {
+  min-height: 0;
+  padding: clamp(25px, 7vw, 110px);
+}
+.studio-cover.studio-fullscreen .lesson-controls {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 2;
+  margin: 0;
+  padding: 20px clamp(25px, 4vw, 65px);
+  color: #b5cbd9;
+}
+.studio-cover.studio-fullscreen .lesson-controls button,
+.studio-cover.studio-fullscreen .chapter-progress > span {
+  color: #b5cbd9;
+}
+.studio-cover.studio-fullscreen .lesson-controls button:disabled {
+  opacity: 0.25;
+}
+.studio-cover.studio-fullscreen .chapter-segments button::before {
+  background: #365973;
+}
+.studio-cover.studio-fullscreen .chapter-segments button > span {
+  background: #90b9c7;
+}
+.studio-cover.studio-fullscreen .lesson-controls button:focus-visible,
+.studio-cover.studio-fullscreen .studio-topbar button:focus-visible {
+  outline: 2px solid #edf4f7;
+  outline-offset: 5px;
+}
 .studio-fullscreen .about-me-slide {
   min-height: 100%;
   height: 100%;
 }
 @media (max-width: 700px) {
+  .studio-cover.studio-fullscreen .chapter-segments {
+    display: none;
+  }
   .title-only-slide {
     min-height: 480px;
     padding: 25px;
@@ -103,7 +268,16 @@
     min-height: 480px;
   }
   .title-only-slide h1 {
-    font-size: 48px;
+    font-size: clamp(24px, 8vw, 50px);
+  }
+  .title-ledger-art {
+    width: 180%;
+    right: -65%;
+    opacity: 0.65;
+  }
+  .title-subject {
+    font-size: 0.77em;
+    margin-bottom: 12px;
   }
   .about-me-slide {
     padding: 28px;

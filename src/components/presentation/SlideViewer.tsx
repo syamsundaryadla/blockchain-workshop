@@ -36,6 +36,7 @@ import { SignatureLab } from "@/components/simulations/SignatureLab";
 import { FabricFlowLab } from "@/components/simulations/FabricFlowLab";
 import { WorkshopSlide, WorkshopQuizMotif } from "./WorkshopSlide";
 import { WORKSHOP_FRAMES } from "@/content/workshop-deck";
+import { TitleSlide } from "./TitleSlide";
 import { BEGINNER_LESSONS } from "@/content/beginner-workshop";
 import { copyToClipboard } from "@/lib/utils";
 
@@ -253,7 +254,7 @@ export function SlideViewer() {
   return (
     <div
       ref={stageRef}
-      className={`studio ${fullscreen ? "studio-fullscreen" : ""}`}
+      className={`studio ${cover ? "studio-cover" : ""} ${fullscreen ? "studio-fullscreen" : ""}`}
     >
       <aside className="studio-rail" aria-label="Workshop navigation">
         <Link href="/" className="studio-mark" aria-label="Blockchain Lab home">
@@ -345,9 +346,7 @@ export function SlideViewer() {
             aria-label={`Slide ${slide.slideNumber}: ${editorial.title}`}
           >
             {cover ? (
-              <div className="title-only-slide">
-                <h1>Block chain fundamentals</h1>
-              </div>
+              <TitleSlide />
             ) : slide.simulationType ? (
               <>
                 <div className="lab-heading">
