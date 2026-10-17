@@ -1,15 +1,14 @@
-import { FabricExplorerSim } from "@/components/simulations/FabricExplorerSim";
+import { FabricFlowLab } from "@/components/simulations/FabricFlowLab";
 import { SimulationPageLayout } from "@/components/layout/SimulationPageLayout";
-
-export default function FabricSimulationPage() {
+export default function FabricPage() {
   return (
     <SimulationPageLayout
-      title="Hyperledger Fabric Architecture & 8-Step Lifecycle"
-      subtitle="Interactive Execute-Order-Validate transaction flow across Client, Endorsers, Raft Orderer, and Committer Peers"
-      slideNumber={38}
-      moduleName="Module 5 • Enterprise Fabric"
+      title="Follow a Fabric transaction"
+      subtitle="Reveal each stage. Predict when the confirmed balances change. This is an interactive model, not a live network."
+      slideNumber={27}
+      moduleName="Chapter 4 · Inside Hyperledger Fabric"
     >
-      <FabricExplorerSim />
+      <FabricFlowLab />
     </SimulationPageLayout>
   );
 }

@@ -1,16 +1,22 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { IBM_Plex_Sans, Manrope, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import "./studio.css";
+import "./studio-labs.css";
+import "./workshop-deck.css";
+import "./campus-workshop.css";
+import "./fabric-workshop.css";
 
-const inter = Inter({
+const bodyFont = IBM_Plex_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-body",
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const displayFont = Manrope({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  variable: "--font-display",
   display: "swap",
 });
 
@@ -21,17 +27,17 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "BLOCKCHAIN LAB — Interactive Blockchain Workshop Experience",
+  title: "Blockchain Lab — Hyperledger Fabric Workshop",
   description:
-    "An interactive presentation and simulation platform for technical blockchain education. From SHA-256 fundamentals and network topologies to Hyperledger Fabric enterprise engineering.",
+    "A visual, interactive 10–4 beginner workshop. Understand blockchain and Hyperledger Fabric, then build Campus Credits Transfer.",
   keywords: [
     "Blockchain",
-    "Hyperledger Fabric",
+    "Campus Credits Transfer",
     "Interactive Simulation",
     "SHA-256",
     "Smart Contracts",
-    "Chaincode",
-    "Docker",
+    "Hyperledger Fabric",
+    "JavaScript Chaincode",
     "Engineering Workshop",
   ],
 };
@@ -44,7 +50,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} dark`}
+      className={`${bodyFont.variable} ${displayFont.variable} ${jetbrainsMono.variable}`}
     >
       <body className="min-h-screen bg-background text-text antialiased font-sans">
         {children}

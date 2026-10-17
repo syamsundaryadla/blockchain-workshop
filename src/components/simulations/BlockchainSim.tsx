@@ -223,7 +223,7 @@ export function BlockchainSim() {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-bold text-sm text-slate-900">Blockchain Status:</span>
+              <span className="font-medium text-sm text-slate-900">Chain integrity</span>
               <span
                 className={`text-xs px-2.5 py-0.5 rounded-md font-mono font-bold tracking-wide border ${
                   validation.isValid
@@ -231,12 +231,12 @@ export function BlockchainSim() {
                     : "bg-red-100 text-red-800 border-red-300"
                 }`}
               >
-                {validation.isValid ? "VERIFIED & IMMUTABLE" : "BROKEN CRYPTOGRAPHIC LINK"}
+                {validation.isValid ? "Verified" : "Broken link"}
               </span>
             </div>
             <p className="text-xs text-slate-500 mt-0.5 max-w-xl">
               {validation.isValid
-                ? `All ${chain.length} blocks are mathematically bound via SHA-256 cryptographic pointers.`
+                ? `${chain.length} blocks linked by SHA-256.`
                 : validation.errorReason}
             </p>
           </div>
@@ -253,7 +253,7 @@ export function BlockchainSim() {
             }`}
           >
             <Layers className="w-4 h-4 text-blue-600" />
-            Interactive Chain &amp; Tamper Demo
+            The chain
           </button>
           <button
             onClick={() => setActiveTab("creationFlow")}
@@ -264,7 +264,7 @@ export function BlockchainSim() {
             }`}
           >
             <Workflow className="w-4 h-4 text-teal-600" />
-            Block Creation &amp; Linking Flow
+            How blocks connect
           </button>
         </div>
       </div>

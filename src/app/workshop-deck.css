@@ -1,0 +1,674 @@
+/* Each lesson has its own infographic. Shared typography keeps the workshop coherent. */
+.workshop-slide {
+  --g-ink: #203554;
+  --g-muted: #637994;
+  --g-accent: #315fc7;
+  --g-line: #c5d1e2;
+  --g-card: #fff;
+  --g-panel: #f1f5fa;
+  --g-bad: #a35a4c;
+  --g-bad-bg: #fbefeb;
+  --g-good: #377661;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 620px;
+  padding: 34px 40px 20px;
+}
+.workshop-slide-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 35px;
+}
+.workshop-slide-heading h1 {
+  font:
+    500 clamp(31px, 3.3vw, 48px) / 1.13 var(--font-display),
+    sans-serif;
+  letter-spacing: -0.05em;
+  margin: 14px 0 0;
+  color: var(--g-ink);
+  max-width: 650px;
+  text-wrap: balance;
+}
+.workshop-slide-heading > p {
+  color: var(--g-muted);
+  font-size: 15px;
+  line-height: 1.6;
+  max-width: 350px;
+  flex-basis: 32%;
+  margin-bottom: 3px;
+}
+.workshop-slide-heading .eyebrow {
+  color: var(--g-muted);
+}
+.workshop-diagram {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  margin: 13px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.workshop-diagram > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 450px;
+  overflow: visible;
+}
+.wg-label {
+  fill: var(--g-ink);
+  font:
+    500 17px var(--font-body),
+    sans-serif;
+}
+.wg-small {
+  fill: var(--g-muted);
+  font:
+    11.5px var(--font-jetbrains-mono),
+    monospace;
+  letter-spacing: 0.1px;
+}
+.wg-card {
+  fill: var(--g-card);
+  stroke: var(--g-line);
+  stroke-width: 1.2;
+}
+.wg-card-accent {
+  fill: var(--g-accent);
+  stroke: var(--g-accent);
+  stroke-width: 1.2;
+}
+.wg-panel {
+  fill: var(--g-panel);
+  stroke: none;
+}
+.wg-on-accent {
+  fill: #fff;
+  font:
+    500 17px var(--font-body),
+    sans-serif;
+}
+.wg-on-accent-small {
+  fill: #e0e8ff;
+  font:
+    11.5px var(--font-jetbrains-mono),
+    monospace;
+}
+.wg-large {
+  font-size: 29px;
+}
+.wg-number {
+  fill: var(--g-ink);
+  font:
+    500 80px var(--font-display),
+    sans-serif;
+  letter-spacing: -5px;
+}
+.wg-accent-text {
+  fill: var(--g-accent);
+}
+.wg-bad-text {
+  fill: var(--g-bad);
+}
+.wg-good-text {
+  fill: var(--g-good);
+}
+.wg-wire {
+  stroke: var(--g-line);
+  stroke-width: 1.5;
+  fill: none;
+}
+.wg-strong-line {
+  stroke: var(--g-accent);
+  stroke-width: 2;
+  fill: none;
+}
+.wg-error-line {
+  stroke: var(--g-bad);
+  stroke-width: 2;
+  fill: none;
+}
+.wg-bad-card,
+.wg-node-failed {
+  fill: var(--g-bad-bg);
+  stroke: var(--g-bad);
+  stroke-width: 1.2;
+}
+.wg-open-boundary {
+  fill: var(--g-card);
+  stroke: var(--g-line);
+  stroke-width: 1.4;
+  stroke-dasharray: 6 7;
+}
+.wg-terminal {
+  fill: #17263e;
+  stroke: #344963;
+  stroke-width: 1;
+}
+.wg-terminal-text {
+  fill: #dbe8ff;
+  font:
+    16px var(--font-jetbrains-mono),
+    monospace;
+}
+.workshop-slide-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: auto;
+  padding-top: 17px;
+}
+.workshop-slide-footer > div {
+  max-width: 72%;
+}
+.workshop-slide-footer > button {
+  flex-shrink: 0;
+}
+.workshop-caption {
+  color: var(--g-muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+.workshop-process {
+  background: #f7f9fc;
+}
+.workshop-process .workshop-slide-heading {
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.workshop-process .eyebrow {
+  justify-content: center;
+}
+.workshop-process .workshop-slide-heading h1 {
+  max-width: 950px;
+}
+.workshop-process .workshop-slide-heading > p {
+  max-width: 750px;
+  flex-basis: auto;
+  font-size: 14px;
+}
+.workshop-process .workshop-diagram > svg {
+  max-height: 365px;
+}
+.workshop-diagram g[style] {
+  transition: opacity 0.25s ease;
+}
+.workshop-poster .workshop-slide-heading {
+  align-items: flex-start;
+}
+.workshop-poster .workshop-slide-heading h1 {
+  font-size: clamp(35px, 4vw, 57px);
+}
+.workshop-code .workshop-slide-heading,
+.workshop-code-pair .workshop-slide-heading {
+  margin-bottom: 29px;
+}
+.lecture-code-composition {
+  display: grid;
+  align-items: stretch;
+  gap: 25px;
+  flex: 1;
+}
+.lecture-code-composition.single-code {
+  grid-template-columns: 0.6fr 1.4fr;
+  align-items: center;
+}
+.lecture-code-composition.paired-code {
+  grid-template-columns: 1fr 1fr;
+}
+.lecture-code-panel {
+  background: #17263e;
+  color: #e3ebfa;
+  border: 1px solid #2a405e;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.lecture-code-panel > header {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 15px 19px;
+  border-bottom: 1px solid #30435e;
+  color: #b8c9e5;
+  font:
+    10px var(--font-jetbrains-mono),
+    monospace;
+}
+.terminal-lights {
+  display: flex;
+  gap: 5px;
+}
+.terminal-lights > i {
+  display: block;
+  width: 6px;
+  height: 6px;
+  background: #b97f73;
+  border-radius: 50%;
+}
+.terminal-lights > i:nth-child(2) {
+  background: #c8b17a;
+}
+.terminal-lights > i:nth-child(3) {
+  background: #88a18f;
+}
+.code-panel-label {
+  margin-left: auto;
+  color: #90a8ce;
+  font-size: 8px;
+}
+.lecture-code-panel pre {
+  padding: 25px 20px;
+  overflow-x: auto;
+  font:
+    13px/1.9 var(--font-jetbrains-mono),
+    monospace;
+}
+.lecture-code-line {
+  display: flex;
+  white-space: pre;
+}
+.lecture-line-number {
+  width: 27px;
+  flex-shrink: 0;
+  text-align: right;
+  padding-right: 13px;
+  user-select: none;
+  color: #6f86aa;
+  font-size: 10px;
+}
+.token-keyword {
+  color: #9ebdff;
+}
+.token-string {
+  color: #c9d4a4;
+}
+.token-comment {
+  color: #8da0be;
+}
+.lecture-code-guide {
+  padding: 14px 12px 14px 0;
+}
+.lecture-code-guide > div:not(.ownership-example) {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 30px;
+}
+.lecture-code-guide > div > span {
+  font:
+    10px var(--font-jetbrains-mono),
+    monospace;
+  color: #8b9bb3;
+}
+.lecture-code-guide p {
+  color: #50617b;
+  font-size: 18px;
+  font-family: var(--font-display), sans-serif;
+  line-height: 1.4;
+  letter-spacing: -0.5px;
+}
+.ownership-example {
+  border-top: 1px solid var(--studio-line);
+  padding-top: 25px;
+}
+.ownership-example > span,
+.ownership-example > small {
+  display: block;
+}
+.ownership-example > strong {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  margin: 15px 0;
+  font:
+    500 29px var(--font-display),
+    sans-serif;
+  letter-spacing: -1px;
+}
+.ownership-example > small {
+  font-size: 11px;
+  color: var(--studio-muted);
+}
+.lecture-concurrency {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  margin-top: 22px;
+  border-top: 1px solid var(--studio-line);
+  padding-top: 20px;
+  align-items: center;
+}
+.lecture-concurrency > span {
+  color: #8b6c67;
+  font-size: 11px;
+}
+.lecture-concurrency .workshop-diagram {
+  margin: 0;
+}
+.lecture-concurrency .workshop-diagram > svg {
+  max-height: 165px;
+}
+.deployment-command {
+  background: #16263e;
+  padding: 16px 22px;
+  border-radius: 8px;
+  color: #d5e3ff;
+  display: flex;
+  gap: 15px;
+  align-items: baseline;
+}
+.deployment-command > span {
+  color: #7eac91;
+}
+.deployment-command > code {
+  font:
+    11px/1.7 var(--font-jetbrains-mono),
+    monospace;
+  overflow-wrap: anywhere;
+}
+.workshop-terminal {
+  background: #142238;
+  --g-ink: #eff4ff;
+  --g-muted: #a5b9d5;
+}
+.workshop-terminal .lecture-code-composition {
+  margin-top: 32px;
+}
+.workshop-terminal .workshop-slide-heading h1 {
+  color: #eff4ff;
+}
+.workshop-terminal .workshop-slide-footer > button {
+  color: #b5ccff;
+}
+.terminal-context {
+  grid-column: 1 / -1;
+  align-self: end;
+  color: #c7d5e9;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.terminal-context > span {
+  color: #8ea7ca;
+  font-size: 11px;
+  display: block;
+}
+.quiz-infographic {
+  margin-top: 35px;
+}
+.quiz-infographic > svg {
+  width: 100%;
+  max-width: 380px;
+}
+.quiz-infographic text {
+  fill: #7084a7;
+  font:
+    12px var(--font-jetbrains-mono),
+    monospace;
+}
+.quiz-motif-box {
+  fill: #fff;
+  stroke: #c4d2e9;
+  stroke-width: 1.3;
+}
+.quiz-motif-emphasis {
+  fill: #e0e9fb;
+  stroke: #9eb5dd;
+  stroke-width: 1.3;
+}
+.quiz-motif-line {
+  stroke: #8fa8d3;
+  stroke-width: 1.5;
+  fill: none;
+}
+.presenter-cue {
+  padding: 18px 21px;
+  background: #eef3fd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+.presenter-cue > strong {
+  font-size: 11px;
+  color: #3055a7;
+}
+.presenter-cue > p {
+  margin: 5px 0 0;
+}
+.studio-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: #10223b80;
+  backdrop-filter: blur(6px);
+}
+.studio-modal-backdrop > .studio-dialog {
+  overflow: auto;
+  margin: 0;
+}
+.topbar-actions > .icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: auto;
+  padding: 8px 11px;
+  background: #eef2fa;
+  color: #344f80;
+}
+.present-button-label {
+  font-size: 11px;
+  font-weight: 500;
+}
+.studio-fullscreen .studio-topbar {
+  height: 50px;
+  background: #f2f4f7;
+  border: none;
+}
+.studio-fullscreen .studio-main {
+  padding-top: 5px;
+  max-width: 1800px;
+}
+.studio-fullscreen .lesson-context {
+  margin-bottom: 12px;
+}
+.studio-fullscreen .lesson-stage:not(.lab-stage):not(.cover-stage) {
+  height: calc(100dvh - 170px);
+  min-height: 470px;
+}
+.studio-fullscreen .workshop-slide {
+  height: 100%;
+  min-height: 0;
+  padding: 22px 32px 14px;
+}
+.studio-fullscreen .workshop-slide-heading > p {
+  display: none;
+}
+.studio-fullscreen .workshop-diagram {
+  min-height: 0;
+}
+.studio-fullscreen .workshop-diagram > svg {
+  max-height: none;
+}
+.studio-fullscreen .workshop-slide-heading h1 {
+  font-size: clamp(35px, 3.8vw, 60px);
+}
+.studio-fullscreen .lecture-code-panel pre {
+  font-size: clamp(15px, 1.2vw, 20px);
+}
+.studio-fullscreen .lecture-code-composition {
+  min-height: 0;
+}
+.studio-fullscreen .quiz-layout {
+  min-height: 100%;
+}
+@media (min-width: 1700px) {
+  .workshop-slide {
+    min-height: 690px;
+  }
+  .workshop-diagram > svg {
+    max-height: 520px;
+  }
+  .lecture-code-panel pre {
+    font-size: 15px;
+  }
+}
+@media (max-width: 1000px) {
+  .workshop-slide {
+    padding: 29px 25px 20px;
+    min-height: 550px;
+  }
+  .workshop-slide-heading {
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .workshop-slide-heading > p {
+    font-size: 13px;
+  }
+  .workshop-slide-heading h1 {
+    font-size: 35px;
+  }
+  .lecture-code-panel pre {
+    padding: 18px 12px;
+    font-size: 11px;
+  }
+  .lecture-code-composition {
+    gap: 16px;
+  }
+  .lecture-code-guide p {
+    font-size: 15px;
+  }
+  .lecture-code-guide > div:not(.ownership-example) {
+    gap: 10px;
+  }
+}
+@media (max-width: 700px) {
+  .workshop-slide {
+    padding: 30px 22px 22px;
+    min-height: 0;
+  }
+  .workshop-slide-heading {
+    display: block;
+  }
+  .workshop-slide-heading h1,
+  .workshop-poster .workshop-slide-heading h1 {
+    font-size: 35px;
+  }
+  .workshop-slide-heading > p {
+    font-size: 14px;
+    max-width: none;
+    margin: 17px 0 10px;
+  }
+  .workshop-diagram {
+    margin: 15px 0 0;
+    overflow-x: auto;
+    display: block;
+    padding: 6px 0;
+  }
+  .workshop-diagram > svg {
+    min-width: 590px;
+    height: auto;
+    max-height: none;
+  }
+  .workshop-slide-footer {
+    margin-top: 15px;
+    gap: 15px;
+    align-items: flex-start;
+  }
+  .workshop-slide-footer > div {
+    max-width: 58%;
+  }
+  .workshop-slide-footer .text-button {
+    font-size: 10px;
+    line-height: 1.5;
+  }
+  .workshop-caption {
+    font-size: 10px;
+  }
+  .workshop-process .workshop-slide-heading {
+    text-align: left;
+  }
+  .workshop-process .eyebrow {
+    justify-content: flex-start;
+  }
+  .lecture-code-composition.single-code,
+  .lecture-code-composition.paired-code {
+    grid-template-columns: 1fr;
+  }
+  .lecture-code-guide {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    padding: 0;
+  }
+  .lecture-code-guide > div:not(.ownership-example) {
+    margin: 0;
+  }
+  .lecture-code-guide p {
+    font-size: 12px;
+  }
+  .lecture-code-guide > div > span {
+    font-size: 8px;
+  }
+  .lecture-code-panel pre {
+    padding: 18px 12px;
+    font-size: 11px;
+  }
+  .lecture-code-panel > header {
+    padding: 12px 13px;
+    font-size: 9px;
+    gap: 9px;
+  }
+  .lecture-line-number {
+    width: 21px;
+    padding-right: 9px;
+  }
+  .ownership-example {
+    width: 100%;
+    padding: 16px 0 0;
+  }
+  .lecture-concurrency {
+    display: block;
+  }
+  .lecture-concurrency > span {
+    margin-bottom: 12px;
+    display: block;
+  }
+  .lecture-concurrency .workshop-diagram > svg {
+    max-height: none;
+  }
+  .deployment-command {
+    margin-top: 16px;
+    padding: 14px;
+    gap: 10px;
+  }
+  .deployment-command > code {
+    font-size: 9px;
+  }
+  .terminal-context {
+    font-size: 13px;
+  }
+  .quiz-infographic {
+    margin-top: 22px;
+  }
+  .present-button-label {
+    display: none;
+  }
+  .studio-fullscreen .lesson-stage:not(.lab-stage):not(.cover-stage) {
+    height: auto;
+    min-height: 0;
+  }
+  .studio-fullscreen .workshop-slide-heading h1 {
+    font-size: 35px;
+  }
+  .studio-fullscreen .lecture-code-panel pre {
+    font-size: 11px;
+  }
+}

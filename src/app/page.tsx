@@ -3,9 +3,9 @@ import { SlideViewer } from "@/components/presentation/SlideViewer";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "BLOCKCHAIN LAB — Interactive Workshop Experience",
+  title: "Blockchain Lab — Hyperledger Fabric Workshop",
   description:
-    "An interactive presentation and simulation platform for technical blockchain education. From SHA-256 fundamentals and network topologies to Hyperledger Fabric enterprise engineering.",
+    "Understand blockchain visually. Follow Hyperledger Fabric. Build and test Campus Credits Transfer in the final hour.",
 };
 
 export default function HomePage() {

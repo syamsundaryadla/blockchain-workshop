@@ -249,7 +249,7 @@ export function FabricExplorerSim() {
               </span>
             </div>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Initiates transaction proposals signed with user X.509 cert; collects endorsements and broadcasts to Orderer.
+              Signs proposals and collects peer endorsements.
             </p>
           </div>
 
@@ -271,7 +271,7 @@ export function FabricExplorerSim() {
               </span>
             </div>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Crash Fault Tolerant (CFT) Raft consensus node. Sequences transactions into chronological blocks and delivers them to channel peers.
+              Sequences transactions and delivers blocks to peers.
             </p>
           </div>
         </div>
@@ -303,7 +303,7 @@ export function FabricExplorerSim() {
                 </span>
               </div>
               <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
-                Simulates chaincode, generates Read/Write sets with cryptographic signature, and validates blocks.
+                Simulates, endorses, validates.
               </p>
             </div>
           </div>
@@ -420,7 +420,9 @@ export function FabricExplorerSim() {
           {currentStep.description}
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+        <details className="instrument-explanation">
+          <summary>Inspect the execution and payload</summary>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
           <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
             <span className="text-[11px] text-slate-500 block mb-1 font-bold uppercase tracking-wider">
               Technical Execution:
@@ -438,7 +440,8 @@ export function FabricExplorerSim() {
               {currentStep.payloadSummary}
             </p>
           </div>
-        </div>
+          </div>
+        </details>
       </div>
 
       {/* Component Inspector Modal/Card */}

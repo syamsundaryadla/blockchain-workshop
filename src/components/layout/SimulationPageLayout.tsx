@@ -1,15 +1,17 @@
 "use client";
 
-import React from "react";
+import { useState, type ReactNode } from "react";
 import Link from "next/link";
-import { ArrowLeft, Presentation, Home, Sliders } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Blocks, ChevronDown } from "lucide-react";
+import { STUDIO_LABS } from "@/content/studio";
+import { LESSON_EDITORIAL } from "@/content/studio";
 
 interface SimulationPageLayoutProps {
   title: string;
   subtitle: string;
   slideNumber: number;
   moduleName: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export function SimulationPageLayout({
@@ -19,60 +21,56 @@ export function SimulationPageLayout({
   moduleName,
   children,
 }: SimulationPageLayoutProps) {
+  const [showContext, setShowContext] = useState(false);
+  const lab = STUDIO_LABS.find((l) => l.slide === slideNumber);
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col font-sans text-slate-800">
-      {/* Top Navigation Bar */}
-      <header className="sticky top-0 z-40 bg-white border-b border-slate-200 px-6 py-3.5 shadow-sm">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <Link
-              href={`/?slide=${slideNumber}`}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 transition-colors"
-            >
-              <ArrowLeft className="w-3.5 h-3.5 text-blue-600" />
-              <span>Back to Slide {slideNumber}</span>
-            </Link>
-
-            <span className="text-slate-300">|</span>
-
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-                  {moduleName}
-                </span>
-                <span className="text-xs font-bold text-slate-900">{title}</span>
-              </div>
-              <p className="text-xs text-slate-500 font-medium hidden sm:block">
-                {subtitle}
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <Link
-              href="/"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition-colors"
-            >
-              <Presentation className="w-4 h-4 text-blue-600" />
-              <span>Full Presentation</span>
-            </Link>
-
-            <Link
-              href="/simulations"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition-colors"
-            >
-              <Sliders className="w-4 h-4 text-teal-600" />
-              <span>All Labs</span>
-            </Link>
-          </div>
-        </div>
+    <div className="standalone-lab">
+      <header className="directory-header">
+        <Link href="/" className="wordmark">
+          <Blocks size={23} strokeWidth={1.5} />
+          blockchain<span>lab</span>
+          <span className="wordmark-period">.</span>
+        </Link>
+        <Link className="text-button" href="/simulations">
+          All experiments <ArrowUpRight size={14} />
+        </Link>
       </header>
-
-      {/* Main Full-Page Workbench Canvas */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
-          {children}
+      <main className="standalone-main">
+        <Link className="lab-back-link" href={lab ? `/?slide=${slideNumber}` : "/simulations"}>
+          <ArrowLeft size={14} />
+          {lab ? "Back to the lesson" : "Back to workshop labs"}
+        </Link>
+        <div className="standalone-heading">
+          <div>
+            <span className="eyebrow">
+              The lab / {lab?.topic || moduleName}
+            </span>
+            <h1>{lab?.title || title}</h1>
+            <p>{lab ? LESSON_EDITORIAL[slideNumber - 1]?.idea : subtitle}</p>
+          </div>
+          <button
+            className="text-button"
+            onClick={() => setShowContext(!showContext)}
+            aria-expanded={showContext}
+          >
+            About this experiment <ChevronDown size={14} />
+          </button>
         </div>
+        {showContext && (
+          <div className="experiment-context">
+            <span>{moduleName}</span>
+            <p>{subtitle}</p>
+          </div>
+        )}
+        <section className="standalone-instrument" aria-label={title}>
+          <div className="simulation-surface">{children}</div>
+        </section>
+        <footer className="directory-footer">
+          <span>Change an input. Follow the evidence.</span>
+          <Link className="text-button" href="/simulations">
+            Try another experiment <ArrowUpRight size={14} />
+          </Link>
+        </footer>
       </main>
     </div>
   );

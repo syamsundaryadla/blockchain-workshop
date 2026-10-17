@@ -190,7 +190,7 @@ export function DockerArchitectureSim() {
             }`}
           >
             <Boxes className="w-4 h-4" />
-            Host &amp; Container Architecture
+            The containers
           </button>
           <button
             onClick={() => setActiveTab("terminal")}
@@ -201,7 +201,7 @@ export function DockerArchitectureSim() {
             }`}
           >
             <Terminal className="w-4 h-4" />
-            Interactive Terminal Walkthrough
+            Terminal
           </button>
         </div>
 

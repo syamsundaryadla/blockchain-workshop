@@ -1,14 +1,19 @@
 # dependencies
 /node_modules
+/workshop/fabric-credits/node_modules/
+/workshop/fabric-credits/chaincode/node_modules/
 /.pnp
 .pnp.js
 .yarn/install-state.gz
 
 # testing
 /coverage
+/.workshop-checks/
 
 # next.js
 /.next/
+/.next-production/
+/.next-workshop-preview/
 /out/
 
 # production

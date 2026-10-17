@@ -1,15 +1,15 @@
-import { BlockchainSim } from "@/components/simulations/BlockchainSim";
+import { LinkedBlocksLab } from "@/components/simulations/LinkedBlocksLab";
 import { SimulationPageLayout } from "@/components/layout/SimulationPageLayout";
 
 export default function BlockchainSimulationPage() {
   return (
     <SimulationPageLayout
       title="Anatomy of a Block & Tamper Detection"
-      subtitle="Interactive blockchain builder, hash chain linking, and invalid state isolation"
+      subtitle="A simplified hash-chain experiment. Edit a record and inspect the fingerprint and next link."
       slideNumber={11}
-      moduleName="Module 2 • Architecture"
+      moduleName="Chapter 2 · Hashes & blocks"
     >
-      <BlockchainSim />
+      <LinkedBlocksLab />
     </SimulationPageLayout>
   );
 }

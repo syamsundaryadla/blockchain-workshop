@@ -1,15 +1,15 @@
-import { Sha256HasherSim } from "@/components/simulations/Sha256HasherSim";
+import { HashFingerprintLab } from "@/components/simulations/HashFingerprintLab";
 import { SimulationPageLayout } from "@/components/layout/SimulationPageLayout";
 
 export default function HasherSimulationPage() {
   return (
     <SimulationPageLayout
-      title="SHA-256 Hasher & Avalanche Effect"
-      subtitle="Interactive cryptographic digest calculation and bit divergence visualizer"
-      slideNumber={5}
-      moduleName="Module 1 • Fundamentals"
+      title="Change a message. Compare its fingerprint."
+      subtitle="Real SHA-256 in your browser. Predict the effect of changing one character."
+      slideNumber={8}
+      moduleName="Chapter 2 · Hashes & blocks"
     >
-      <Sha256HasherSim />
+      <HashFingerprintLab />
     </SimulationPageLayout>
   );
 }

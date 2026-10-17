@@ -7,7 +7,7 @@ export default function MiningSimulationPage() {
       title="Consensus Engine Comparison Simulator"
       subtitle="Side-by-side interactive execution of Proof of Work (PoW), Proof of Stake (PoS), and Enterprise Raft Quorum"
       slideNumber={21}
-      moduleName="Module 3 • Consensus"
+      moduleName="Module 2 • Consensus"
     >
       <MiningSim />
     </SimulationPageLayout>

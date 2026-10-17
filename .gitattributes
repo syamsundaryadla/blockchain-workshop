@@ -1,0 +1,5 @@
+# Workshop scripts run in Ubuntu even when the repository is cloned on Windows.
+*.sh text eol=lf
+*.crt text eol=lf
+*.pdf binary
+*.zip binary

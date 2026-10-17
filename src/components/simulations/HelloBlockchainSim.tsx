@@ -209,10 +209,10 @@ peer chaincode invoke \\
         <div>
           <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-teal-600" />
-            Mini Project: Hello Blockchain Message Store
+            The message store
           </h3>
           <p className="text-xs text-slate-500 mt-0.5">
-            Store, retrieve, and update a decentralized message with JavaScript chaincode, StateDB, and ledger logs.
+            The latest value, and every change that came before it.
           </p>
         </div>
 
@@ -227,7 +227,7 @@ peer chaincode invoke \\
             }`}
           >
             <Database className="w-4 h-4 text-blue-600" />
-            Live State &amp; Ledger
+            Workspace
           </button>
 
           <button
@@ -239,7 +239,7 @@ peer chaincode invoke \\
             }`}
           >
             <FileCode2 className="w-4 h-4 text-teal-600" />
-            JavaScript Chaincode
+            The contract
           </button>
 
           <button
@@ -251,7 +251,7 @@ peer chaincode invoke \\
             }`}
           >
             <Terminal className="w-4 h-4 text-indigo-600" />
-            Terminal Commands
+            Terminal
           </button>
         </div>
       </div>

@@ -1,0 +1,66 @@
+{
+  "kind": "local-evm",
+  "compiler": "0.8.30+commit.73712a01.Emscripten.clang",
+  "evm": "shanghai",
+  "optimizer": false,
+  "network": "Ganache local test EVM",
+  "contractAddress": "0xe78A0F7E598Cc8b0Bb87894B0F60dD2a88d6a8Ab",
+  "accounts": {
+    "A": "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",
+    "B": "0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0"
+  },
+  "steps": [
+    {
+      "title": "Create the laptop",
+      "caller": "Account A",
+      "action": "createAsset(\"LAPTOP-001\", \"Lab Laptop\")",
+      "result": "AssetCreated · owner: Account A",
+      "owner": "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",
+      "status": "success",
+      "transactionHash": "0x43d760f585bf567d917c9cd2fdc98c0d37c2cd2ffd47e28361f8f83a1fe139d9"
+    },
+    {
+      "title": "Read the record",
+      "caller": "Account A",
+      "action": "readAsset(\"LAPTOP-001\")",
+      "result": "Lab Laptop · owner: Account A",
+      "owner": "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",
+      "status": "success"
+    },
+    {
+      "title": "Reject a duplicate",
+      "caller": "Account A",
+      "action": "createAsset(\"LAPTOP-001\", \"Overwrite\")",
+      "result": "Asset already exists · original preserved",
+      "owner": "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",
+      "status": "rejected"
+    },
+    {
+      "title": "Transfer A → B",
+      "caller": "Account A",
+      "action": "transferAsset(\"LAPTOP-001\", B)",
+      "result": "AssetTransferred · A → B",
+      "owner": "0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0",
+      "status": "success",
+      "transactionHash": "0x6dc97d0ac1868f7f30e49ff64e6229c63c5cc8480e2d770641dfec257c2b028b"
+    },
+    {
+      "title": "A loses permission",
+      "caller": "Account A",
+      "action": "transferAsset(\"LAPTOP-001\", A)",
+      "result": "Only the owner can transfer · B remains owner",
+      "owner": "0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0",
+      "status": "rejected",
+      "transactionHash": "0x585c55e051c1954481f2f7657fc7af17e073d5068eb0fd282803509830cd0ca0"
+    },
+    {
+      "title": "B gains permission",
+      "caller": "Account B",
+      "action": "transferAsset(\"LAPTOP-001\", A)",
+      "result": "AssetTransferred · B → A",
+      "owner": "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",
+      "status": "success",
+      "transactionHash": "0x2ee116a7eb64b3e68f6bc43f86d578bc99d6508200e16354fb05b9db2a9b18a4"
+    }
+  ]
+}

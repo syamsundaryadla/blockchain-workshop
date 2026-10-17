@@ -1,0 +1,361 @@
+% Standalone source. Compile with pdfLaTeX, XeLaTeX, or Tectonic.
+% No external images, fonts, or project files are required.
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=19mm,top=21mm,bottom=20mm,headheight=14pt]{geometry}
+\usepackage{xcolor,graphicx,tabularx,array,enumitem,fancyhdr,lastpage}
+\usepackage{tcolorbox}
+\usepackage{listings}
+\usepackage{hyperref}
+\definecolor{Ink}{HTML}{142E42}
+\definecolor{Teal}{HTML}{087F83}
+\definecolor{Soft}{HTML}{EFF6F6}
+\definecolor{Line}{HTML}{D7E3E7}
+\definecolor{Muted}{HTML}{506675}
+\definecolor{CodeBg}{HTML}{F3F5F7}
+\hypersetup{colorlinks=true,urlcolor=Teal,linkcolor=Teal,
+ pdftitle={Hyperledger Fabric - Student Installation Guide},
+ pdfauthor={Blockchain Workshop},pdfsubject={Windows 11, WSL 2 and Hyperledger Fabric setup}}
+\renewcommand{\familydefault}{\sfdefault}
+\color{Ink}
+\raggedright
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlength{\tabcolsep}{0pt}
+\renewcommand{\arraystretch}{1.22}
+\setlist[enumerate]{leftmargin=5mm,itemsep=5pt,topsep=4pt}
+\setlist[itemize]{leftmargin=4.5mm,itemsep=4pt,topsep=4pt}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\footnotesize\bfseries BLOCKCHAIN WORKSHOP}
+\fancyhead[R]{\footnotesize\color{Muted}STUDENT SETUP GUIDE}
+\fancyfoot[L]{\scriptsize\color{Muted}Windows 11 \enspace / \enspace WSL 2 \enspace / \enspace Hyperledger Fabric}
+\fancyfoot[R]{\scriptsize\color{Muted}\thepage\ /\ \pageref*{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\newcommand{\eyebrow}[1]{{\small\bfseries\color{Teal}\MakeUppercase{#1}}\par}
+\newcommand{\pagetitle}[3]{\eyebrow{#1}\vspace{2mm}{\fontsize{27}{30}\selectfont\bfseries #2\par}\vspace{2mm}{\color{Muted}#3\par}\vspace{4mm}}
+\newcommand{\step}[2]{\vspace{3mm}{\large\bfseries\color{Teal}#1\enspace\color{Ink}#2\par}\vspace{1mm}}
+\newcommand{\shell}[1]{\par\vspace{1mm}{\scriptsize\bfseries\color{Teal}RUN IN: #1}\par\vspace{-1mm}}
+\newcommand{\readycheck}[1]{\vspace{1mm}\begin{tcolorbox}[colback=Soft,colframe=Soft,boxrule=0pt,arc=1mm,left=3mm,right=3mm,top=2mm,bottom=2mm]\textbf{Check before continuing}\par #1\end{tcolorbox}}
+\newcommand{\note}[2]{\vspace{1mm}{\small\textbf{#1}\enspace #2\par}}
+\newcommand{\smallref}[1]{\vfill{\scriptsize\color{Muted}Official help: #1\par}}
+\newcommand{\tickitem}[1]{\par\vspace{2mm}\fbox{\rule{0pt}{1.7mm}\hspace{1.7mm}}\enspace #1}
+\lstset{basicstyle=\ttfamily\fontsize{9.1}{12}\selectfont,
+ backgroundcolor=\color{CodeBg},frame=none,columns=fullflexible,
+ keepspaces=true,showstringspaces=false,breaklines=false,
+ aboveskip=6pt,belowskip=6pt,xleftmargin=3mm,xrightmargin=3mm,
+ framexleftmargin=3mm,framexrightmargin=3mm,
+ framesep=3mm,upquote=true}
+\begin{document}
+
+\eyebrow{Before the workshop / Installation guide}
+\vspace{6mm}
+{\fontsize{38}{42}\selectfont\bfseries Hyperledger\par Fabric\par}
+\vspace{3mm}
+{\fontsize{18}{23}\selectfont Get your laptop ready.\par}
+\vspace{4mm}
+Follow these steps in order before workshop day. By the end, your laptop will run a small Fabric network and read a record from its ledger.
+
+\begin{tcolorbox}[colback=Ink,colframe=Ink,arc=1mm,left=4mm,right=4mm,top=3mm,bottom=3mm]
+\color{white}\textbf{Who this guide is for}\par
+Windows 11 laptops with an Intel or AMD 64-bit processor.\par
+If you use Windows on ARM, macOS, Linux, or a college-managed laptop, ask the instructor for the matching setup before starting.
+\end{tcolorbox}
+
+\step{}{Before you begin}
+\begin{itemize}
+\item \textbf{Memory:} 8 GB minimum; 16 GB recommended for a smoother workshop.
+\item \textbf{Storage:} keep at least 25 GB free as a workshop allowance.
+\item \textbf{Access:} administrator permission, a reliable internet connection, and your laptop charger.
+\item \textbf{Time:} allow 60--90 minutes, plus download time. Finish at least one day before the workshop.
+\end{itemize}
+
+\step{}{Your setup route}
+\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Teal}}p{12mm}X>{\raggedleft\arraybackslash}p{22mm}@{}}
+01 & Install Ubuntu through WSL 2 & page 2\\
+02 & Connect Docker Desktop to Ubuntu & page 3\\
+03 & Install Ubuntu tools and Node.js & page 4\\
+04 & Download Fabric and its samples & page 5\\
+05 & Start a network and verify a transaction & pages 6--7\\
+\end{tabularx}
+
+\note{Workshop setup}{Ubuntu 24.04 LTS on WSL 2; Node.js 22.23.3; Fabric 2.5.16; Fabric CA 1.5.17. Use a current supported Docker Desktop with the WSL 2 backend.}
+\note{What this prepares}{The workshop will build a demo credits-transfer project. The asset example in this guide is only an installation check. No real money, wallet, or paid blockchain account is needed.}
+\smallref{\href{https://docs.docker.com/desktop/setup/install/windows-install/}{Docker system requirements}. Guide edition: 17 October 2026.}
+
+\newpage
+\pagetitle{01 / Windows setup}{Install Ubuntu with WSL 2}{WSL lets Ubuntu run inside Windows. You do not need to dual boot your laptop.}
+
+\step{1}{Open PowerShell as administrator}
+Open the Windows Start menu, search for \textbf{PowerShell}, right-click it, and choose \textbf{Run as administrator}. Approve the Windows prompt.
+
+\shell{WINDOWS POWERSHELL -- ADMINISTRATOR}
+\begin{lstlisting}
+wsl --install -d Ubuntu-24.04
+\end{lstlisting}
+Restart Windows if requested. After restarting, open \textbf{Ubuntu 24.04 LTS} from the Start menu to finish its first launch.
+
+\step{2}{Create your Ubuntu login}
+Choose a simple lowercase username, then create a password and enter it again. This is your Ubuntu login; it can differ from your Windows login.
+\note{Password tip}{Nothing appears while you type the Ubuntu password, including no dots. Type it normally and press Enter. Remember it for commands starting with \texttt{sudo}.}
+
+\step{3}{Confirm that Ubuntu uses version 2}
+Return to Windows PowerShell and run:
+\shell{WINDOWS POWERSHELL}
+\begin{lstlisting}
+wsl --update
+wsl --list --verbose
+\end{lstlisting}
+\readycheck{The list contains \texttt{Ubuntu-24.04} and its \texttt{VERSION} column says \texttt{2}. The state may be \texttt{Running} or \texttt{Stopped}; both are fine.}
+
+\note{If it says version 1}{Run the following in PowerShell, then check the list again. If your distribution has another name, use its exact name from the list.}
+\begin{lstlisting}
+wsl --set-version Ubuntu-24.04 2
+\end{lstlisting}
+
+\step{4}{Open your Ubuntu terminal}
+Launch \textbf{Ubuntu 24.04 LTS} from Start. You should see a prompt resembling \texttt{yourname@laptop:~\$}. From page 4 onward, all commands run here.
+\note{Already have Ubuntu?}{Check it with \texttt{lsb\_release -ds} inside Ubuntu. If it is Ubuntu 24.04 on WSL 2, continue. Keep existing distributions and files; do not uninstall or reset them.}
+\smallref{\href{https://learn.microsoft.com/en-us/windows/wsl/install}{Microsoft: Install WSL}. If installation fails, see page 8.}
+
+\newpage
+\pagetitle{02 / Containers}{Set up Docker Desktop}{Docker runs the Fabric peers and ordering service in containers.}
+
+\step{5}{Install Docker Desktop on Windows}
+\begin{enumerate}
+\item Visit \href{https://docs.docker.com/desktop/setup/install/windows-install/}{Docker Desktop for Windows} and download the \textbf{x86\_64} installer.
+\item Run the installer. Keep \textbf{Use WSL 2 instead of Hyper-V} selected if the option appears.
+\item Complete installation and restart Windows if requested.
+\item Open \textbf{Docker Desktop}, complete the welcome screens, and wait until its engine is running.
+\end{enumerate}
+
+\step{6}{Enable Ubuntu integration}
+In Docker Desktop, open \textbf{Settings}:
+\begin{enumerate}
+\item Under \textbf{General}, enable \textbf{Use the WSL 2 based engine} if shown.
+\item Under \textbf{Resources $\rightarrow$ WSL Integration}, enable integration for \textbf{Ubuntu-24.04}.
+\item Select \textbf{Apply \& restart} if shown. Close and reopen your Ubuntu terminal.
+\end{enumerate}
+\note{If WSL Integration is missing}{Docker may be using Windows containers. Open the Docker tray menu and switch to \textbf{Linux containers}, then check Settings again. Menu wording can vary by release.}
+
+\step{7}{Test Docker from Ubuntu}
+\shell{UBUNTU}
+\begin{lstlisting}
+docker --version
+docker compose version
+docker info --format '{{.OSType}}'
+docker run --rm hello-world
+\end{lstlisting}
+\readycheck{Both version commands print a version. The operating-system check prints \texttt{linux}. The final command prints \texttt{Hello from Docker!}. Its first run downloads a small image.}
+
+\note{Use one Docker installation}{Docker Desktop supplies the engine for Ubuntu. Do not also install \texttt{docker.io}, Docker Engine, or a second Docker Compose inside Ubuntu for this guide. Run workshop Docker commands without \texttt{sudo}.}
+\smallref{\href{https://docs.docker.com/desktop/features/wsl/}{Docker: WSL 2 backend} \enspace / \enspace \href{https://hyperledger-fabric.readthedocs.io/en/release-2.5/prereqs.html}{Fabric: Windows prerequisites}.}
+
+\newpage
+\pagetitle{03 / Developer tools}{Prepare Ubuntu}{Install these tools inside Ubuntu, even if Node.js or Git already exists on Windows.}
+
+\step{8}{Install the basic tools}
+\shell{UBUNTU}
+\begin{lstlisting}
+sudo apt update
+sudo apt install -y git curl jq build-essential ca-certificates
+\end{lstlisting}
+Enter your Ubuntu password if asked. Wait until the command finishes and the prompt returns.
+
+\step{9}{Install Node.js through nvm}
+Node.js runs JavaScript tools and the application that connects to Fabric. \texttt{nvm} keeps its installation inside your Ubuntu account.
+\shell{UBUNTU}
+\begin{lstlisting}
+curl -fsSL \
+  https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh \
+  -o /tmp/nvm-install.sh
+bash /tmp/nvm-install.sh
+source ~/.bashrc
+nvm install 22.23.3
+nvm alias default 22.23.3
+nvm use 22.23.3
+\end{lstlisting}
+\note{How to copy commands}{Copy one complete block at a time. A backslash (\texttt{\textbackslash}) at the end of a line means the command continues on the next line. Do not add anything after it.}
+
+\step{10}{Check the tools}
+\shell{UBUNTU}
+\begin{lstlisting}
+git --version
+curl --version
+jq --version
+node --version
+npm --version
+command -v node
+\end{lstlisting}
+\readycheck{Node prints \texttt{v22.23.3}; npm prints a version. The Node path starts with \texttt{/home/} and includes \texttt{.nvm/}. It should not point to a Windows folder under \texttt{/mnt/c/}.}
+\note{Keep your project in Ubuntu}{Use the home folder \texttt{\textasciitilde/fabric-workshop} in the next step. Avoid OneDrive and Windows-mounted project folders for this workshop.}
+\note{Recommended editor}{Install \href{https://code.visualstudio.com/download}{Visual Studio Code for Windows}. In VS Code, open Extensions (\texttt{Ctrl+Shift+X}), search for \textbf{WSL}, and install the extension published by \textbf{Microsoft}. It lets you edit your Ubuntu project from Windows.}
+\smallref{\href{https://github.com/nvm-sh/nvm}{nvm installation instructions} \enspace / \enspace \href{https://nodejs.org/en/blog/release/v22.23.3}{Node.js 22.23.3 release}.}
+
+\newpage
+\pagetitle{04 / Fabric tools}{Download Hyperledger Fabric}{Keep Docker Desktop running. This stage downloads several large files.}
+
+\step{11}{Get the workshop sample revision}
+This fixed revision keeps everyone on the same sample scripts. Git may say \texttt{detached HEAD} after checkout; that is expected.
+\shell{UBUNTU}
+\begin{lstlisting}
+mkdir -p ~/fabric-workshop
+cd ~/fabric-workshop
+git clone https://github.com/hyperledger/fabric-samples.git
+cd fabric-samples
+git checkout 3c63eac4e303e8348c42637d7ed337727645b9ce
+\end{lstlisting}
+\note{Folder already exists?}{Do not delete it. If it belongs to another project, use a new parent folder and ask the instructor before changing its revision. The remaining commands assume the path shown above.}
+
+\step{12}{Download the official installer}
+Stay in \texttt{\textasciitilde/fabric-workshop/fabric-samples}. The command saves the installer one folder above it.
+\shell{UBUNTU}
+\begin{lstlisting}
+curl -fsSLo ../install-fabric.sh \
+  https://raw.githubusercontent.com/hyperledger/fabric/main/scripts/install-fabric.sh
+bash ../install-fabric.sh --fabric-version 2.5.16 \
+  --ca-version 1.5.17 binary docker
+\end{lstlisting}
+The installer downloads Fabric command-line tools, configuration files, and container images. Wait for it to finish. Some images download from GitHub Container Registry.
+
+\step{13}{Confirm the downloads}
+\shell{UBUNTU}
+\begin{lstlisting}
+./bin/peer version
+./bin/fabric-ca-client version
+git rev-parse --short=12 HEAD
+docker image inspect hyperledger/fabric-peer:2.5.16 \
+  --format '{{.RepoTags}}'
+docker image inspect hyperledger/fabric-ca:1.5.17 \
+  --format '{{.RepoTags}}'
+\end{lstlisting}
+\readycheck{Peer reports \texttt{2.5.16}, CA client reports \texttt{1.5.17}, and the revision starts with \texttt{3c63eac4e303}. Both image checks print tags without an error.}
+\note{Use the exact versions}{Do not replace these numbers with \texttt{latest}, or switch the samples to another branch. Java and Go are not required for our JavaScript project.}
+\smallref{\href{https://hyperledger-fabric.readthedocs.io/en/release-2.5/install.html}{Fabric installation} \enspace / \enspace \href{https://github.com/hyperledger/fabric-samples/tree/3c63eac4e303e8348c42637d7ed337727645b9ce}{Pinned sample source}.}
+
+\newpage
+\pagetitle{05 / First network}{Start your test network}{This is a local learning network on your laptop. It is not a production deployment.}
+
+\step{14}{Create the network and channel}
+\shell{UBUNTU}
+\begin{lstlisting}
+cd ~/fabric-workshop/fabric-samples/test-network
+./network.sh up createChannel -ca -c mychannel \
+  -i 2.5.16 -cai 1.5.17
+docker ps --format 'table {{.Names}}\t{{.Status}}'
+\end{lstlisting}
+\readycheck{The script finishes successfully and joins \texttt{mychannel}. The running-container list includes \texttt{peer0.org1.example.com}, \texttt{peer0.org2.example.com}, and \texttt{orderer.example.com}, plus the certificate-authority containers.}
+
+\step{15}{Deploy the JavaScript sample contract}
+Stay in the same \texttt{test-network} folder. This uses the official asset example to confirm that JavaScript chaincode can be installed and started.
+\shell{UBUNTU}
+\begin{lstlisting}
+./network.sh deployCC -c mychannel -ccn basic \
+  -ccp ../asset-transfer-basic/chaincode-javascript \
+  -ccl javascript
+\end{lstlisting}
+The first deployment may take several minutes while npm packages and a chaincode runtime image download. Leave the terminal open until it returns to the prompt.
+
+\readycheck{The output reports a committed chaincode definition for \texttt{basic}, version \texttt{1.0}, sequence \texttt{1}, on \texttt{mychannel}. There should be no final installation or commit failure.}
+
+\step{}{What is running?}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash\bfseries}p{45mm}>{\raggedright\arraybackslash}X@{}}
+Two peer organizations & Store the ledger and execute the agreed contract.\\
+Ordering service & Places transactions into an agreed sequence.\\
+Certificate authorities & Issue identities for this test network.\\
+\texttt{mychannel} & The shared ledger used for this check.\\
+\texttt{basic} & The sample smart contract you just deployed.\\
+\end{tabularx}
+\note{If a step fails}{Stop at that step and use page 8. Do not continue to the next command assuming that deployment worked.}
+\smallref{\href{https://hyperledger-fabric.readthedocs.io/en/release-2.5/test_network.html}{Fabric test-network tutorial}. Use the ordinary Raft setup shown here, without \texttt{-bft}.}
+
+\newpage
+\begingroup
+\setlength{\parskip}{3.5pt}
+\pagetitle{06 / Readiness test}{Write once. Read it back.}{These commands use the sample identities created on page 6. Keep this Ubuntu terminal open.}
+
+\step{16}{Load the test identity and tools}
+\shell{UBUNTU}
+\begin{lstlisting}
+cd ~/fabric-workshop/fabric-samples/test-network
+export PATH="$PWD/../bin:$PATH"
+export FABRIC_CFG_PATH="$PWD/../config/"
+source scripts/envVar.sh
+setGlobals 1
+\end{lstlisting}
+
+\step{17}{Create the example records}
+Copy this entire command, including every continued line:
+\shell{UBUNTU}
+\begin{lstlisting}
+peer chaincode invoke -o localhost:7050 \
+  --ordererTLSHostnameOverride orderer.example.com \
+  --tls --cafile "$ORDERER_CA" \
+  -C mychannel -n basic \
+  --peerAddresses localhost:7051 \
+  --tlsRootCertFiles "$PEER0_ORG1_CA" \
+  --peerAddresses localhost:9051 \
+  --tlsRootCertFiles "$PEER0_ORG2_CA" \
+  -c '{"function":"InitLedger","Args":[]}' --waitForEvent
+\end{lstlisting}
+\readycheck{The command reports a successful invocation with status \texttt{200} and a committed transaction with status \texttt{VALID}. If it times out, see page 8 before repeating.}
+
+\step{18}{Read a record}
+\shell{UBUNTU}
+\begin{lstlisting}
+peer chaincode query -C mychannel -n basic \
+  -c '{"function":"ReadAsset","Args":["asset1"]}'
+\end{lstlisting}
+\readycheck{A JSON record appears with \texttt{ID} equal to \texttt{asset1} and \texttt{Owner} equal to \texttt{Tomoko}. Field order may vary. Save a screenshot of this result for the readiness check. Your installation is ready.}
+
+\step{19}{Clean up the practice network}
+After saving your screenshot, run this from \texttt{test-network}:
+\begin{lstlisting}
+./network.sh down
+\end{lstlisting}
+\note{This resets the practice ledger}{It deletes the sample network and its test identities. Keep the downloads and Docker images. Bring your readiness screenshot, laptop, and charger to the workshop.}
+\smallref{\href{https://github.com/hyperledger/fabric-samples/blob/3c63eac4e303e8348c42637d7ed337727645b9ce/test-network/scripts/envVar.sh}{Sample identity helper} \enspace / \enspace \href{https://github.com/hyperledger/fabric-samples/blob/3c63eac4e303e8348c42637d7ed337727645b9ce/asset-transfer-basic/chaincode-javascript/lib/assetTransfer.js}{Sample contract}.}
+
+\newpage
+\endgroup
+\pagetitle{Help / Quick fixes}{If something gets stuck}{Keep the full error message. Fix the failed stage before continuing.}
+
+{\bfseries WSL reports virtualization or error \texttt{0x80370102}}\par
+Restart Windows. In Task Manager $\rightarrow$ Performance $\rightarrow$ CPU, check that virtualization is enabled. If it is disabled, ask the instructor or campus IT to help enable it in the laptop firmware. Then follow \href{https://learn.microsoft.com/en-us/windows/wsl/troubleshooting}{Microsoft's WSL troubleshooting steps}.
+
+\vspace{1mm}{\bfseries Ubuntu does not appear in Docker's WSL Integration}\par
+Open Ubuntu once to finish its setup. In PowerShell, run \texttt{wsl --list --verbose} and confirm version 2. Check that Docker Desktop uses Linux containers, then enable that Ubuntu distribution in Settings.
+
+\vspace{1mm}{\bfseries \texttt{docker: command not found} or cannot connect to Docker}\par
+Open Docker Desktop and wait for its engine. Recheck Ubuntu integration, then close and reopen Ubuntu. Run the checks on page 3 again. Do not fix this by installing another Docker engine inside Ubuntu.
+
+\vspace{1mm}{\bfseries \texttt{nvm: command not found} or the wrong Node version}\par
+In Ubuntu, run \texttt{source \textasciitilde/.bashrc}, then \texttt{nvm use 22.23.3}. If it still fails, repeat step 9. Use \texttt{command -v node} to confirm the Ubuntu installation.
+
+\vspace{1mm}{\bfseries A download fails or returns a network / certificate error}\par
+Check internet access and free storage. Retry the failed download after connectivity returns. Campus Wi-Fi may block GitHub, container registries, or npm; ask IT for access or use an approved alternative connection. Keep certificate verification enabled.
+
+\vspace{1mm}{\bfseries Fabric says a port is in use or an old network exists}\par
+Ask the instructor if other Fabric work is already running. For this disposable practice network only, run \texttt{./network.sh down} from \texttt{test-network}, then repeat steps 14--18. This deletes the practice ledger.
+
+\vspace{1mm}{\bfseries Transaction times out, or the asset cannot be found}\par
+Check \texttt{docker ps} and confirm the peers and orderer are running. Reload step 16 if you opened a new terminal. Retry the read after a few seconds. If records are still missing, share the invocation output from step 17 with the instructor before resetting anything.
+
+\vspace{3mm}
+\begin{tcolorbox}[colback=Soft,colframe=Soft,boxrule=0pt,arc=1mm,left=3mm,right=3mm,top=2mm,bottom=2mm]
+\textbf{Ask for help with these details}\par
+Your Windows version, the step number, and a screenshot of the full error. Include \texttt{wsl --list --verbose} from PowerShell and \texttt{docker --version}, \texttt{docker compose version}, and \texttt{node --version} from Ubuntu. Keep passwords and private-key files out of screenshots.
+\end{tcolorbox}
+
+\vfill
+{\small\bfseries Official references}\par
+{\small
+\href{https://learn.microsoft.com/en-us/windows/wsl/install}{Microsoft WSL} \enspace / \enspace
+\href{https://docs.docker.com/desktop/setup/install/windows-install/}{Docker Desktop} \enspace / \enspace
+\href{https://docs.docker.com/desktop/features/wsl/}{Docker WSL integration}\\[3pt]
+\href{https://hyperledger-fabric.readthedocs.io/en/release-2.5/prereqs.html}{Fabric prerequisites} \enspace / \enspace
+\href{https://hyperledger-fabric.readthedocs.io/en/release-2.5/install.html}{Fabric installer} \enspace / \enspace
+\href{https://hyperledger-fabric.readthedocs.io/en/release-2.5/test_network.html}{Fabric test network}}
+\end{document}

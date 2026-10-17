@@ -328,7 +328,7 @@ export function NetworkTopologySim() {
             }`}
           >
             <Server className="w-4 h-4 text-blue-600" />
-            Centralized Architecture (SPOF)
+            Central hub
           </button>
           <button
             onClick={() => setTopology("decentralized")}
@@ -339,7 +339,7 @@ export function NetworkTopologySim() {
             }`}
           >
             <Share2 className="w-4 h-4 text-teal-600" />
-            Decentralized Mesh Architecture (P2P)
+            Peer-to-peer
           </button>
         </div>
 
@@ -351,7 +351,7 @@ export function NetworkTopologySim() {
               className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white transition-colors shadow-sm"
             >
               <Play className="w-3.5 h-3.5 fill-current" />
-              Auto Stream Packets
+              Start stream
             </button>
           ) : (
             <button
@@ -368,7 +368,7 @@ export function NetworkTopologySim() {
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 transition-colors shadow-sm"
           >
             <Send className="w-3.5 h-3.5 text-blue-600" />
-            Send Single Packet
+            Send a packet
           </button>
 
           {topology === "centralized" && (
@@ -381,7 +381,7 @@ export function NetworkTopologySim() {
               }`}
             >
               <Power className="w-3.5 h-3.5" />
-              {centralHubAlive ? "Kill Central Hub" : "Revive Central Hub"}
+              {centralHubAlive ? "Take hub offline" : "Restore hub"}
             </button>
           )}
 

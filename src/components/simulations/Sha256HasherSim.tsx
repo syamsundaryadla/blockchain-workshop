@@ -187,10 +187,10 @@ export function Sha256HasherSim() {
         <div>
           <h3 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
             <Hash className="w-5 h-5 text-blue-600" />
-            Cryptographic Hashing (SHA-256) Simulator
+            SHA-256
           </h3>
           <p className="text-xs text-slate-500 mt-0.5">
-            Demonstrates deterministic one-way computation, fixed 256-bit output size, and the avalanche effect.
+            Compare the fingerprints of two messages.
           </p>
         </div>
 
@@ -205,7 +205,7 @@ export function Sha256HasherSim() {
             }`}
           >
             <Cpu className="w-4 h-4 text-blue-600" />
-            1. Animated Hashing Process
+            How it works
           </button>
           <button
             onClick={() => setActiveTab("interactive")}
@@ -216,7 +216,7 @@ export function Sha256HasherSim() {
             }`}
           >
             <Sliders className="w-4 h-4 text-teal-600" />
-            2. Live Interactive Avalanche Hasher
+            Try it
           </button>
         </div>
       </div>
@@ -384,7 +384,7 @@ export function Sha256HasherSim() {
           <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-blue-600 flex-shrink-0" />
-              <span className="text-slate-700 font-medium">Quick Demonstration Presets:</span>
+              <span className="text-slate-700 font-medium">Try a small change</span>
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
@@ -392,7 +392,7 @@ export function Sha256HasherSim() {
                 onClick={() => handleSetExample("Hello World", "hello World")}
                 className="px-3 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-800 font-medium border border-slate-300 transition-colors shadow-sm"
               >
-                Capital &quot;H&quot; vs Lowercase &quot;h&quot;
+                H → h
               </button>
               <button
                 onClick={() =>
@@ -403,7 +403,7 @@ export function Sha256HasherSim() {
                 }
                 className="px-3 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-800 font-medium border border-slate-300 transition-colors shadow-sm"
               >
-                Financial: $50.00 vs $50.01
+                $50.00 → $50.01
               </button>
               <button
                 onClick={() => handleSetExample("Blockchain Workshop 2026", "Blockchain Workshop 2026")}
@@ -423,7 +423,7 @@ export function Sha256HasherSim() {
               <div className="flex items-center justify-between">
                 <label className="text-xs font-bold uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
                   <span className="w-2.5 h-2.5 rounded-full bg-blue-600" />
-                  Input String A:
+                  Original message
                 </label>
                 <span className="text-xs font-mono font-semibold text-slate-500">
                   {inputA.length} characters
@@ -431,6 +431,7 @@ export function Sha256HasherSim() {
               </div>
 
               <textarea
+                aria-label="Original message"
                 rows={3}
                 value={inputA}
                 onChange={(e) => setInputA(e.target.value)}
@@ -440,10 +441,12 @@ export function Sha256HasherSim() {
 
               <div className="space-y-1.5">
                 <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider block">
-                  SHA-256 Digest (64 Hex / 256 Bits):
+                  Fingerprint / SHA-256
                 </span>
                 <div className="flex items-center justify-between p-3 rounded-xl bg-blue-50/70 border border-blue-200 font-mono text-xs text-blue-950 break-all shadow-sm">
-                  <span className="font-bold tracking-tight">{hashA}</span>
+                  <span className="hash-fingerprint" role="img" aria-label={`Original SHA-256: ${hashA}`}>
+                    {hashA.split("").map((char, i) => <span key={i} aria-hidden="true">{char}</span>)}
+                  </span>
                   <button
                     onClick={() => handleCopy(hashA)}
                     className="ml-2 p-1.5 text-slate-400 hover:text-slate-800 rounded hover:bg-white flex-shrink-0 transition-colors"
@@ -464,7 +467,7 @@ export function Sha256HasherSim() {
               <div className="flex items-center justify-between">
                 <label className="text-xs font-bold uppercase tracking-wider text-teal-900 flex items-center gap-1.5">
                   <span className="w-2.5 h-2.5 rounded-full bg-teal-600" />
-                  Input String B (Altered Input):
+                  Altered message
                 </label>
                 <span className="text-xs font-mono font-semibold text-slate-500">
                   {inputB.length} characters
@@ -472,6 +475,7 @@ export function Sha256HasherSim() {
               </div>
 
               <textarea
+                aria-label="Altered message"
                 rows={3}
                 value={inputB}
                 onChange={(e) => setInputB(e.target.value)}
@@ -481,10 +485,12 @@ export function Sha256HasherSim() {
 
               <div className="space-y-1.5">
                 <span className="text-[11px] font-bold text-teal-800 uppercase tracking-wider block">
-                  SHA-256 Digest (64 Hex / 256 Bits):
+                  Fingerprint / SHA-256
                 </span>
                 <div className="flex items-center justify-between p-3 rounded-xl bg-teal-50/70 border border-teal-200 font-mono text-xs text-teal-950 break-all shadow-sm">
-                  <span className="font-bold tracking-tight">{hashB}</span>
+                  <span className="hash-fingerprint" role="img" aria-label={`Altered SHA-256: ${hashB}`}>
+                    {hashB.split("").map((char, i) => <span key={i} aria-hidden="true" className={char !== hashA[i] ? "hash-cell-changed" : ""}>{char}</span>)}
+                  </span>
                   <button
                     onClick={() => handleCopy(hashB)}
                     className="ml-2 p-1.5 text-slate-400 hover:text-slate-800 rounded hover:bg-white flex-shrink-0 transition-colors"
@@ -505,7 +511,7 @@ export function Sha256HasherSim() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center">
               <span className="text-[11px] font-semibold text-slate-500 uppercase block">
-                Hex Character Divergence
+                Changed characters
               </span>
               <span className="text-2xl font-mono font-bold text-slate-900 mt-1 block">
                 {diffCount} / 64
@@ -515,17 +521,17 @@ export function Sha256HasherSim() {
 
             <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center">
               <span className="text-[11px] font-semibold text-slate-500 uppercase block">
-                Avalanche Dispersion
+                Fingerprint difference
               </span>
               <span className="text-2xl font-mono font-bold text-blue-600 mt-1 block">
                 {percentage}%
               </span>
-              <span className="text-xs text-slate-500">statistical independence</span>
+              <span className="text-xs text-slate-500">of hexadecimal characters</span>
             </div>
 
             <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center">
               <span className="text-[11px] font-semibold text-slate-500 uppercase block">
-                Fixed Output Bit-Width
+                Output length
               </span>
               <span className="text-2xl font-mono font-bold text-teal-700 mt-1 block">
                 256 Bits
@@ -534,16 +540,13 @@ export function Sha256HasherSim() {
             </div>
           </div>
 
-          <div className="p-4 rounded-xl bg-blue-50 border border-blue-200 text-xs text-slate-700 space-y-1.5">
-            <div className="font-bold text-blue-900 flex items-center gap-1.5">
-              <Sparkles className="w-4 h-4 text-blue-600" />
-              The Avalanche Effect Explained:
-            </div>
+          <details className="instrument-explanation">
+            <summary>Why do the hashes change so much?</summary>
             <p className="leading-relaxed">
               Cryptographic hash functions are engineered so that any single-bit input modification flips approximately 50% of the output bits in an apparently random manner.
-              Because the resulting 64-character hex digests bear zero mathematical correlation to one another, an adversary cannot infer how to reverse or tamper with data without completely shattering the hash.
+              The result makes even a tiny change visible when you compare fingerprints.
             </p>
-          </div>
+          </details>
         </div>
       )}
     </div>

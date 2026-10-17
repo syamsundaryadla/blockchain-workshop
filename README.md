@@ -1,133 +1,102 @@
-# BLOCKCHAIN LAB
-### Interactive Blockchain Workshop Experience
+# Blockchain Lab — Hyperledger Fabric Workshop
 
-> **Understand. Simulate. Build.**
+A visual, interactive 10 a.m.–4 p.m. workshop for first- and second-year students. Learn concepts first, follow a real Fabric application after lunch, and reserve 3–4 p.m. for the student practical.
 
-A production-quality interactive presentation and simulation platform designed for conducting high-impact blockchain workshops for undergraduate engineering students.
+## Presentation and student resources
 
----
+- 44 slides across six chapters with presenter notes, audience predictions, reasoning reveals and a four-volunteer network role-play.
+- Opening order: title only; a short presenter introduction; then the first concept on slide 3. Public presenter details and links live in `src/content/presenter.ts`.
+- Five experiments: real SHA-256, linked-block tampering, real browser ECDSA signatures, a Fabric transaction model, and a clearly labeled credits rehearsal.
+- A complete downloadable Campus Credits project: JavaScript chaincode, starter/solution rule, Node.js/Fabric Gateway backend, HTML/CSS/JavaScript UI, scripts and tests.
+- A numbered student handout, instructor notes, and the compiled Windows/WSL installation PDF.
 
-## Key Features
+The finalized [syllabus and project scope](docs/workshop-syllabus.md) is the teaching reference. The [installation guide](output/pdf/fabric-student-installation-guide.pdf) and [LaTeX source](output/pdf/fabric-student-installation-guide.tex) are available separately.
 
-### 1. Direct Continuous Presentation Flow
-- **Pedagogical Sequence:**
-  $$\text{Concept Explanation} \longrightarrow \text{Visual Animation} \longrightarrow \text{Interactive Simulation} \longrightarrow \text{Key Takeaway} \longrightarrow \text{Next Topic}$$
-- No switching tabs, external links, or separate simulation portals.
-- 50 focused, projector-optimized slides across 6 comprehensive workshop modules.
+## Run the presentation
 
-### 2. Clean, Projector-Friendly Visual Design
-- **Background:** Crisp White (`#FFFFFF`)
-- **Secondary Surfaces:** Soft Gray (`#F8FAFC`)
-- **Headings:** Dark Navy (`#0F172A`)
-- **Primary Accents:** Royal Blue (`#2563EB`)
-- **Secondary Accents:** Teal (`#0D9488`)
-- **Body Text:** High-Contrast Slate (`#334155`)
-- **Borders:** Subtle Light Gray (`#CBD5E1`)
-- **Typography:** Space Grotesk (headings), Inter (body), JetBrains Mono (code & hashes).
-- **Zero Emojis:** 100% clean vector icons via Lucide React.
-- **16:9 Aspect Ratio Optimization:** Formatted with generous spacing and large font scales for classroom projectors.
-
-### 3. Integrated Interactive Simulations
-1. **Live SHA-256 Cryptographic Hasher (`Sha256HasherSim`)**: Web Crypto API hashing with side-by-side Avalanche Effect comparison.
-2. **Centralized vs. Decentralized Network Topology (`NetworkTopologySim`)**: Live SVG mesh routing, central server failure simulation (SPOF), and packet delivery statistics.
-3. **Blockchain Builder & Tamper Detection (`BlockchainSim`)**: Mine linked blocks with SHA-256, edit historical amounts, and witness broken cryptographic link cascades.
-4. **Public Transaction Lifecycle (`TransactionSim`)**: Digital ECDSA signing, mempool queuing, peer propagation, balance checks, and block inclusion.
-5. **Proof of Work (PoW) Mining Simulator (`MiningSim`)**: Non-blocking asynchronous mining loop, adjustable difficulty (1-4 zeros), and real-time hashrate metrics.
-6. **Hyperledger Fabric 8-Step Lifecycle Explorer (`FabricExplorerSim`)**: Step-by-step interactive consortium architecture walkthrough (Endorsement, Raft Ordering, MVCC validation, StateDB commit).
-7. **Docker Architecture & Terminal Walkthrough (`DockerArchitectureSim`)**: Linux host container visualizer and interactive CLI with copyable test-network commands.
-8. **Hands-on Mini-Project Asset Management (`AssetDemoSim`)**: Hyperledger Fabric `asset-transfer-basic` implementation (Create, Read, Update, Transfer, and World State StateDB JSON inspector).
-
----
-
-## Keyboard Shortcuts
-
-| Key | Action |
-| :--- | :--- |
-| `Right Arrow` / `Space` | Advance to Next Slide |
-| `Left Arrow` | Return to Previous Slide |
-| `F` | Toggle Fullscreen Mode |
-| `N` | Toggle Presenter Speaker Notes Drawer |
-| `M` | Open Workshop Module Navigator |
-| `?` | Open Keyboard Shortcuts Reference |
-| `Escape` | Close Open Modals / Exit Fullscreen |
-
----
-
-## Getting Started
-
-### Prerequisites
-- Node.js `v18+` or `v20+` or `v24+`
-- npm `v9+` or `v11+`
-
-### Installation
 ```bash
-git clone <repository-url>
-cd Blockchain
 npm install
+npm run dev -- --port 3100
 ```
 
-### Running Locally (Development)
-```bash
-npm run dev
-```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open http://127.0.0.1:3100. This is the presentation website; it does not require a running Fabric network. The in-browser transaction and credits models explicitly identify themselves as simulations.
 
-### Running Automated Tests
-```bash
-npm test
-```
+For an isolated production preview in Windows PowerShell:
 
-### Production Build
-```bash
+```powershell
+$env:BLOCKCHAIN_BUILD_DIR=".next-production"
 npm run build
+npm run start -- --port 3100
+```
+
+Use the same build-directory variable for build and start.
+
+## Workshop routes
+
+- `/` and `/presentation`: slides, chapter outline, notes and presentation mode.
+- `/workshop`: schedule, 14-step practical, project ZIP, rule files and installation PDF.
+- `/workshop/instructor`: timing, teaching cues and recovery instructions.
+- `/workshop/replay`: labeled interactive fallback models, not saved Fabric execution evidence.
+- `/simulations`: the five core experiments.
+- `/mini-project`: the in-memory credits rehearsal, with a link to the separately started real application.
+
+Keyboard: arrows to navigate, M/G for outline, N for notes, F for presentation mode, Escape to close a dialog or exit presentation mode.
+
+## Run the real Fabric project
+
+Students install the tools in Ubuntu on WSL 2 before workshop day: Node.js 22.23.3, Fabric 2.5.16, CA 1.5.17 and the sample revision pinned in the installation guide. Docker Desktop must be running with Ubuntu integration enabled.
+
+Open `workshop/fabric-credits` in Ubuntu, or unzip the student download into `~/campus-credits`:
+
+```bash
+npm ci
+npm run prepare:kit
+npm run check
+npm test
+npm run network
+npm run deploy
 npm start
 ```
 
----
+Open http://127.0.0.1:3200, initialize once, and use the real application. It only confirms transfers after a valid Fabric commit. A network error does not cause a fallback to invented balances or transaction IDs.
 
-## Workshop Curriculum (6 Modules)
+See the [project README](workshop/fabric-credits/README.md) for advance preparation, the starter exercise, upgrades and reset behavior. Students edit three TODO groups in `chaincode/lib/transfer-rules.js`; identities, ledger plumbing and the interface are supplied. Switching to starter or solution replaces that active file, so save edits first. Internet access can still be needed for a first container build; rehearse the full deployment before the event.
 
-1. **Module 1: Blockchain Fundamentals (Slides 1–13)**
-   - Double-spending dilemma, centralized intermediaries, traditional DBs vs. blockchains.
-   - SHA-256 cryptographic hashing & live simulation.
-   - Centralized vs. decentralized network topologies & simulation.
-   - Anatomy of a block, chaining mechanism, and tamper detection simulation.
-   - Module 1 Knowledge Check.
+The credits are application records, not real money or a native Fabric currency. The local identity selector chooses prepared credentials and is not production authentication. Private keys remain in the backend. Each laptop or pair uses a separate test network.
 
-2. **Module 2: Blockchain Architecture & Concepts (Slides 14–24)**
-   - Network nodes, public vs. private vs. permissioned models.
-   - Public transaction lifecycle & live simulation.
-   - Distributed state synchronization.
-   - Consensus mechanisms, Byzantine Generals Problem, Proof of Work mining & simulation.
-   - Module 2 Knowledge Check.
+## Verification and packaging
 
-3. **Module 3: Introduction to Hyperledger Fabric (Slides 25–32)**
-   - Why enterprise blockchain? Consortium governance and confidentiality.
-   - Organizations, X.509 certificates, MSP (Membership Service Providers).
-   - Peer roles (Endorsing vs. Committing) & Raft ordering service.
-   - Channels, World State (StateDB CouchDB/LevelDB) vs. Blockchain Log.
-   - The 8-Step Execute-Order-Validate transaction lifecycle & simulation.
-   - Module 3 Knowledge Check.
+```bash
+npm test
+npm run typecheck
+npm run test:fabric
+npm run build
+npm run package:workshop
+```
 
-4. **Module 4: Ubuntu, Docker & Network Setup (Slides 33–37)**
-   - Why Linux/Ubuntu for distributed systems.
-   - Docker container virtualization & bridge networking.
-   - Fabric test-network container architecture & interactive terminal simulation.
-   - Containerized multi-party consortium security.
-   - Module 4 Knowledge Check.
+Install the kit dependencies before `test:fabric`. Its six tests exercise contract logic using a stubbed ledger and real test certificate parsing; they do not verify Fabric's ordering or commit validation. They cover authorized initialization, both transfer directions, wrong certificate/MSP, invalid amounts, insufficient funds, missing wallets and unchanged state on rejection. The kit was also checked with Ubuntu's Node runtime and its shell scripts parsed successfully.
 
-5. **Module 5: Smart Contract Development (Slides 38–43)**
-   - Traditional backend vs. deterministic chaincode.
-   - Fabric Contract API in JavaScript.
-   - Ledger state operations: `ctx.stub.putState` & `getState`.
-   - Asset transfer logic & MVCC concurrency protection.
-   - Chaincode deployment lifecycle: Package, Install, Approve, Commit.
-   - Module 5 Knowledge Check.
+The website tests verify the timetable, all slide visuals, synchronized instructions and arithmetic. Browser acceptance covers all slides, real signing/hash demonstrations, tampering, the transaction model, rehearsal permissions, downloads and mobile widths. The legacy Solidity tests remain as regressions for retained files, outside the active teaching path.
 
-6. **Module 6: Hands-on Mini Project (Slides 44–50)**
-   - Project overview: Blockchain-based Asset Management System.
-   - Asset schema: ID, Color, Size, Owner, AppraisedValue.
-   - Live interactive asset management demonstration (Create, Read, Update, Transfer).
-   - World State key-value store vs. historical block log.
-   - Terminal commands with `peer chaincode invoke` & `query`.
-   - Module 6 Knowledge Check & workshop conclusion.
+**Live-network verification is outstanding:** Docker Desktop's Linux engine was not running and Ubuntu Docker integration was unavailable in this development environment. Do not label the kit as a fully rehearsed Fabric deployment until the actual starter-to-commit flow passes on the prepared setup. Capture fresh screenshots and a recording from that same run before the event.
+
+Packaging requires Python 3 and only its standard library. The packager copies starter/solution downloads, refreshes the installation PDF and builds the ZIP while excluding installed dependencies and private-key formats. Commit both project lockfiles. Do not ship generated network credentials.
+
+## Content structure
+
+- `src/content/beginner-workshop.ts`: lesson ideas, activities, presenter cues, schedule and platform versions.
+- `src/content/modules.ts` and `quizzes.ts`: six chapters and prediction checks.
+- `src/components/presentation/FabricWorkshopDiagrams.tsx`: topic-specific SVG infographics.
+- `src/components/presentation/LessonPrompt.tsx`: audience prompt and reasoning reveal.
+- `src/components/simulations`: the five core experiments plus retained supplementary demos.
+- `src/content/practical.ts`: student steps, solution excerpts and instructor notes; keep the downloadable Markdown synchronized.
+- `workshop/fabric-credits`: the real Fabric project and its tests.
+- `scripts/package-fabric-kit.py`: reproducible student download packaging.
+
+Earlier Solidity contracts and local-EVM recordings are retained without links in the active workshop. They must not be described as Fabric evidence.
+
+## References
+
+- [Fabric transaction flow](https://hyperledger-fabric.readthedocs.io/en/release-2.5/txflow.html)
+- [Fabric application guide](https://hyperledger-fabric.readthedocs.io/en/release-2.5/write_first_app.html)
+- [Fabric prerequisites](https://hyperledger-fabric.readthedocs.io/en/release-2.5/prereqs.html)

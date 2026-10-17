@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Campus Credits · Fabric Workshop</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body>
+    <main>
+      <header>
+        <a class="brand" href="/"
+          >Campus Credits<span> / Fabric workshop</span></a
+        ><span class="mode">REAL FABRIC · LOCAL TEST NETWORK</span>
+      </header>
+      <section class="intro">
+        <p class="eyebrow">Build / test / explain</p>
+        <h1>A transfer you<br />can explain.</h1>
+        <p>
+          Predict the balances. Send the request. Confirm the committed result.
+        </p>
+      </section>
+      <section class="balances" aria-label="Balances read from Fabric">
+        <article>
+          <span>Alice <small>Org1 test identity</small></span
+          ><strong id="alice">—</strong>
+          <p>demo credits</p>
+        </article>
+        <article>
+          <span>Bob <small>Org2 test identity</small></span
+          ><strong id="bob">—</strong>
+          <p>demo credits</p>
+        </article>
+        <article class="total">
+          <span>Combined</span><strong id="total">—</strong>
+          <p>expected total: 150</p>
+        </article>
+      </section>
+      <p id="read-status" class="read-status">No ledger result loaded yet.</p>
+      <section class="workspace">
+        <form id="transfer-form">
+          <p class="eyebrow">Make a prediction first</p>
+          <h2>Transfer credits</h2>
+          <div class="fields">
+            <label
+              >Signing identity<select id="signer">
+                <option value="alice">Alice · Org1</option>
+                <option value="bob">Bob · Org2</option>
+              </select></label
+            ><label
+              >Debit wallet<select id="from">
+                <option value="alice">Alice</option>
+                <option value="bob">Bob</option>
+              </select></label
+            ><label
+              >Recipient<select id="to">
+                <option value="bob">Bob</option>
+                <option value="alice">Alice</option>
+              </select></label
+            ><label
+              >Amount<input
+                id="amount"
+                inputmode="numeric"
+                value="20"
+                autocomplete="off"
+            /></label>
+          </div>
+          <button class="primary" id="send">Request transfer</button>
+          <p class="hint">
+            The contract checks the signer. Your browser's wallet selection is
+            only a request.
+          </p>
+        </form>
+        <aside>
+          <p class="eyebrow">Prove the rules</p>
+          <h2>Try a rejection.</h2>
+          <p>What should happen if Bob tries to debit Alice's wallet?</p>
+          <button id="forbidden" class="secondary">
+            Load the forbidden test
+          </button>
+          <p class="hint">
+            This selects Bob as signer and Alice as sender. Press Request
+            transfer to test the real contract.
+          </p>
+          <hr />
+          <button id="refresh" class="secondary">Read balances again</button
+          ><button id="initialize" class="text-button">
+            Initialize demo once
+          </button>
+          <p class="hint">
+            Initialization uses the prepared administrator and creates 100 / 50.
+            It cannot be used to top up an initialized ledger.
+          </p>
+        </aside>
+      </section>
+      <section id="result" class="result" role="status" aria-live="polite">
+        <strong id="result-title">Start with the ledger.</strong>
+        <p id="result-text">
+          Start the network, deploy the contract, then initialize this demo
+          once.
+        </p>
+        <p id="transaction"></p>
+      </section>
+      <footer>
+        Application-defined demo credits. No real money. The identity selector
+        uses prepared local credentials; it is not production login.
+      </footer>
+    </main>
+  </body>
+</html>

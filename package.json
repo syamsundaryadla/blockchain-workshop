@@ -7,7 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "node --import tsx --test tests/blockchain-engine.test.ts"
+    "test": "node --import tsx --test tests/*.test.ts",
+    "record:project": "node --import tsx scripts/record-project.ts",
+    "typecheck": "tsc --noEmit",
+    "test:fabric": "npm --prefix workshop/fabric-credits test",
+    "package:workshop": "python scripts/package-fabric-kit.py"
   },
   "dependencies": {
     "@types/canvas-confetti": "^1.9.0",
@@ -25,7 +29,10 @@
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "autoprefixer": "^10.4.20",
+    "ethers": "6.15.0",
+    "ganache": "7.9.2",
     "postcss": "^8.5.2",
+    "solc": "0.8.30",
     "tailwindcss": "^3.4.17",
     "tsx": "^4.23.15",
     "typescript": "^5.7.3"
