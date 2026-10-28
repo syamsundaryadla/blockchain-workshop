@@ -29,7 +29,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Blockchain Lab — Hyperledger Fabric Workshop",
   description:
-    "A visual, interactive 10–4 beginner workshop. Understand blockchain and Hyperledger Fabric, then build Campus Credits Transfer.",
+    "A visual 9:30–4:30 workshop: blockchain, networking, cryptography and a real Hyperledger Fabric Campus Credits practical.",
   keywords: [
     "Blockchain",
     "Campus Credits Transfer",

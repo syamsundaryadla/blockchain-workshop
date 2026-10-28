@@ -10,6 +10,9 @@ import { FabricWorkshopDiagram } from "./FabricWorkshopDiagrams";
 import { BEGINNER_LESSONS } from "@/content/beginner-workshop";
 import { LessonPrompt } from "./LessonPrompt";
 import { AboutMeSlide } from "./AboutMeSlide";
+import { FoundationDiagram, isFoundationScene } from "./FoundationDiagrams";
+import { SyllabusDiagram, isSyllabusScene } from "./SyllabusDiagrams";
+import { ConceptAnimation, isConceptAnimationScene } from "./ConceptAnimation";
 function CodePanel({
   code,
   title,
@@ -84,7 +87,7 @@ export function WorkshopSlide({
   if (frame.scene === "about-me") return <AboutMeSlide />;
   return (
     <div
-      className={`workshop-slide workshop-${frame.layout === "diagram" ? "illustrated" : frame.layout} scene-${frame.scene}`}
+      className={`workshop-slide workshop-${frame.layout === "diagram" ? "illustrated" : frame.layout} scene-${frame.scene} ${editorial.title.length > 45 ? "long-heading" : ""}`}
     >
       <header className="workshop-slide-heading">
         <div>
@@ -122,11 +125,17 @@ export function WorkshopSlide({
             />
           )}
         </div>
+      ) : isConceptAnimationScene(frame.scene!) ? (
+        <ConceptAnimation scene={frame.scene!} />
       ) : frame.diagram ? (
         <WorkshopDiagram
           slide={frame.diagram}
           revealed={revealed ?? undefined}
         />
+      ) : isSyllabusScene(frame.scene!) ? (
+        <SyllabusDiagram scene={frame.scene!} />
+      ) : isFoundationScene(frame.scene!) ? (
+        <FoundationDiagram scene={frame.scene!} />
       ) : (
         <FabricWorkshopDiagram scene={frame.scene!} />
       )}
@@ -165,7 +174,17 @@ export function WorkshopSlide({
           )}
         </div>
         <div className="workshop-resource-actions">
-          {slide.slideNumber >= 19 && (
+          {frame.scene === "live-demo" && (
+            <a
+              className="text-button"
+              href="http://127.0.0.1:3200"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open real Fabric app <ArrowUpRight size={14} />
+            </a>
+          )}
+          {slide.moduleId >= 6 && (
             <Link className="text-button" href="/workshop">
               Student kit <ArrowUpRight size={14} />
             </Link>
@@ -183,7 +202,9 @@ export function WorkshopQuizMotif({ moduleId }: { moduleId: number }) {
   const pairs = [
     ["One trusted editor", "Shared trust?"],
     ["Saved fingerprint", "Changed input"],
+    ["PoW search", "PoS validators"],
     ["Wallet: Alice", "Signer: Bob"],
+    ["Shared claim", "Truthful input?"],
     ["Endorsed", "Committed?"],
     ["Prepared tools", "Your three TODOs"],
     ["One operator", "Shared trust?"],
@@ -213,7 +234,7 @@ export function WorkshopQuizMotif({ moduleId }: { moduleId: number }) {
               />
             ))}
           </>
-        ) : moduleId === 6 ? (
+        ) : moduleId === 8 ? (
           <>
             <circle cx="65" cy="75" r="38" className="quiz-motif-box" />
             <circle cx="270" cy="75" r="38" className="quiz-motif-emphasis" />
@@ -237,7 +258,7 @@ export function WorkshopQuizMotif({ moduleId }: { moduleId: number }) {
                   y={35 + i * 22}
                   width="156"
                   height="70"
-                  rx={moduleId === 3 ? 30 : 8}
+                  rx={moduleId === 4 ? 30 : 8}
                   className={i === 1 ? "quiz-motif-emphasis" : "quiz-motif-box"}
                 />
                 <text
@@ -250,7 +271,7 @@ export function WorkshopQuizMotif({ moduleId }: { moduleId: number }) {
                 </text>
               </g>
             ))}
-            {moduleId === 5 && (
+            {moduleId === 7 && (
               <path d="m285 15 18 18m0-18-18 18" className="quiz-motif-line" />
             )}
           </>

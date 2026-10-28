@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { FabricFlowLab } from "@/components/simulations/FabricFlowLab";
 import { CreditsLab } from "@/components/simulations/CreditsLab";
+import { STUDENT_BUILD_SLIDE } from "@/content/beginner-workshop";
 export default function WalkthroughPage() {
   return (
     <main className="workshop-kit">
@@ -33,7 +34,7 @@ export default function WalkthroughPage() {
         <h2>2. Who may request the transfer?</h2>
         <CreditsLab />
       </section>
-      <Link href="/?slide=39" className="text-button">
+      <Link href={`/?slide=${STUDENT_BUILD_SLIDE}`} className="text-button">
         Return to your build hour →
       </Link>
     </main>

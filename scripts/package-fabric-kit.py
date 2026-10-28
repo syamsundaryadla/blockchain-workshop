@@ -24,4 +24,5 @@ with ZipFile(PUBLIC / "campus-credits-kit.zip", "w", ZIP_DEFLATED) as archive:
             continue
         archive.write(file, file.relative_to(KIT).as_posix())
     archive.write(PUBLIC / "student-handout.md", "STUDENT-HANDOUT.md")
+    archive.write(PUBLIC / "workshop-syllabus.md", "WORKSHOP-SYLLABUS.md")
 print("Packaged starter, solution, contract, application, tests and handout. No private credentials included.")

@@ -154,8 +154,8 @@ export function FabricWorkshopDiagram({ scene }: { scene: string }) {
           <path d="M100 180H855" className="fw-wire" />
           {(scene === "schedule"
             ? [
-                [130, "10:00", "Understand"],
-                [480, "13:15", "Connect"],
+                [130, "09:30", "Understand"],
+                [480, "13:30", "Connect"],
                 [830, "15:00", "Build"],
               ]
             : [
@@ -178,7 +178,7 @@ export function FabricWorkshopDiagram({ scene }: { scene: string }) {
           ))}
           <Label x={480} y={310} anchor="middle" small>
             {scene === "schedule"
-              ? "Lunch 12:35–13:15 · two short breaks"
+              ? "Lunch 12:30–13:30 · two short breaks"
               : "15:00–16:00 / your hands on the keyboard"}
           </Label>
         </>

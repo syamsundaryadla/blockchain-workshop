@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowUpRight, Download } from "lucide-react";
 import {
   WORKSHOP_SCHEDULE,
   WORKSHOP_SETTINGS,
+  STUDENT_BUILD_SLIDE,
 } from "@/content/beginner-workshop";
 import {
   PRACTICAL_STEPS,
@@ -25,15 +26,12 @@ export default function WorkshopKitPage() {
         <span className="eyebrow">
           Student kit / Hyperledger Fabric / your build at 3
         </span>
-        <h1>
-          Make a transfer.
-          <br />
-          Explain every rule.
-        </h1>
+        <h1>Campus Credits Transfer</h1>
         <p>
           Learn the concepts in the morning. Follow the real application after
           lunch. Complete three small JavaScript TODOs, then deploy and test
-          during the final hour.
+          during the student build hour, 15:00–16:00. Demonstrations and Q&A
+          continue until 16:30.
         </p>
         <div className="kit-actions">
           <a
@@ -55,6 +53,11 @@ export default function WorkshopKitPage() {
         </div>
       </section>
       <section className="kit-downloads" aria-label="Workshop resources">
+        <a href="/workshop/workshop-syllabus.md" download>
+          <span className="eyebrow">The whole day</span>
+          <strong>Workshop syllabus</strong>
+          <span>Eight modules, timing and the real Fabric project.</span>
+        </a>
         <a href="/workshop/student-handout.md" download>
           <span className="eyebrow">Follow the steps</span>
           <strong>Student handout</strong>
@@ -101,7 +104,7 @@ export default function WorkshopKitPage() {
         </p>
       </section>
       <details className="kit-schedule">
-        <summary>Day schedule · 10:00–16:00</summary>
+        <summary>Day schedule · 09:30–16:30</summary>
         <div className="kit-table-scroll">
           <table>
             <thead>
@@ -219,7 +222,7 @@ export default function WorkshopKitPage() {
         </p>
       </section>
       <footer className="kit-navigation">
-        <Link href="/?slide=39" className="text-button">
+        <Link href={`/?slide=${STUDENT_BUILD_SLIDE}`} className="text-button">
           Return to your build hour →
         </Link>
         <a

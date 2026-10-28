@@ -14,29 +14,35 @@ import {
 import { PRACTICAL_STEPS, PROJECT_EXCERPTS } from "../src/content/practical";
 import { WorkshopSlide } from "../src/components/presentation/WorkshopSlide";
 import { rehearseTransfer } from "../src/lib/credits-rehearsal";
+import { WORKSHOP_SYLLABUS } from "../src/content/syllabus";
 const require = createRequire(import.meta.url);
 const {
   prepareTransfer,
 } = require("../workshop/fabric-credits/chaincode/lib/transfer-rules.js");
-test("the complete visual Fabric path has six chapters and an uninterrupted final practical hour", () => {
-  assert.equal(PRESENTATION_SLIDES.length, 44);
+test("the complete visual workshop has eight modules and a protected real-Fabric build hour", () => {
+  assert.equal(PRESENTATION_SLIDES.length, BEGINNER_LESSONS.length);
+  assert.ok(
+    PRESENTATION_SLIDES.length >=
+      WORKSHOP_SYLLABUS.reduce((sum, m) => sum + m.topics.length, 2),
+  );
+  assert.equal(WORKSHOP_MODULES.length, 8);
   assert.equal(PRESENTATION_SLIDES[0].title, "Block chain fundamentals");
   assert.equal(PRESENTATION_SLIDES[1].title, "About me");
-  assert.equal(BEGINNER_LESSONS[2].scene, "conflict");
+  assert.equal(BEGINNER_LESSONS[2].title, "What is Blockchain Technology?");
   assert.equal(PRESENTATION_SLIDES.filter((s) => s.quiz).length, 6);
   assert.equal(
     WORKSHOP_MODULES.reduce((sum, m) => sum + m.durationMinutes, 0),
-    300,
+    340,
   );
   let next = 1;
   for (const m of WORKSHOP_MODULES) {
     assert.equal(m.slideRange[0], next);
     next = m.slideRange[1] + 1;
   }
-  assert.equal(next, 45);
+  assert.equal(next, PRESENTATION_SLIDES.length + 1);
   const minutes = (t: string) =>
     Number(t.slice(0, 2)) * 60 + Number(t.slice(3));
-  let end = 600,
+  let end = 570,
     teaching = 0;
   for (const [time, title] of WORKSHOP_SCHEDULE) {
     const [a, b] = time.split("–").map(minutes);
@@ -44,9 +50,15 @@ test("the complete visual Fabric path has six chapters and an uninterrupted fina
     end = b;
     if (!["Break", "Lunch"].includes(title)) teaching += b - a;
   }
-  assert.equal(end, 960);
-  assert.equal(teaching, 300);
-  assert.equal(WORKSHOP_SCHEDULE.at(-1)![0], "15:00–16:00");
+  assert.equal(end, 990);
+  assert.equal(teaching, 340);
+  assert.equal(WORKSHOP_SCHEDULE.at(-1)![0], "16:00–16:30");
+  assert.ok(
+    WORKSHOP_SCHEDULE.some(
+      ([time, title]) =>
+        time === "15:00–16:00" && title.includes("Student build"),
+    ),
+  );
   assert.ok(BEGINNER_LESSONS.filter((l) => l.activity).length >= 25);
   for (const slide of PRESENTATION_SLIDES) {
     assert.ok(slide.speakerNotes.length > 40);
@@ -61,8 +73,52 @@ test("the complete visual Fabric path has six chapters and an uninterrupted fina
     PRESENTATION_SLIDES.filter((s) => s.simulationType).map(
       (s) => s.simulationType,
     ),
-    ["hasher", "blockchain", "signatures", "fabric-flow", "credits"],
+    [
+      "hasher",
+      "blockchain",
+      "broadcast",
+      "mining",
+      "signatures",
+      "fabric-flow",
+      "credits",
+    ],
   );
+});
+test("organizer headings and topic order are preserved, with short definitions", () => {
+  assert.deepEqual(
+    WORKSHOP_MODULES.map((m) => m.title),
+    WORKSHOP_SYLLABUS.map((m) => m.title),
+  );
+  for (const module of WORKSHOP_MODULES) {
+    const syllabus = WORKSHOP_SYLLABUS[module.id - 1];
+    const seen = new Set<number>();
+    let previous = 0;
+    for (const lesson of BEGINNER_LESSONS.slice(
+      module.slideRange[0] - 1,
+      module.slideRange[1],
+    )) {
+      if (lesson.syllabusTopic) {
+        assert.ok(lesson.syllabusTopic >= previous, module.title);
+        assert.equal(
+          lesson.title,
+          lesson.scene === "mango-trace"
+            ? "Walmart Mango Traceability Example"
+            : syllabus.topics[lesson.syllabusTopic - 1],
+        );
+        previous = lesson.syllabusTopic;
+        seen.add(previous);
+      } else if (!["cover", "about-me"].includes(lesson.scene)) {
+        assert.equal(lesson.title, module.title);
+      }
+      if (lesson.explanation)
+        assert.ok(lesson.explanation.length <= 240, lesson.title);
+    }
+    assert.deepEqual(
+      [...seen],
+      syllabus.topics.map((_, i) => i + 1),
+    );
+  }
+  assert.match(BEGINNER_LESSONS[2].explanation!, /shared digital record book/);
 });
 test("handout, solution excerpts, downloads and platform versions stay aligned", () => {
   const source = readFileSync(

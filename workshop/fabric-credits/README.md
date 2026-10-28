@@ -30,7 +30,7 @@ npm start
 
 Open **http://127.0.0.1:3200** in your Windows browser. Click **Initialize demo once**. Read Alice 100 / Bob 50. As Alice, send Bob 20: 80 / 70. As Bob, send Alice 10: 90 / 60. The UI confirms success only after a valid Fabric commit and displays its transaction ID.
 
-## Student exercise: final hour
+## Student exercise: 15:00–16:00 build hour
 
 The environment and network are prepared before 15:00. `npm run use:starter` replaces the active transfer-rules file, so save any work before using it.
 

@@ -6,8 +6,8 @@ export default function DockerSimulationPage() {
     <SimulationPageLayout
       title="Docker Architecture & Container Isolation"
       subtitle="Interactive host virtualization, bridge network, isolated peer/orderer containers, and live terminal"
-      slideNumber={35}
-      moduleName="Module 4 • Docker"
+      slideNumber={0}
+      moduleName="Supplementary model"
     >
       <DockerArchitectureSim />
     </SimulationPageLayout>

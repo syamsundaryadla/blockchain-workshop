@@ -1,12 +1,12 @@
 # Blockchain Lab — Hyperledger Fabric Workshop
 
-A visual, interactive 10 a.m.–4 p.m. workshop for first- and second-year students. Learn concepts first, follow a real Fabric application after lunch, and reserve 3–4 p.m. for the student practical.
+A visual, interactive 9:30 a.m.–4:30 p.m. workshop for first- and second-year students. Learn concepts first, follow a real Fabric application after lunch, reserve 3–4 p.m. for the student practical, and close with demonstrations and Q&A by 4:30.
 
 ## Presentation and student resources
 
-- 44 slides across six chapters with presenter notes, audience predictions, reasoning reveals and a four-volunteer network role-play.
+- 91 slides across eight modules with presenter notes, audience predictions, reasoning reveals and a four-volunteer network role-play.
 - Opening order: title only; a short presenter introduction; then the first concept on slide 3. Public presenter details and links live in `src/content/presenter.ts`.
-- Five experiments: real SHA-256, linked-block tampering, real browser ECDSA signatures, a Fabric transaction model, and a clearly labeled credits rehearsal.
+- Seven experiments: real SHA-256, linked-block tampering, manual P2P propagation, a real-hashing toy proof-of-work puzzle, real browser ECDSA signatures, a Fabric transaction model, and a clearly labeled credits rehearsal.
 - A complete downloadable Campus Credits project: JavaScript chaincode, starter/solution rule, Node.js/Fabric Gateway backend, HTML/CSS/JavaScript UI, scripts and tests.
 - A numbered student handout, instructor notes, and the compiled Windows/WSL installation PDF.
 
@@ -37,7 +37,7 @@ Use the same build-directory variable for build and start.
 - `/workshop`: schedule, 14-step practical, project ZIP, rule files and installation PDF.
 - `/workshop/instructor`: timing, teaching cues and recovery instructions.
 - `/workshop/replay`: labeled interactive fallback models, not saved Fabric execution evidence.
-- `/simulations`: the five core experiments.
+- `/simulations`: the seven core experiments.
 - `/mini-project`: the in-memory credits rehearsal, with a link to the separately started real application.
 
 Keyboard: arrows to navigate, M/G for outline, N for notes, F for presentation mode, Escape to close a dialog or exit presentation mode.
@@ -84,11 +84,13 @@ Packaging requires Python 3 and only its standard library. The packager copies s
 
 ## Content structure
 
+The exact organizer-supplied headings and topic order are stored in `src/content/syllabus.ts` and checked by the content tests. Concept definitions stay short; the presenter notes carry detail. Node failure controls, transaction/block/chain animations and the Walmart mango example support the live explanations.
+
 - `src/content/beginner-workshop.ts`: lesson ideas, activities, presenter cues, schedule and platform versions.
-- `src/content/modules.ts` and `quizzes.ts`: six chapters and prediction checks.
-- `src/components/presentation/FabricWorkshopDiagrams.tsx`: topic-specific SVG infographics.
+- `src/content/modules.ts` and `quizzes.ts`: eight modules and prediction checks.
+- `src/components/presentation/FoundationDiagrams.tsx and FabricWorkshopDiagrams.tsx`: topic-specific SVG infographics.
 - `src/components/presentation/LessonPrompt.tsx`: audience prompt and reasoning reveal.
-- `src/components/simulations`: the five core experiments plus retained supplementary demos.
+- `src/components/simulations`: the seven core experiments plus retained supplementary demos.
 - `src/content/practical.ts`: student steps, solution excerpts and instructor notes; keep the downloadable Markdown synchronized.
 - `workshop/fabric-credits`: the real Fabric project and its tests.
 - `scripts/package-fabric-kit.py`: reproducible student download packaging.

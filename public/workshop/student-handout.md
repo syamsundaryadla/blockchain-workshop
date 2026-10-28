@@ -1,12 +1,12 @@
 # Campus Credits Transfer — student practical
 
-10:00–16:00 workshop. Student build: 15:00–16:00.
+09:30–16:30 workshop. Student build: 15:00–16:00. Group demonstrations and Q&A: 16:00–16:30.
 
 Demo credits are application-defined records on Hyperledger Fabric, not real money. Work in pairs and swap the keyboard after the first successful transfer.
 
 ## Setup
 
-Use the installation PDF before workshop day: Ubuntu 24.04 on WSL 2, Node.js 22.23.3, Fabric 2.5.16, CA 1.5.17. Each laptop/pair has its own network. Keep private keys in the backend. The Alice/Bob selector uses prepared test credentials, not production login.
+Use the installation PDF before workshop day: Ubuntu 24.04 on WSL 2, Node.js 22.23.3, Fabric 2.5.16, CA 1.5.17. Each laptop/pair has its own network. Keep private keys in the backend. The Alice/Bob selector uses prepared test credentials, not production login. The student project uses JavaScript and real Fabric, not Python or a homemade blockchain.
 
 ## 1. Before the day: finish the installation check
 

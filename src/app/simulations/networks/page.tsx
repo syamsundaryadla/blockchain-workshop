@@ -6,8 +6,8 @@ export default function NetworksSimulationPage() {
     <SimulationPageLayout
       title="Network Topology & Resilience Simulator"
       subtitle="Single point of failure vs. decentralized mesh packet propagation and fault tolerance"
-      slideNumber={8}
-      moduleName="Module 1 • Fundamentals"
+      slideNumber={0}
+      moduleName="Supplementary model"
     >
       <NetworkTopologySim />
     </SimulationPageLayout>

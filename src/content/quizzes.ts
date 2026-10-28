@@ -54,7 +54,7 @@ export const WORKSHOP_QUIZZES: QuizQuestion[] = [
   },
   {
     id: "prediction-5",
-    question: "What are students expected to complete during the final hour?",
+    question: "What will you complete during the student build hour?",
     options: [
       "Docker, certificates, a network, backend, UI and contract from scratch",
       "Three small transfer-rule TODOs, then deploy and test with prepared tools",

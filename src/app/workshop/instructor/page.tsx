@@ -18,12 +18,11 @@ export default function InstructorPage() {
       </header>
       <section className="kit-intro">
         <span className="eyebrow">Presenter companion</span>
-        <h1>
-          Teach the idea.
-          <br />
-          Then let them try.
-        </h1>
-        <p>Timing, audience activities, and recovery steps for a live beginner workshop.</p>
+        <h1>Workshop Instructor Guide</h1>
+        <p>
+          Timing, audience activities, and recovery steps for a live beginner
+          workshop.
+        </p>
       </section>
       <div className="instructor-sections">
         {sections.map((section) => {

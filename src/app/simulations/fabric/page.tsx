@@ -1,3 +1,4 @@
+import { getLabSlide } from "@/content/studio";
 import { FabricFlowLab } from "@/components/simulations/FabricFlowLab";
 import { SimulationPageLayout } from "@/components/layout/SimulationPageLayout";
 export default function FabricPage() {
@@ -5,8 +6,8 @@ export default function FabricPage() {
     <SimulationPageLayout
       title="Follow a Fabric transaction"
       subtitle="Reveal each stage. Predict when the confirmed balances change. This is an interactive model, not a live network."
-      slideNumber={27}
-      moduleName="Chapter 4 · Inside Hyperledger Fabric"
+      slideNumber={getLabSlide("fabric-flow")}
+      moduleName="Chapter 6 · Hyperledger Fabric"
     >
       <FabricFlowLab />
     </SimulationPageLayout>

@@ -34,6 +34,8 @@ import { LinkedBlocksLab } from "@/components/simulations/LinkedBlocksLab";
 import { CreditsLab } from "@/components/simulations/CreditsLab";
 import { SignatureLab } from "@/components/simulations/SignatureLab";
 import { FabricFlowLab } from "@/components/simulations/FabricFlowLab";
+import { BroadcastLab } from "@/components/simulations/BroadcastLab";
+import { ProofOfWorkLab } from "@/components/simulations/ProofOfWorkLab";
 import { WorkshopSlide, WorkshopQuizMotif } from "./WorkshopSlide";
 import { WORKSHOP_FRAMES } from "@/content/workshop-deck";
 import { TitleSlide } from "./TitleSlide";
@@ -124,6 +126,10 @@ function Simulation({ type }: { type: string }) {
       return <SignatureLab />;
     case "fabric-flow":
       return <FabricFlowLab />;
+    case "broadcast":
+      return <BroadcastLab />;
+    case "mining":
+      return <ProofOfWorkLab />;
     default:
       return null;
   }
@@ -332,12 +338,14 @@ export function SlideViewer() {
               <span className="context-index">
                 {String(moduleInfo.id).padStart(2, "0")}
               </span>
-              {moduleInfo.shortTitle}
+              <span className="context-module-name" title={moduleInfo.title}>
+                {moduleInfo.title}
+              </span>
               <ChevronRight size={13} />
             </button>
             <span className="lesson-position">
               {cover
-                ? "Presenter-led · 6 chapters"
+                ? `Presenter-led · ${WORKSHOP_MODULES.length} chapters`
                 : `${slide.quiz ? "Knowledge check" : slide.simulationType ? "Hands-on lab" : "The lesson"} / ${String(slide.slideNumber).padStart(2, "0")}`}
             </span>
           </div>
@@ -368,7 +376,10 @@ export function SlideViewer() {
                 </div>
               </>
             ) : slide.quiz ? (
-              <div className="quiz-layout" key={slide.id}>
+              <div
+                className={`quiz-layout ${editorial.title.length > 45 ? "long-heading" : ""}`}
+                key={slide.id}
+              >
                 <div className="quiz-intro">
                   <span className="eyebrow">
                     Vote first · explain your reasoning
@@ -535,6 +546,15 @@ export function SlideViewer() {
                           <span>{String(s.slideNumber).padStart(2, "0")}</span>
                           <span>
                             {LESSON_EDITORIAL[s.slideNumber - 1].title}
+                            {BEGINNER_LESSONS[s.slideNumber - 1]
+                              .sectionLabel && (
+                              <small className="outline-lesson-label">
+                                {
+                                  BEGINNER_LESSONS[s.slideNumber - 1]
+                                    .sectionLabel
+                                }
+                              </small>
+                            )}
                           </span>
                           {s.simulationType ? (
                             <FlaskConical size={14} />

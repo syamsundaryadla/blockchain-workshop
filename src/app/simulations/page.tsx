@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowUpRight, Blocks } from "lucide-react";
 import { STUDIO_LABS } from "@/content/studio";
 import { SubjectVisual } from "@/components/presentation/StudioVisuals";
 import { FabricWorkshopDiagram } from "@/components/presentation/FabricWorkshopDiagrams";
+import { FoundationDiagram } from "@/components/presentation/FoundationDiagrams";
 
 export default function SimulationsHubPage() {
   return (
@@ -21,27 +22,27 @@ export default function SimulationsHubPage() {
         <div className="directory-intro">
           <div>
             <span className="eyebrow">The experiment collection</span>
-            <h1>
-              Ideas become clearer
-              <br />
-              when you try them<span>.</span>
-            </h1>
+            <h1>Blockchain Interactive Simulations</h1>
           </div>
           <p>
-            Five focused experiments.
+            Seven focused experiments.
             <br />
             Change something. See what follows.
           </p>
         </div>
         <div className="directory-section-label">
           <span>Choose an experiment</span>
-          <span>01 — 05</span>
+          <span>01 — {String(STUDIO_LABS.length).padStart(2, "0")}</span>
         </div>
         <div className="lab-collection">
           {STUDIO_LABS.map((lab, i) => (
             <Link href={lab.route} key={lab.type} className="lab-card">
               <div className="lab-card-art">
-                {lab.type === "hasher" || lab.type === "blockchain" ? (
+                {lab.type === "broadcast" || lab.type === "mining" ? (
+                  <FoundationDiagram
+                    scene={lab.type === "broadcast" ? "p2p" : "pow"}
+                  />
+                ) : lab.type === "hasher" || lab.type === "blockchain" ? (
                   <SubjectVisual kind={lab.visual} />
                 ) : (
                   <FabricWorkshopDiagram

@@ -1,22 +1,55 @@
-# Instructor guide: Campus Credits Transfer
+# Instructor guide: Blockchain Technology Workshop
 
-## Protect the teaching rhythm
-Use explain → predict → demonstrate → students try → discuss. Pause every 10–15 minutes. Ask for a show of hands before revealing a quiz answer. Keep slides light; the notes carry the explanation.
+## Teaching method
+Use the supplied headings in the supplied order. Define unfamiliar terms in one or two sentences, then use the diagram and a short prediction. Animations start paused and support manual steps. Keep a checkpoint every 10–15 minutes.
 
-## Morning: build the foundation
-10:00–10:35: trust, conflicting records and the database tradeoff. 10:35–11:10: real hashes and a toy chain. Break until 11:20. 11:20–12:10: identities, real browser signatures, queries, transactions and contract rules. 12:10–12:35: Fabric roles and a four-volunteer network role-play. Lunch until 13:15.
+## Module 1: Introduction to Blockchain
 
-## Afternoon: follow a transaction
-13:15–13:40: current state versus block history and the manual Fabric flow explorer. Ask whether the balance changed at endorsement. Only valid commit applies the writes. A rejected proposal need not appear in the ledger.
+09:30–10:00
 
-## Explain and demonstrate the project
-13:40–14:05: demo credits, two wallets, the browser/backend/contract boundary and a tiny JavaScript primer. 14:05–14:25: use the real downloaded kit to show 100/50 → 80/70 → 90/60, then insufficient funds. Break until 14:35.
+Follow the exact six topic headings in order. Define blockchain before introducing Bitcoin and the trust problem. In Topic 4, use Play or Next step to show failures, then click any node or select it and use Turn off selected node. Restore nodes and compare the affected paths. Distributed placement alone does not guarantee fault tolerance. After Topic 6, use the Walmart mango example: the 2017 exercise was reported as six days, 18 hours and 26 minutes using existing methods, compared with a 2.2-second pilot lookup. Labels in the diagram are illustrative. Use the cited Walmart report rather than presenting the result as a universal benchmark.
 
-## Readiness before 3
-14:35–15:00: locate the three TODOs and explain the supplied identity check. Each prepared laptop/pair needs cached dependencies and the runtime image. Installation belongs before the workshop. Start the network; students deploy their completed rule during the final hour.
+## Module 2: Blockchain Architecture & Working
 
-## The final hour
-15:00–15:10 predict. 15:10–15:25 complete the three TODOs. 15:25–15:35 deploy and launch. 15:35–15:50 test success, invalid input and the wrong signer. 15:50–16:00 pairs demonstrate and answer the exit questions. Swap the keyboard after the first valid transfer.
+10:00–10:40
+
+Define transaction, then play its animation: balances stay unchanged until acceptance. Define a block and animate records grouping into a candidate block. Explain the structure before SHA-256. Keep the difference between a PoW teaching nonce and Fabric block fields explicit. After hash linking and the tampering exercise, play the blockchain animation and edit the first block. Introduce DLT and qualify transparency, immutability, security and decentralization.
+
+## Module 3: Blockchain Networking & Consensus
+
+10:40–11:15
+
+Follow P2P → node roles → propagation → validation → consensus → PoW → PoS → network types. Use the propagation model to turn off node B and send the request through another reachable path. Turn off the origin to stop broadcasting; restore all nodes to reset the network. The model is not live networking or a consensus protocol. In the unaffordable-request case, receiving peers reject the request instead of forwarding it. Spend only a few minutes on the easy real-hashing nonce puzzle.
+
+## Module 4: Cryptography, Wallets & Smart Contracts
+
+11:15–11:45
+
+Introduce cryptographic tools before keys, signatures, wallets and addresses. Demonstrate signing a real message and rejecting edited content. A public address is not spending authority; a wallet manages keys rather than holding coins inside a file. Introduce Ethereum, contracts, DApps and Fabric at beginner level. Do not start a separate Ethereum project or ask students for real funds.
+
+## Module 5: Blockchain Applications & Use Cases
+
+11:45–12:30
+
+Follow banking → supply chain → identity → voting → healthcare/insurance → opportunities and limitations. Use Walmart as a dated traceability case and TradeLens as a discontinued governance/commercial-viability case. Blockchain does not guarantee truthful input, privacy or secure voting. Break 12:05–12:15. Use the database comparison to close the morning. Lunch 12:30–13:30.
+
+## Module 6: Introduction to Hyperledger Fabric
+
+13:30–14:10
+
+Explain Fabric in the exact supplied order. Separate logical organizations from the single laptop hosting the test network. Ubuntu/WSL runs the tools; Docker runs services; Node.js connects the browser application through Fabric Gateway. Use the role-play and labeled transaction-flow model before the real application. In the prepared Fabric app initialize 100/50, transfer 20, wait for valid commit and a real transaction ID, read 80/70, then demonstrate insufficient funds and a wrong signer. Models are not live Fabric evidence.
+
+## Module 7: Mini Project – Blockchain-Based Digital Wallet & Transaction System
+
+14:10–16:00
+
+Follow the supplied project headings. The practical is real Fabric with application-defined demo credits. Its wallet IDs are labels bound to actual certificates and MSPs, not public-chain cryptocurrency addresses. Fabric forms blocks, calculates hashes and verifies its ledger; students do not implement another blockchain in chaincode. Installation belongs before the event. Break 14:35–14:45; use 14:45–15:00 for starter/readiness. Protect 15:00–16:00 for students: predict 10 minutes, complete TODOs 15, deploy/launch 10, test 15, explain 10. Swap the driver after the first valid transfer.
+
+## Module 8: Project Demonstration & Conclusion
+
+16:00–16:30
+
+Follow demonstration → verification → real-world implementation → security → learning pathways → Q&A. Ask the quieter partner to explain who signed, what changed and why a request failed. A real commit result and a fresh balance query are the evidence; a browser animation is not. Discuss authentication, key management, privacy, governance and operational resilience as future work. Finish by 16:30.
 
 ## Credentials and permissions
 The downloaded kit binds Alice to a prepared Org1 client certificate and Bob to an Org2 client certificate. The contract checks certificate fingerprint and MSP against the sender record. The exact Org1 test administrator may initialize once. The demo selector is not production authentication; private keys stay in the local backend.

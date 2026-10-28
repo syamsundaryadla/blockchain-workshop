@@ -1,3 +1,4 @@
+import { getLabSlide } from "@/content/studio";
 import Link from "next/link";
 import { CreditsLab } from "@/components/simulations/CreditsLab";
 import { SimulationPageLayout } from "@/components/layout/SimulationPageLayout";
@@ -6,8 +7,8 @@ export default function MiniProjectPage() {
     <SimulationPageLayout
       title="Campus Credits rehearsal"
       subtitle="Predict balances and test permissions in a browser simulation. Run the downloaded kit for real Fabric transactions."
-      slideNumber={41}
-      moduleName="Chapter 6 · Your build hour"
+      slideNumber={getLabSlide("credits")}
+      moduleName="Chapter 7 · Campus Credits practical"
     >
       <div className="project-resource-strip">
         <Link href="/workshop">Open the practical handout →</Link>

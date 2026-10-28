@@ -24,12 +24,12 @@ export const WORKSHOP_FRAMES: Record<number, WorkshopFrame> =
       i + 1,
       {
         layout: l.layout ?? "diagram",
-        eyebrow:
-          l.scene === "code"
-            ? "Follow the transfer rule"
-            : ["schedule", "practical"].includes(l.scene)
-              ? "Your workshop"
-              : "Understand · try · build",
+        eyebrow: [
+          l.syllabusTopic ? `Topic ${l.syllabusTopic}` : "",
+          l.sectionLabel,
+        ]
+          .filter(Boolean)
+          .join(" · "),
         cue: l.notes,
         caption: l.caption,
         code: l.code,
