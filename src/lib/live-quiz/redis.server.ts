@@ -4,7 +4,7 @@ export function quizConfigured() {
   return Boolean(
     (process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL) &&
       (process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN) &&
-      (process.env.QUIZ_ADMIN_PASSWORD?.length ?? 0) >= 16,
+      (process.env.QUIZ_ADMIN_PASSWORD?.length ?? 0) >= 8,
   );
 }
 export const hashSecret = (value: string) =>

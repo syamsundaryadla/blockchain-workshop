@@ -10,7 +10,7 @@ The workshop and quiz use the same website. Participants join at `/quiz`; the pr
    - `UPSTASH_REDIS_REST_URL`
    - `UPSTASH_REDIS_REST_TOKEN`
    The Vercel integration's `KV_REST_API_URL` and `KV_REST_API_TOKEN` aliases are also supported.
-4. Add `QUIZ_ADMIN_PASSWORD`: a unique private password of at least 16 characters. Keep it to yourself. Do not prefix any of these variables with `NEXT_PUBLIC_`.
+4. Add `QUIZ_ADMIN_PASSWORD`: a unique private password of at least 8 characters. Keep it to yourself. Do not prefix any of these variables with `NEXT_PUBLIC_`.
 5. Redeploy the project so the new environment variables take effect.
 6. Visit `https://blockchain.risenine.in/quiz/host`. Enter your host password, select a question set and create a room.
 7. Open the join link on a second phone, join, and complete a rehearsal before workshop day. Check Vercel function usage and Redis quota after the rehearsal.

@@ -490,7 +490,7 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
                       type="password"
                       autoComplete="current-password"
                       required
-                      minLength={16}
+                    minLength={8}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Your private host password"
