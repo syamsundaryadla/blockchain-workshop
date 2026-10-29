@@ -11,6 +11,12 @@ import Link from "next/link";
 import Image from "next/image";
 import QRCode from "qrcode";
 import { QuizAvatar } from "./QuizAvatar";
+import { QuizBrowserHelp } from "./QuizBrowserHelp";
+import {
+  quizRequest as api,
+  QuizRequestError,
+  isScannerBrowser,
+} from "@/lib/live-quiz/client";
 import { QuizLeaveDialog, useQuizLeaveGuard } from "./useQuizLeaveGuard";
 import {
   ArrowLeft,
@@ -41,33 +47,6 @@ const newToken = () =>
     n.toString(16).padStart(2, "0"),
   ).join("");
 type ApiError = Error & { status?: number };
-async function api(
-  token: string,
-  body: Record<string, unknown>,
-  signal?: AbortSignal,
-): Promise<QuizState> {
-  const response = await fetch("/api/quiz", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(body),
-    cache: "no-store",
-    signal: signal || AbortSignal.timeout(10000),
-  });
-  const result = await response.json();
-  if (!response.ok)
-    throw Object.assign(
-      new Error(result.error || "The quiz could not be reached. Try again."),
-      { status: response.status },
-    );
-  return {
-    ...result,
-    standings: Array.isArray(result.standings) ? result.standings : [],
-    players: Array.isArray(result.players) ? result.players : [],
-  };
-}
 
 export function LiveQuiz({ host = false }: { host?: boolean }) {
   const [ready, setReady] = useState(false),
@@ -88,6 +67,8 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
     [joinUrl, setJoinUrl] = useState("");
   const [qrImage, setQrImage] = useState("");
   const [presenting, setPresenting] = useState(false);
+  const [scannerBrowser, setScannerBrowser] = useState(false),
+    [networkHelp, setNetworkHelp] = useState(false);
   const clock = useRef({ time: 0, at: 0 }),
     latest = useRef<QuizState | null>(null);
   const resultsRef = useRef<HTMLElement>(null);
@@ -106,6 +87,7 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
     }
   }
   useEffect(() => {
+    setScannerBrowser(isScannerBrowser(navigator.userAgent));
     const onFullscreen = () =>
       setPresenting(Boolean(document.fullscreenElement));
     const onKey = (event: KeyboardEvent) => {
@@ -173,9 +155,12 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
     fetch("/api/quiz", { cache: "no-store" })
       .then((r) => r.json())
       .then((r) => setConfigured(Boolean(r.configured)))
-      .catch(() =>
-        setError("Could not connect. Check your connection and reload."),
-      );
+      .catch(() => {
+        setNetworkHelp(true);
+        setError(
+          "Could not connect. Open this page in Chrome or Safari if you are using a QR scanner.",
+        );
+      });
   }, [host]);
   useEffect(() => {
     if (!host || !joinUrl) return;
@@ -220,7 +205,7 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
         const value = await api(
           session.token,
           { action: "state", code: session.code },
-          AbortSignal.any([controller.signal, AbortSignal.timeout(10000)]),
+          controller.signal,
         );
         if (stopped) return;
         accept(value, start);
@@ -318,6 +303,7 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
     if (busy) return;
     setBusy(true);
     setError("");
+    setNetworkHelp(false);
     try {
       const token = host ? newToken() : joinToken.current || newToken();
       const start = performance.now();
@@ -332,6 +318,7 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
       setPassword("");
       saveSession({ code: result.code, token, role: host ? "host" : "player" });
     } catch (e) {
+      setNetworkHelp(e instanceof QuizRequestError && e.code === "network");
       setError((e as Error).message);
     } finally {
       setBusy(false);
@@ -504,6 +491,7 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
               </div>
             </div>
             <form className="quiz-entry-card" onSubmit={enter}>
+              {!host && (scannerBrowser || networkHelp) && <QuizBrowserHelp />}
               <span className="quiz-kicker">
                 {host ? "Presenter desk" : "You’re in the right place"}
               </span>

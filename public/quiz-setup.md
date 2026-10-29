@@ -57,6 +57,7 @@ Vercel Hobby and Redis limits are separate. Check remaining function invocations
 - **Host tab closed:** reopen `/quiz/host` in the same browser. It resumes your room.
 - **Wrong room on a shared device:** choose Leave room before joining another session. The host should finish a room before creating a replacement.
 - **Many phones fail on college Wi-Fi:** try a smaller rehearsal on mobile data. Venue Wi-Fi, captive portals and device power saving can affect synchronization even with adequate server capacity.
+- **Failed to fetch after scanning a QR:** open the link in full Chrome or Safari instead of the scanner's built-in browser. Detected embedded browsers show an Open in Chrome / Copy quiz link helper. Joining retries one dropped request using the same participant credential, so it cannot add the same person twice.
 
 ## Local development
 
