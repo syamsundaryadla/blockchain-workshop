@@ -1,4 +1,5 @@
 import { BEGINNER_LESSONS } from "./beginner-workshop";
+import { teachingNotes } from "./teaching-cues";
 export type WorkshopLayout =
   | "diagram"
   | "process"
@@ -30,7 +31,7 @@ export const WORKSHOP_FRAMES: Record<number, WorkshopFrame> =
         ]
           .filter(Boolean)
           .join(" · "),
-        cue: l.notes,
+        cue: teachingNotes(l.scene, l.notes),
         caption: l.caption,
         code: l.code,
         secondCode: l.secondCode,

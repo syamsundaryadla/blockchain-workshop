@@ -66,7 +66,11 @@ test("the complete visual workshop has eight modules and a protected real-Fabric
       const html = renderToStaticMarkup(
         React.createElement(WorkshopSlide, { slide, onDetails: () => {} }),
       );
-      assert.ok(html.includes("<svg") || html.includes("<code"));
+      assert.ok(
+        html.includes("<svg") ||
+          html.includes("<code") ||
+          html.includes("<table"),
+      );
     }
   }
   assert.deepEqual(

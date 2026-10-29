@@ -959,7 +959,7 @@ export const BEGINNER_LESSONS: BeginnerLesson[] = [
         "False. Membership identifies a participant; business permissions still restrict spending.",
     },
     syllabusTopic: 3,
-    sectionLabel: "Organizational identities: CA and MSP",
+    sectionLabel: "Components, identities and examples",
   },
   {
     title: "Introduction to Docker and Ubuntu/WSL",

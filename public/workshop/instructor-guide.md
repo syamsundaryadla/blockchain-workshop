@@ -3,6 +3,19 @@
 ## Teaching method
 Use the supplied headings in the supplied order. Define unfamiliar terms in one or two sentences, then use the diagram and a short prediction. Animations start paused and support manual steps. Keep a checkpoint every 10–15 minutes.
 
+## Pacing the one-day workshop
+
+The 91 slides are visual steps, not 91 separate lectures. Use the subtopic labels as speaking cues and each on-screen example within the existing explanation time (usually 20–45 seconds). Reuse the same example in the next animation or experiment. Explain each concept once, then ask one short prediction.
+
+- Morning modules retain their existing time slots. Cap each hashing, propagation, mining and signature experiment at three minutes. Applications use one short example each; avoid extended case-study discussion.
+- 12:15–12:20: limitations, truthful input and database comparison. 12:20–12:30: the 12-question morning quiz, including joining and leaderboard transitions. Create the room before the slot.
+- 13:30–14:10: place the three-minute component comparison after the organization diagram and role-play, alongside the identity explanation. Reuse those examples in the real demo. Within the 40 minutes, allow about 12 minutes for terms and identities, eight for role-play and flow, five for the prepared environment and ten for the real demo, leaving five for questions.
+- 14:10–14:35: project story, architecture and transfer rules. 14:45–15:00: starter walkthrough and readiness. Treat Fabric-managed block/hash/link slides as a short recap; students only implement the three supplied TODO groups.
+- Protect 15:00–16:00 for the student build. Resolve installation issues before the event or pair with a prepared laptop.
+- 16:00–16:10: two short pair demonstrations, transaction evidence and security recap. 16:10–16:20: the 15-question afternoon quiz. 16:20–16:30: learning pathways and Q&A.
+
+Both live quizzes use 15-second answer windows. The ten-minute slots include preparation countdowns, room joining and short leaderboard pauses. If running late, shorten repeated demonstrations and optional discussion; keep the student build hour and finish time.
+
 ## Module 1: Introduction to Blockchain
 
 09:30–10:00

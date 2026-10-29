@@ -13,6 +13,7 @@ import { AboutMeSlide } from "./AboutMeSlide";
 import { FoundationDiagram, isFoundationScene } from "./FoundationDiagrams";
 import { SyllabusDiagram, isSyllabusScene } from "./SyllabusDiagrams";
 import { ConceptAnimation, isConceptAnimationScene } from "./ConceptAnimation";
+import { FABRIC_COMPONENTS, TEACHING_CUES } from "@/content/teaching-cues";
 function CodePanel({
   code,
   title,
@@ -84,6 +85,7 @@ export function WorkshopSlide({
   const [revealed, setRevealed] = useState<number | null>(null);
   const steps = frame.steps ?? 0,
     isCode = ["code", "code-pair", "terminal"].includes(frame.layout);
+  const teaching = TEACHING_CUES[lesson.scene];
   if (frame.scene === "about-me") return <AboutMeSlide />;
   return (
     <div
@@ -97,8 +99,39 @@ export function WorkshopSlide({
         {lesson.explanation && (
           <p className="workshop-explanation">{lesson.explanation}</p>
         )}
+        {teaching && (
+          <ul className="lesson-subtopics" aria-label="Key subtopics">
+            {teaching.subtopics.map((topic) => (
+              <li key={topic}>{topic}</li>
+            ))}
+          </ul>
+        )}
       </header>
-      {isCode ? (
+      {frame.scene === "certificate" ? (
+        <div className="fabric-component-reference">
+          <table>
+            <caption>Fabric components · the Campus Credits example</caption>
+            <thead>
+              <tr>
+                <th scope="col">Component</th>
+                <th scope="col">What it does</th>
+                <th scope="col">Simple analogy</th>
+                <th scope="col">In our project</th>
+              </tr>
+            </thead>
+            <tbody>
+              {FABRIC_COMPONENTS.map((component) => (
+                <tr key={component.name}>
+                  <th scope="row">{component.name}</th>
+                  <td>{component.job}</td>
+                  <td>{component.analogy}</td>
+                  <td>{component.example}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : isCode ? (
         <div
           className={`lecture-code-composition ${frame.secondCode ? "paired-code" : "single-code"}`}
         >
@@ -138,6 +171,12 @@ export function WorkshopSlide({
         <FoundationDiagram scene={frame.scene!} />
       ) : (
         <FabricWorkshopDiagram scene={frame.scene!} />
+      )}
+      {teaching?.example && (
+        <p className="lesson-example">
+          <span>Example</span>
+          {teaching.example}
+        </p>
       )}
       {lesson.activity && <LessonPrompt activity={lesson.activity} />}
       <footer className="workshop-slide-footer">

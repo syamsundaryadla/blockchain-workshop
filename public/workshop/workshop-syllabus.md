@@ -4,7 +4,7 @@ Audience: 1st- and 2nd-year B.Tech CSE (Networking). No blockchain experience as
 
 Time: **09:30–16:30**. Morning: theory and interactive simulations. Afternoon: real Hyperledger Fabric demonstration and guided practical. Lunch: 12:30–13:30. Breaks: 12:05–12:15 and 14:35–14:45. Teaching and practical time: 340 minutes.
 
-The existing presentation is revised in place: 91 visual slides across eight modules. Slide 1 contains only “Block chain fundamentals”; slide 2 introduces the facilitator; concepts begin on slide 3. Related ideas have separate diagrams when this aids understanding. Keep on-screen text to one short explanation where needed. Presenter notes carry examples, qualifications and facilitation prompts.
+The existing presentation is revised in place: 91 visual slides across eight modules. Slide 1 contains only “Block chain fundamentals”; slide 2 introduces the facilitator; concepts begin on slide 3. Related ideas have separate diagrams when this aids understanding. Core slides add a few short subtopics and a concrete example only where useful. Presenter notes carry qualifications and timed facilitation prompts. Module 6 includes a six-component comparison with analogies and Campus Credits examples.
 
 ## Schedule
 
@@ -115,6 +115,19 @@ This workshop retains the real Hyperledger Fabric application. Block formation, 
 4. Common Challenges and Security Considerations
 5. Future Learning Pathways in Blockchain Development
 6. Interactive Q&A Session
+
+## Pacing the one-day workshop
+
+The 91 slides are visual steps, not 91 separate lectures. Use the subtopic labels as speaking cues and each on-screen example within the existing explanation time (usually 20–45 seconds). Reuse the same example in the next animation or experiment. Explain each concept once, then ask one short prediction.
+
+- Morning modules retain their existing time slots. Cap each hashing, propagation, mining and signature experiment at three minutes. Applications use one short example each; avoid extended case-study discussion.
+- 12:15–12:20: limitations, truthful input and database comparison. 12:20–12:30: the 12-question morning quiz, including joining and leaderboard transitions. Create the room before the slot.
+- 13:30–14:10: place the three-minute component comparison after the organization diagram and role-play, alongside the identity explanation. Reuse those examples in the real demo. Within the 40 minutes, allow about 12 minutes for terms and identities, eight for role-play and flow, five for the prepared environment and ten for the real demo, leaving five for questions.
+- 14:10–14:35: project story, architecture and transfer rules. 14:45–15:00: starter walkthrough and readiness. Treat Fabric-managed block/hash/link slides as a short recap; students only implement the three supplied TODO groups.
+- Protect 15:00–16:00 for the student build. Resolve installation issues before the event or pair with a prepared laptop.
+- 16:00–16:10: two short pair demonstrations, transaction evidence and security recap. 16:10–16:20: the 15-question afternoon quiz. 16:20–16:30: learning pathways and Q&A.
+
+Both live quizzes use 15-second answer windows. The ten-minute slots include preparation countdowns, room joining and short leaderboard pauses. If running late, shorten repeated demonstrations and optional discussion; keep the student build hour and finish time.
 
 ## Interactive teaching
 
