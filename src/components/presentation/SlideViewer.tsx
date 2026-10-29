@@ -313,6 +313,9 @@ export function SlideViewer() {
             <span>One-day workshop</span>
           </div>
           <div className="topbar-actions">
+            <Link href="/quiz/host">
+              Live quiz <ArrowUpRight size={14} />
+            </Link>
             <Link href="/workshop">
               Student kit <ArrowUpRight size={14} />
             </Link>
