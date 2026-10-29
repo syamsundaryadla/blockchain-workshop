@@ -22,17 +22,21 @@ The quiz deliberately stays unavailable until configured; it does not replace mi
 1. Create a room and project the lobby's **QR code**. Scanning it opens the correct room's join page; students only enter their name. The QR is generated locally without a third-party image service. You can also copy the join link or tell students to open `https://blockchain.risenine.in/quiz` and enter the six-digit code.
 2. Students enter a name or nickname. Their names and scores appear to the room. Ask them not to enter sensitive personal information.
 3. Wait until the expected number has joined. The room allows 150 participants, giving a 100-person workshop headroom. Duplicate names are rejected; students can add initials. You can remove unwanted names before starting.
-4. Select **Start quiz**. Each question has a five-second preparation countdown, then a full **20-second answer window**.
+4. Select **Present** for fullscreen with larger questions and answer choices (Esc exits), then **Start quiz**. Each question has a five-second preparation countdown, then a full **15-second answer window**.
 5. Students choose one answer. The first accepted answer is final. The server checks the deadline and calculates points.
-6. After 20 seconds, the correct answer, explanation and top-ten leaderboard appear automatically. Every participant also sees their own score and rank.
+6. After 15 seconds, the correct answer, explanation and top-ten leaderboard appear automatically. Every participant also sees their own score and rank.
 7. Select **Next question** when you are ready. The quiz does not advance while you discuss the answer. After the last leaderboard, select **Finish quiz**.
 8. Download **Results CSV** for the complete standings. Rooms expire after 24 hours; export results before then.
 
 Use the same browser to refresh or resume your host session. Its room credential is saved locally; clearing browser storage loses that access. Participants can refresh/reconnect with the same browser after the quiz starts. New participants cannot join once the first question has started. Closing a tab does not remove a participant from the joined count.
 
+Active rooms ask both host and participants to confirm before using Back, leaving the room or following a link away. Refreshing or closing the tab uses the browser's own confirmation; browsers control that prompt's wording. Leaving does not pause a question. A host leaving the screen does not end the room. End the quiz explicitly to finish it for everyone.
+
+Participants receive a random cartoon animal avatar based on their room identity. The same avatar appears in the lobby and leaderboard and remains stable when they refresh or reconnect. Avatars are drawn locally and do not send participant details to an external avatar service.
+
 ## Scoring
 
-Correct answer: `round(100 − 50 × elapsedMilliseconds / 20000)`, between 50 and 100 points. Wrong or missing answer: zero. The elapsed time is measured when Redis receives the answer; the phone cannot choose a timestamp or score. Network latency therefore contributes to response time. Equal total scores share a rank. Retries and repeated clicks cannot score twice.
+Correct answer: `round(100 − 50 × elapsedMilliseconds / 15000)`, between 50 and 100 points. Wrong or missing answer: zero. The elapsed time is measured when Redis receives the answer; the phone cannot choose a timestamp or score. Network latency therefore contributes to response time. Equal total scores share a rank. Retries and repeated clicks cannot score twice.
 
 The countdown is synchronized from server time. Questions and answer keys are not sent before their respective reveal times. Participants should keep the quiz open and use a stable connection. The answer window is enforced by the server even if a phone's clock is wrong or its screen freezes.
 

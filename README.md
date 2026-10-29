@@ -44,7 +44,7 @@ Use the same build-directory variable for build and start.
 
 ## Live workshop quiz
 
-The quiz is designed for a 100-person workshop with room for 150 participants. It uses server-enforced 20-second questions, faster-correct-answer scoring capped at 100 points, a leaderboard after every question, and host-controlled advancement. There are exactly two quizzes: Morning · Blockchain Foundations (12 questions) and Afternoon · Full Syllabus (15 questions). Every created room displays a QR code that opens its join page with the code filled in.
+The quiz is designed for a 100-person workshop with room for 150 participants. It uses server-enforced 15-second questions, faster-correct-answer scoring capped at 100 points, a leaderboard after every question, and host-controlled advancement. There are exactly two quizzes: Morning · Blockchain Foundations (12 questions) and Afternoon · Full Syllabus (15 questions). Every created room displays a QR code that opens its join page with the code filled in. The host's Present button enables fullscreen with larger questions and answers; Esc exits.
 
 **Production setup is required:** connect Upstash Redis to the Vercel project and add a private `QUIZ_ADMIN_PASSWORD` (at least 8 characters). The quiz stays unavailable until configured. Redis contains the shared room state; no Vercel process-local memory is used for scores. The entire room transition and answer acceptance runs atomically in Redis. Rooms expire after 24 hours. See the [Vercel setup and presenter guide](public/quiz-setup.md).
 

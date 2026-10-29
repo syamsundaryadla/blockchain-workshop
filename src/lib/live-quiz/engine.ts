@@ -53,7 +53,7 @@ if cmd.action == 'advance' then
     room.index=room.index+1
     room.phase='question'
     room.startsAt=now+5000
-    room.endsAt=room.startsAt+20000
+    room.endsAt=room.startsAt+15000
   end
   dirty=true
 elseif cmd.action == 'end' then
@@ -75,7 +75,7 @@ elseif cmd.action == 'answer' then
     if type(cmd.option) ~= 'number' or cmd.option ~= math.floor(cmd.option) or cmd.option < 0 or cmd.option >= #q.options then return fail(400, 'Choose one of the available answers.') end
     local correct=cmd.option==q.correctIndex
     local points=0
-    if correct then points=math.max(50,math.floor(100-50*(now-room.startsAt)/20000+0.5)) end
+    if correct then points=math.max(50,math.floor(100-50*(now-room.startsAt)/(room.endsAt-room.startsAt)+0.5)) end
     room.answers[answerKey]={option=cmd.option,points=points,receivedAt=now}
     me.score=me.score+points
     if correct then me.correct=me.correct+1 end
@@ -135,7 +135,7 @@ if reveal then
 end
 return cjson.encode({code=room.code,title=room.title,phase=phase,serverNow=now,revision=room.revision or 0,
   expiresAt=room.expiresAt,index=room.index,total=#room.questions,startsAt=room.startsAt,
-  endsAt=room.endsAt,duration=20000,count=countPlayers(),capacity=room.capacity,
+  endsAt=room.endsAt,duration=room.endsAt>room.startsAt and room.endsAt-room.startsAt or 15000,count=countPlayers(),capacity=room.capacity,
   answered=answered,isHost=host,question=question,standings=visibleStandings,players=players,me=mine})
 `;
 

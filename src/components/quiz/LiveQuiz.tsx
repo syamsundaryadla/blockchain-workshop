@@ -10,6 +10,8 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import QRCode from "qrcode";
+import { QuizAvatar } from "./QuizAvatar";
+import { QuizLeaveDialog, useQuizLeaveGuard } from "./useQuizLeaveGuard";
 import {
   ArrowLeft,
   ArrowRight,
@@ -18,6 +20,8 @@ import {
   Download,
   Flag,
   Loader2,
+  Maximize2,
+  Minimize2,
   Play,
   Trophy,
   Users,
@@ -83,12 +87,41 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
   const [selected, setSelected] = useState<number | null>(null),
     [joinUrl, setJoinUrl] = useState("");
   const [qrImage, setQrImage] = useState("");
+  const [presenting, setPresenting] = useState(false);
   const clock = useRef({ time: 0, at: 0 }),
     latest = useRef<QuizState | null>(null);
   const resultsRef = useRef<HTMLElement>(null);
   const joinToken = useRef("");
   const currentSession = useRef(session);
   currentSession.current = session;
+  async function togglePresentation() {
+    if (presenting) {
+      setPresenting(false);
+      if (document.fullscreenElement)
+        await document.exitFullscreen().catch(() => {});
+    } else {
+      setPresenting(true);
+      // Keep the larger presentation layout if the browser blocks fullscreen.
+      await document.documentElement.requestFullscreen?.().catch(() => {});
+    }
+  }
+  useEffect(() => {
+    const onFullscreen = () =>
+      setPresenting(Boolean(document.fullscreenElement));
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setPresenting(false);
+        if (document.fullscreenElement)
+          void document.exitFullscreen().catch(() => {});
+      }
+    };
+    document.addEventListener("fullscreenchange", onFullscreen);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("fullscreenchange", onFullscreen);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, []);
 
   const accept = useCallback((value: QuizState, started: number) => {
     if (
@@ -275,6 +308,11 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
       /* storage may be disabled */
     }
   }
+  const leaveGuard = useQuizLeaveGuard(
+    Boolean(session && state?.phase !== "finished"),
+    session ? `${session.role}:${session.code}` : "",
+    leave,
+  );
   async function enter(event: FormEvent) {
     event.preventDefault();
     if (busy) return;
@@ -379,13 +417,32 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
   const me = state?.me;
 
   return (
-    <div className={`live-quiz ${host ? "quiz-host" : "quiz-player"}`}>
+    <div
+      className={`live-quiz ${host ? "quiz-host" : "quiz-player"} ${presenting ? "quiz-presenting" : ""}`}
+    >
+      {leaveGuard.pending && (
+        <QuizLeaveDialog
+          host={host}
+          cancel={leaveGuard.cancel}
+          confirm={leaveGuard.confirm}
+        />
+      )}
       <header className="quiz-header">
         <Link href="/" className="wordmark">
           blockchain<span>lab.</span>
         </Link>
         <span className="quiz-header-label">Live quiz</span>
         <nav aria-label="Quiz navigation">
+          {host && (
+            <button
+              className="quiz-present-button"
+              onClick={() => void togglePresentation()}
+              aria-pressed={presenting}
+            >
+              {presenting ? <Minimize2 size={17} /> : <Maximize2 size={17} />}
+              {presenting ? "Exit presentation" : "Present"}
+            </button>
+          )}
           <Link href="/">
             <ArrowLeft size={15} /> Workshop
           </Link>
@@ -422,7 +479,7 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
                   <>
                     One question.
                     <br />
-                    Twenty seconds.
+                    Fifteen seconds.
                   </>
                 )}
               </h1>
@@ -490,7 +547,7 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
                       type="password"
                       autoComplete="current-password"
                       required
-                    minLength={8}
+                      minLength={8}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Your private host password"
@@ -544,7 +601,7 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
                 {host ? "Create room" : "Join quiz"}
               </button>
               <p className="quiz-field-note">
-                20 seconds per question · Faster correct answers earn more
+                15 seconds per question · Faster correct answers earn more
               </p>
             </form>
           </div>
@@ -570,6 +627,7 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
               </span>
               {!host && me && (
                 <span>
+                  <QuizAvatar seed={me.id} size={26} />
                   {me.name} · <b>{me.score.toLocaleString()} pts</b>
                 </span>
               )}
@@ -583,6 +641,11 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
                       ? "Ready when you are."
                       : `You’re in, ${me?.name || name}.`}
                   </h1>
+                  {!host && me && (
+                    <div className="quiz-welcome-avatar">
+                      <QuizAvatar seed={me.id} size={94} />
+                    </div>
+                  )}
                   <p>
                     {host
                       ? "Join on your phone. Keep this screen open."
@@ -653,6 +716,7 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
                         {state.players.length ? (
                           state.players.map((p) => (
                             <span key={p.id}>
+                              <QuizAvatar seed={p.id} size={27} />
                               {p.name}
                               <button
                                 aria-label={`Remove ${p.name}`}
@@ -685,7 +749,7 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
                   ) : (
                     <div className="quiz-player-rules">
                       <h2>Here’s how to play</h2>
-                      <p>Choose one answer in 20 seconds.</p>
+                      <p>Choose one answer in 15 seconds.</p>
                       <p>Correct answers earn 50–100 points.</p>
                       <p>See the leaderboard after every question.</p>
                     </div>
@@ -779,7 +843,7 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
                       <div className="quiz-time-track">
                         <div
                           style={{
-                            width: `${Math.min(100, (seconds / 20) * 100)}%`,
+                            width: `${Math.min(100, ((seconds * 1000) / state.duration) * 100)}%`,
                           }}
                         />
                       </div>
@@ -850,6 +914,7 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
                             )}
                           </span>
                           <strong>
+                            <QuizAvatar seed={p.id} size={38} />
                             {p.name}
                             {me?.id === p.id && <small>YOU</small>}
                           </strong>
@@ -921,7 +986,7 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
                   </button>
                 )
               ) : (
-                <button onClick={leave}>Leave room</button>
+                <button onClick={leaveGuard.requestLeave}>Leave room</button>
               )}
             </footer>
           </>

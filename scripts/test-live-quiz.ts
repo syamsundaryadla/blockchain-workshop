@@ -98,7 +98,7 @@ async function main() {
     const question = await call(host, { action: "advance", code, index: -1 });
     assert.equal(question.phase, "countdown");
     assert.equal(question.question, null);
-    assert.equal(question.endsAt - question.startsAt, 20000);
+    assert.equal(question.endsAt - question.startsAt, 15000);
     await call(host, { action: "advance", code, index: -1 }, 409);
     await call(
       people[0],
@@ -126,18 +126,16 @@ async function main() {
     await call(people[0], { action: "answer", code, index: 1, option: 0 }, 409);
     await call(people[0], { action: "answer", code, index: 0, option: 8 }, 400);
     const answers = await Promise.all(
-      people
-        .slice(0, 100)
-        .map((auth, i) =>
-          call(auth, {
-            action: "answer",
-            code,
-            index: 0,
-            option: i % 4,
-            score: 999999,
-            timestamp: 0,
-          }),
-        ),
+      people.slice(0, 100).map((auth, i) =>
+        call(auth, {
+          action: "answer",
+          code,
+          index: 0,
+          option: i % 4,
+          score: 999999,
+          timestamp: 0,
+        }),
+      ),
     );
     assert.ok(answers.every((s) => s.me.points === null && s.me.score === 0));
     await sleep(1100);
@@ -212,7 +210,7 @@ async function main() {
     assert.equal(next.index, 1);
     await call(host, { action: "advance", code, index: 0 }, 409);
     console.log(
-      "PASS: strict 20-second cutoff, speed scoring, leaderboard, full export and host-controlled advance",
+      "PASS: strict 15-second cutoff, speed scoring, leaderboard, full export and host-controlled advance",
     );
   } finally {
     await call(host, { action: "end", code });

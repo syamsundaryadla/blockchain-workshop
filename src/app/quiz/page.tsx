@@ -4,7 +4,7 @@ import "./quiz.css";
 export const metadata: Metadata = {
   title: "Join the live quiz · Blockchain Lab",
   description:
-    "Join the workshop quiz with your room code. Twenty seconds, one answer, a live leaderboard.",
+    "Join the workshop quiz with your room code. Fifteen seconds, one answer, a live leaderboard.",
 };
 export default function QuizPage() {
   return <LiveQuiz />;
