@@ -13,6 +13,11 @@ import { FoundationDiagram, isFoundationScene } from "./FoundationDiagrams";
 import { SyllabusDiagram, isSyllabusScene } from "./SyllabusDiagrams";
 import { ConceptAnimation, isConceptAnimationScene } from "./ConceptAnimation";
 import { FABRIC_COMPONENTS, TEACHING_CUES } from "@/content/teaching-cues";
+import {
+  DecisionAnimation,
+  isDecisionScene,
+  PracticalSuccessChecklist,
+} from "./DecisionAnimation";
 function CodePanel({
   code,
   title,
@@ -82,6 +87,7 @@ export function WorkshopSlide({
     frame = WORKSHOP_FRAMES[slide.slideNumber],
     lesson = BEGINNER_LESSONS[slide.slideNumber - 1];
   const [revealed, setRevealed] = useState<number | null>(null);
+  const [componentCount, setComponentCount] = useState(1);
   const steps = frame.steps ?? 0,
     isCode = ["code", "code-pair", "terminal"].includes(frame.layout);
   const teaching = TEACHING_CUES[lesson.scene];
@@ -105,10 +111,31 @@ export function WorkshopSlide({
           </ul>
         )}
       </header>
-      {frame.scene === "certificate" ? (
+      {isDecisionScene(lesson.scene) ? (
+        <DecisionAnimation key={lesson.scene} scene={lesson.scene} />
+      ) : lesson.scene === "practical" ? (
+        <PracticalSuccessChecklist />
+      ) : frame.scene === "certificate" ? (
         <div className="fabric-component-reference">
           <table>
-            <caption>Fabric components · the Campus Credits example</caption>
+            <caption>
+              Fabric components · the Campus Credits example
+              <span className="component-reveal-controls">
+                <button
+                  onClick={() => setComponentCount((n) => Math.min(6, n + 1))}
+                  disabled={componentCount === 6}
+                >
+                  Next component
+                </button>
+                <button
+                  onClick={() =>
+                    setComponentCount(componentCount === 6 ? 1 : 6)
+                  }
+                >
+                  {componentCount === 6 ? "Start again" : "Show all"}
+                </button>
+              </span>
+            </caption>
             <thead>
               <tr>
                 <th scope="col">Component</th>
@@ -118,7 +145,7 @@ export function WorkshopSlide({
               </tr>
             </thead>
             <tbody>
-              {FABRIC_COMPONENTS.map((component) => (
+              {FABRIC_COMPONENTS.slice(0, componentCount).map((component) => (
                 <tr key={component.name}>
                   <th scope="row">{component.name}</th>
                   <td>{component.job}</td>
@@ -170,7 +197,7 @@ export function WorkshopSlide({
       ) : (
         <FabricWorkshopDiagram scene={frame.scene!} />
       )}
-      {teaching?.example && (
+      {teaching?.example && !isDecisionScene(lesson.scene) && (
         <p className="lesson-example">
           <span>Example</span>
           {teaching.example}

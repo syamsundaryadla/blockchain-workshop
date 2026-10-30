@@ -1281,15 +1281,9 @@ export const BEGINNER_LESSONS: BeginnerLesson[] = [
     explanation:
       "A block stores an ordered group of transaction records. In Fabric, the ordering service forms blocks and peers validate and append them.",
     notes:
-      "Fabric manages the block format. Students do not implement a second blockchain inside the chaincode. Ordered transactions can be marked invalid during validation; invalid transactions remain in block history but do not update world state.",
-    activity: {
-      label: "Discuss",
-      prompt:
-        "Does the transfer function manually construct a new Fabric block?",
-      answer:
-        "No. The ordering and peer components handle block formation and commit.",
-    },
+      "Quick recap: 30 seconds. Refer back to the morning demonstration; do not repeat the experiment. Fabric manages the block format. Students do not implement a second blockchain inside the chaincode. Ordered transactions can be marked invalid during validation; invalid transactions remain in block history but do not update world state.",
     syllabusTopic: 7,
+    sectionLabel: "Quick recap · Fabric-managed",
   },
   {
     scene: "fabric-block-hashes",
@@ -1298,16 +1292,9 @@ export const BEGINNER_LESSONS: BeginnerLesson[] = [
     explanation:
       "A block hash is a cryptographic fingerprint of its encoded header. Fabric generates data and header hashes; the transfer contract does not mine blocks.",
     notes:
-      "Explain SHA-256 hashing as a platform-provided mechanism. Fabric’s block header contains the block number, previous header hash and data hash. The header hash is computed from its encoded header; it is not a mining nonce puzzle. Treat this as an instructor explanation of Fabric internals, not an additional student implementation.",
-    activity: {
-      label: "Discuss",
-      prompt:
-        "Should students copy the toy mining loop into their Fabric chaincode?",
-      answer:
-        "No. Fabric handles its ledger hashes and uses its configured ordering and validation mechanisms.",
-    },
+      "Quick recap: 30 seconds. Refer back to the morning demonstration; do not repeat the experiment. Explain SHA-256 hashing as a platform-provided mechanism. Fabric’s block header contains the block number, previous header hash and data hash. The header hash is computed from its encoded header; it is not a mining nonce puzzle. Treat this as an instructor explanation of Fabric internals, not an additional student implementation.",
     syllabusTopic: 8,
-    sectionLabel: "Fabric-managed operation",
+    sectionLabel: "Quick recap · Fabric-managed",
   },
   {
     scene: "fabric-block-links",
@@ -1316,14 +1303,9 @@ export const BEGINNER_LESSONS: BeginnerLesson[] = [
     explanation:
       "The previous_hash field refers to the preceding block header’s hash. This links blocks in sequence and helps detect changes to earlier records.",
     notes:
-      "Point to number, data_hash and previous_hash in a simplified Fabric header. Exact encoded bytes are managed by Fabric. Explain that changing an earlier header would break the expected link and other integrity checks. This diagram is illustrative, not evidence of a live block fetch.",
-    activity: {
-      label: "Discuss",
-      prompt: "Which field connects this block to its predecessor?",
-      answer: "previous_hash refers to the preceding block header hash.",
-    },
+      "Quick recap: 30 seconds. Refer back to the morning demonstration; do not repeat the experiment. Point to number, data_hash and previous_hash in a simplified Fabric header. Exact encoded bytes are managed by Fabric. Explain that changing an earlier header would break the expected link and other integrity checks. This diagram is illustrative, not evidence of a live block fetch.",
     syllabusTopic: 9,
-    sectionLabel: "Fabric-managed operation",
+    sectionLabel: "Quick recap · Fabric-managed",
   },
   {
     scene: "fabric-integrity",
@@ -1332,16 +1314,9 @@ export const BEGINNER_LESSONS: BeginnerLesson[] = [
     explanation:
       "Integrity verification checks that recorded data matches its expected hashes and signatures. Fabric also validates transactions before applying state changes.",
     notes:
-      "Separate block integrity from transaction validity. Hashes and signatures protect the recorded data; peers also check endorsement policies and read versions before applying writes. The student implementation checks amount, funds and resulting balances; the supplied platform handles ledger verification.",
-    activity: {
-      label: "Discuss",
-      prompt:
-        "Does a valid data hash make an unauthorized transfer acceptable?",
-      answer:
-        "No. Cryptographic integrity and transaction authorization are different checks.",
-    },
+      "Quick recap: 30 seconds. Refer back to the morning demonstration; do not repeat the experiment. Separate block integrity from transaction validity. Hashes and signatures protect the recorded data; peers also check endorsement policies and read versions before applying writes. The student implementation checks amount, funds and resulting balances; the supplied platform handles ledger verification.",
     syllabusTopic: 10,
-    sectionLabel: "Platform-provided verification",
+    sectionLabel: "Quick recap · Fabric-managed",
   },
   {
     scene: "fabric-tampering",
@@ -1350,15 +1325,9 @@ export const BEGINNER_LESSONS: BeginnerLesson[] = [
     explanation:
       "Tampering means changing data without valid authorization. Altering signed transaction bytes causes the expected signature or integrity check to fail.",
     notes:
-      "Relate this diagram to the real browser signature experiment from the morning. It is a conceptual explanation of altered content, not a demonstration of rewriting a live Fabric ledger. In the real practical, demonstrate wrong-signer and invalid-input rejections and inspect unchanged balances.",
-    activity: {
-      label: "Discuss",
-      prompt: "Can a changed payload keep the original signature valid?",
-      answer:
-        "Not under the same signature verification rule; the signature covers the exact signed bytes.",
-    },
+      "Quick recap: 30 seconds. Refer back to the morning demonstration; do not repeat the experiment. Relate this diagram to the real browser signature experiment from the morning. It is a conceptual explanation of altered content, not a demonstration of rewriting a live Fabric ledger. In the real practical, demonstrate wrong-signer and invalid-input rejections and inspect unchanged balances.",
     syllabusTopic: 11,
-    sectionLabel: "Integrity explanation",
+    sectionLabel: "Quick recap · Fabric-managed",
   },
   {
     title: "Testing the Complete Application",

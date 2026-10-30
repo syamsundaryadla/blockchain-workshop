@@ -1,4 +1,195 @@
 /* Visual language: ink, ledger blue, certificate teal, restrained error coral. */
+.decision-demo {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 0;
+}
+.decision-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+.decision-inputs label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #25485d;
+}
+.decision-inputs select,
+.decision-inputs input {
+  border: 1px solid #c5d1e2;
+  border-radius: 5px;
+  background: white;
+  padding: 6px 10px;
+  color: #17344b;
+  max-width: 130px;
+}
+.decision-model-label {
+  font-size: 11px;
+  color: #637994;
+}
+.decision-inputs > .decision-model-label:last-child {
+  margin-left: auto;
+}
+.decision-visual {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: center;
+}
+.decision-balances {
+  display: flex;
+  gap: 22px;
+  justify-content: space-around;
+}
+.decision-balances > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: #17344b;
+}
+.decision-balances strong {
+  font:
+    500 clamp(32px, 4vw, 58px) / 1.1 var(--font-display),
+    sans-serif;
+}
+.decision-balances small {
+  font-size: 11px;
+  color: #637994;
+}
+.decision-records {
+  display: grid;
+  gap: 5px;
+}
+.decision-records > div {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  padding: 8px 12px;
+  border: 1px solid #dce5eb;
+  border-radius: 5px;
+  font-size: 13px;
+  color: #526d80;
+}
+.decision-records b {
+  font-weight: 500;
+}
+.decision-records .decision-pass {
+  background: #edf7f1;
+  border-color: #96c4ae;
+  color: #28654d;
+}
+.decision-records .decision-fail {
+  background: #fbefeb;
+  border-color: #d6a798;
+  color: #964635;
+}
+.decision-status {
+  margin: 0;
+  min-height: 42px;
+  font-size: 15px;
+  line-height: 1.4;
+  color: #17344b;
+}
+.decision-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.decision-controls button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: #eff4f7;
+  border: 1px solid #d3e0e8;
+  border-radius: 5px;
+  padding: 7px 12px;
+  font-size: 12px;
+  color: #17344b;
+}
+.decision-controls button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.decision-controls > span {
+  margin-left: auto;
+  color: #637994;
+  font-size: 12px;
+}
+.practical-success {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  padding: 20px 0;
+}
+.practical-success ol {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.practical-success li {
+  border-top: 2px solid #087f83;
+  padding: 18px 0;
+  color: #17344b;
+}
+.success-number {
+  font-size: 12px;
+  color: #637994;
+  margin-right: 14px;
+}
+.practical-success svg {
+  display: inline-block;
+  color: #087f83;
+}
+.practical-success h2 {
+  font-size: 24px;
+  font-weight: 500;
+  margin: 16px 0 8px;
+}
+.practical-success li p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+.success-timing {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #637994;
+}
+@media (max-width: 700px) {
+  .decision-visual {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .decision-demo {
+    flex: none;
+  }
+  .decision-inputs label {
+    flex-wrap: wrap;
+  }
+  .decision-inputs > .decision-model-label:last-child {
+    margin-left: 0;
+  }
+  .practical-success ol {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .practical-success h2 {
+    font-size: 20px;
+  }
+}
 .cover-stage:has(.title-only-slide) {
   display: block;
   min-height: 620px;
@@ -1020,6 +1211,19 @@
   font-size: 12px;
   color: #607989;
   padding-bottom: 8px;
+}
+.component-reveal-controls {
+  display: inline-flex;
+  gap: 12px;
+  margin-left: 20px;
+}
+.component-reveal-controls button {
+  font-size: 12px;
+  color: #087f83;
+  text-decoration: underline;
+}
+.component-reveal-controls button:disabled {
+  opacity: 0.4;
 }
 .fabric-component-reference th,
 .fabric-component-reference td {
