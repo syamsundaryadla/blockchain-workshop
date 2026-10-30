@@ -110,6 +110,9 @@ test("organizer headings and topic order are preserved, with short definitions",
         );
         previous = lesson.syllabusTopic;
         seen.add(previous);
+      } else if (lesson.scene === "careers") {
+        assert.equal(module.id, 1);
+        assert.equal(lesson.title, "Career Opportunities in Blockchain");
       } else if (lesson.scene !== "cover") {
         assert.equal(lesson.title, module.title);
       }

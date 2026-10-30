@@ -4,7 +4,7 @@ A visual, interactive 9:30 a.m.–4:30 p.m. workshop for first- and second-year 
 
 ## Presentation and student resources
 
-- 90 slides across eight modules with presenter notes, audience predictions, reasoning reveals and a four-volunteer network role-play.
+- 91 slides across eight modules with presenter notes, audience predictions, reasoning reveals and a four-volunteer network role-play.
 - Opening order: title only; then “What is Blockchain Technology?” on slide 2.
 - Step-controlled teaching animations explain conflicting payments, contract permission/amount/funds checks, and current state versus block history. Each starts paused and labels itself as a model. The Fabric component comparison reveals one row at a time; the student build opens with a three-part success checklist. Repeated Fabric block/hash topics are 30-second recaps.
 - Seven experiments: real SHA-256, linked-block tampering, manual P2P propagation, a real-hashing toy proof-of-work puzzle, real browser ECDSA signatures, a Fabric transaction model, and a clearly labeled credits rehearsal.

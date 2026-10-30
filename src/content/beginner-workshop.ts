@@ -214,6 +214,20 @@ export const BEGINNER_LESSONS: BeginnerLesson[] = [
       "Place this example immediately after Module 1, Topic 6. Walmart’s 2018 Global Responsibility Report Summary describes its 2017 mango traceability exercise: six days, 18 hours and 26 minutes using existing methods, versus 2.2 seconds for the blockchain pilot lookup to a farm in Mexico. Use the animation to follow store → distributor → packer → farm. All drawn lots and handovers are illustrative. The measured pilot result is not a guarantee for every deployment. Blockchain still depends on truthful data capture. Source: https://stock.walmart.com/_assets/_513a414897667f69e48953e02796048d/walmart/db/951/9698/file/WMT-2018-GRR-Summary-for-digital.pdf",
   },
   {
+    title: "Career Opportunities in Blockchain",
+    scene: "careers",
+    idea: "Build strong fundamentals, then choose a role to explore.",
+    sectionLabel: "Career pathways · 2 minutes",
+    notes:
+      "Allow two minutes within Module 1, after the Walmart example and before the knowledge check. Introduce four directions, not a list of guaranteed job openings. Application development is closest to today's Campus Credits project: JavaScript, APIs and Fabric. Smart contract development adds business rules and testing; chaincode and Solidity belong to different platform paths, so beginners choose one first. Infrastructure builds on Linux, Docker and networking. Security is a later specialization after development fundamentals. Students can build these skills gradually and demonstrate projects when exploring internships. Keep certification and salary discussion outside this slide. References: https://training.linuxfoundation.org/blog/new-course-hyperledger-fabric-design-develop-and-deploy-lfs270/ and https://ethereum.org/developers/docs/smart-contracts/security/",
+    labels: [
+      "Application developer: JavaScript / Node.js, APIs, Fabric basics.",
+      "Smart contract developer: business rules, chaincode or Solidity, testing.",
+      "Infrastructure engineer: Linux, Docker, networking, cloud.",
+      "Security specialist: access control, cryptography basics, security testing.",
+    ],
+  },
+  {
     title: "Introduction to Blockchain",
     idea: "Vote first. Explain the trust assumption.",
     scene: "decision",

@@ -13,6 +13,7 @@ import { FoundationDiagram, isFoundationScene } from "./FoundationDiagrams";
 import { SyllabusDiagram, isSyllabusScene } from "./SyllabusDiagrams";
 import { ConceptAnimation, isConceptAnimationScene } from "./ConceptAnimation";
 import { FABRIC_COMPONENTS, TEACHING_CUES } from "@/content/teaching-cues";
+import { CareerSlide } from "./CareerSlide";
 import {
   DecisionAnimation,
   isDecisionScene,
@@ -111,7 +112,9 @@ export function WorkshopSlide({
           </ul>
         )}
       </header>
-      {isDecisionScene(lesson.scene) ? (
+      {lesson.scene === "careers" ? (
+        <CareerSlide />
+      ) : isDecisionScene(lesson.scene) ? (
         <DecisionAnimation key={lesson.scene} scene={lesson.scene} />
       ) : lesson.scene === "practical" ? (
         <PracticalSuccessChecklist />

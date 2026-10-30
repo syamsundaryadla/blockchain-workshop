@@ -4,7 +4,7 @@ Audience: 1st- and 2nd-year B.Tech CSE (Networking). No blockchain experience as
 
 Time: **09:30–16:30**. Morning: theory and interactive simulations. Afternoon: real Hyperledger Fabric demonstration and guided practical. Lunch: 12:30–13:30. Breaks: 12:05–12:15 and 14:35–14:45. Teaching and practical time: 340 minutes.
 
-The existing presentation is revised in place: 90 visual slides across eight modules. Slide 1 contains only “Block chain fundamentals”; concepts begin on slide 2. Related ideas have separate diagrams when this aids understanding. Core slides add a few short subtopics and a concrete example only where useful. Presenter notes carry qualifications and timed facilitation prompts. Module 6 includes a six-component comparison with analogies and Campus Credits examples.
+The existing presentation is revised in place: 91 visual slides across eight modules. Slide 1 contains only “Block chain fundamentals”; concepts begin on slide 2. Related ideas have separate diagrams when this aids understanding. Core slides add a few short subtopics and a concrete example only where useful. Presenter notes carry qualifications and timed facilitation prompts. Module 6 includes a six-component comparison with analogies and Campus Credits examples.
 
 ## Schedule
 
@@ -37,6 +37,8 @@ The existing presentation is revised in place: 90 visual slides across eight mod
 6. Real-World Examples – Walmart, Maersk and Financial Transactions
 
 After Topic 6: Walmart mango traceability example. In its reported pilot, tracing fell from nearly seven days to 2.2 seconds. [Walmart’s 2018 report, p. 39](https://stock.walmart.com/_assets/_513a414897667f69e48953e02796048d/walmart/db/951/9698/file/WMT-2018-GRR-Summary-for-digital.pdf). These are reported pilot measurements, not a universal speed guarantee.
+
+After the Walmart example, spend two minutes on Career Opportunities in Blockchain: application development, smart contracts, infrastructure and security, with the foundational skills for each. This stays within the existing Module 1 time slot.
 
 ### Module 2: Blockchain Architecture & Working
 
@@ -118,7 +120,7 @@ This workshop retains the real Hyperledger Fabric application. Block formation, 
 
 ## Pacing the one-day workshop
 
-The 90 slides are visual steps, not 90 separate lectures. Use the subtopic labels as speaking cues and each on-screen example within the existing explanation time (usually 20–45 seconds). Reuse the same example in the next animation or experiment. Explain each concept once, then ask one short prediction.
+The 91 slides are visual steps, not 91 separate lectures. Use the subtopic labels as speaking cues and each on-screen example within the existing explanation time (usually 20–45 seconds). Reuse the same example in the next animation or experiment. Explain each concept once, then ask one short prediction.
 
 - Morning modules retain their existing time slots. Cap each hashing, propagation, mining and signature experiment at three minutes. Applications use one short example each; avoid extended case-study discussion.
 - 12:15–12:20: limitations, truthful input and database comparison. 12:20–12:30: the 12-question morning quiz, including joining and leaderboard transitions. Create the room before the slot.

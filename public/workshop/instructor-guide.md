@@ -5,7 +5,7 @@ Use the supplied headings in the supplied order. Define unfamiliar terms in one 
 
 ## Pacing the one-day workshop
 
-The 90 slides are visual steps, not 90 separate lectures. Use the subtopic labels as speaking cues and each on-screen example within the existing explanation time (usually 20–45 seconds). Reuse the same example in the next animation or experiment. Explain each concept once, then ask one short prediction.
+The 91 slides are visual steps, not 91 separate lectures. Use the subtopic labels as speaking cues and each on-screen example within the existing explanation time (usually 20–45 seconds). Reuse the same example in the next animation or experiment. Explain each concept once, then ask one short prediction.
 
 - Morning modules retain their existing time slots. Cap each hashing, propagation, mining and signature experiment at three minutes. Applications use one short example each; avoid extended case-study discussion.
 - 12:15–12:20: limitations, truthful input and database comparison. 12:20–12:30: the 12-question morning quiz, including joining and leaderboard transitions. Create the room before the slot.
@@ -21,6 +21,8 @@ Both live quizzes use 15-second answer windows. The ten-minute slots include pre
 09:30–10:00
 
 Follow the exact six topic headings in order. Define blockchain before introducing Bitcoin and the trust problem. In Topic 4, use Play or Next step to show failures, then click any node or select it and use Turn off selected node. Restore nodes and compare the affected paths. Distributed placement alone does not guarantee fault tolerance. After Topic 6, use the Walmart mango example: the 2017 exercise was reported as six days, 18 hours and 26 minutes using existing methods, compared with a 2.2-second pilot lookup. Labels in the diagram are illustrative. Use the cited Walmart report rather than presenting the result as a universal benchmark.
+
+After the Walmart example, spend two minutes on the four career paths and their skills. Highlight application development as the path connected to today’s project; explain security as a later specialization. Keep the Module 1 finish time.
 
 ## Module 2: Blockchain Architecture & Working
 
