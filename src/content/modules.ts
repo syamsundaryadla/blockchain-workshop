@@ -15,7 +15,7 @@ export const WORKSHOP_MODULES: WorkshopModule[] = [
     durationMinutes: 30,
     summary:
       "What is Blockchain Technology?. Evolution of Blockchain and Introduction to Bitcoin (2009). Traditional Banking Systems and Their Limitations. Centralized vs Decentralized vs Distributed Systems. Why Do We Need Blockchain?. Real-World Examples – Walmart, Maersk and Financial Transactions",
-    slideRange: [1, 10],
+    slideRange: [1, 9],
     primaryColor: "#315fc7",
   },
   {
@@ -34,7 +34,7 @@ export const WORKSHOP_MODULES: WorkshopModule[] = [
     durationMinutes: 40,
     summary:
       "What is a Transaction?. What is a Block?. Structure of a Block – Data, Timestamp, Previous Hash, Nonce and Hash. Understanding SHA-256 Hashing. How Blocks Are Connected to Form a Blockchain. Distributed Ledger Technology (DLT). Key Features – Transparency, Immutability, Security and Decentralization",
-    slideRange: [11, 24],
+    slideRange: [10, 23],
     primaryColor: "#315fc7",
   },
   {
@@ -54,7 +54,7 @@ export const WORKSHOP_MODULES: WorkshopModule[] = [
     durationMinutes: 35,
     summary:
       "Peer-to-Peer (P2P) Networks. Nodes and Their Roles in Blockchain. How Transactions Propagate Across the Network. Transaction Verification and Validation. What is Consensus and Why Is It Required?. Proof of Work (PoW) and Mining. Introduction to Proof of Stake (PoS) and Validators. Public, Private and Consortium Blockchains",
-    slideRange: [25, 33],
+    slideRange: [24, 32],
     primaryColor: "#315fc7",
   },
   {
@@ -74,7 +74,7 @@ export const WORKSHOP_MODULES: WorkshopModule[] = [
     durationMinutes: 30,
     summary:
       "Introduction to Cryptography in Blockchain. Public Keys, Private Keys and Digital Signatures. What is a Cryptocurrency Wallet?. Wallet Addresses and Blockchain Transactions. Introduction to Ethereum. What Are Smart Contracts?. Decentralized Applications (DApps). Introduction to Hyperledger Fabric",
-    slideRange: [34, 43],
+    slideRange: [33, 42],
     primaryColor: "#315fc7",
   },
   {
@@ -92,7 +92,7 @@ export const WORKSHOP_MODULES: WorkshopModule[] = [
     durationMinutes: 35,
     summary:
       "Banking and Financial Transactions. Supply Chain Management. Digital Identity and Record Verification. Blockchain-Based Voting Systems. Healthcare and Insurance. Opportunities, Challenges and Limitations of Blockchain",
-    slideRange: [44, 52],
+    slideRange: [43, 51],
     primaryColor: "#315fc7",
   },
   {
@@ -110,7 +110,7 @@ export const WORKSHOP_MODULES: WorkshopModule[] = [
     durationMinutes: 40,
     summary:
       "Overview of Hyperledger Fabric. Permissioned Blockchain Networks. Understanding Organizations, Peers and Ordering Services. Introduction to Docker and Ubuntu/WSL. Understanding the Hyperledger Fabric Test Network. Demonstration of Blockchain Transactions Using Fabric",
-    slideRange: [53, 66],
+    slideRange: [52, 65],
     primaryColor: "#087f83",
   },
   {
@@ -136,7 +136,7 @@ export const WORKSHOP_MODULES: WorkshopModule[] = [
     durationMinutes: 100,
     summary:
       "Understanding the Project Architecture and Workflow. Setting Up the Development Environment. Creating Simulated Wallet Accounts. Generating and Managing Wallet Addresses. Implementing Virtual Currency Transfers. Creating Transaction Records. Storing Transactions in Blocks. Generating SHA-256 Block Hashes. Linking Blocks Using Previous Hashes. Implementing Blockchain Integrity Verification. Detecting Modified or Tampered Transactions. Testing the Complete Application",
-    slideRange: [67, 85],
+    slideRange: [66, 84],
     primaryColor: "#087f83",
   },
   {
@@ -154,7 +154,7 @@ export const WORKSHOP_MODULES: WorkshopModule[] = [
     durationMinutes: 30,
     summary:
       "Demonstration of the Completed Mini Project. Verifying Blockchain Transactions. Understanding Real-World Blockchain Implementation. Common Challenges and Security Considerations. Future Learning Pathways in Blockchain Development. Interactive Q&A Session",
-    slideRange: [86, 91],
+    slideRange: [85, 90],
     primaryColor: "#087f83",
   },
 ];

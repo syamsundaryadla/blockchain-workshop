@@ -23,12 +23,11 @@ test("the complete visual workshop has eight modules and a protected real-Fabric
   assert.equal(PRESENTATION_SLIDES.length, BEGINNER_LESSONS.length);
   assert.ok(
     PRESENTATION_SLIDES.length >=
-      WORKSHOP_SYLLABUS.reduce((sum, m) => sum + m.topics.length, 2),
+      WORKSHOP_SYLLABUS.reduce((sum, m) => sum + m.topics.length, 1),
   );
   assert.equal(WORKSHOP_MODULES.length, 8);
   assert.equal(PRESENTATION_SLIDES[0].title, "Block chain fundamentals");
-  assert.equal(PRESENTATION_SLIDES[1].title, "About me");
-  assert.equal(BEGINNER_LESSONS[2].title, "What is Blockchain Technology?");
+  assert.equal(PRESENTATION_SLIDES[1].title, "What is Blockchain Technology?");
   assert.equal(PRESENTATION_SLIDES.filter((s) => s.quiz).length, 6);
   assert.equal(
     WORKSHOP_MODULES.reduce((sum, m) => sum + m.durationMinutes, 0),
@@ -62,7 +61,7 @@ test("the complete visual workshop has eight modules and a protected real-Fabric
   assert.ok(BEGINNER_LESSONS.filter((l) => l.activity).length >= 25);
   for (const slide of PRESENTATION_SLIDES) {
     assert.ok(slide.speakerNotes.length > 40);
-    if (slide.slideNumber > 2 && !slide.quiz && !slide.simulationType) {
+    if (slide.slideNumber > 1 && !slide.quiz && !slide.simulationType) {
       const html = renderToStaticMarkup(
         React.createElement(WorkshopSlide, { slide, onDetails: () => {} }),
       );
@@ -111,7 +110,7 @@ test("organizer headings and topic order are preserved, with short definitions",
         );
         previous = lesson.syllabusTopic;
         seen.add(previous);
-      } else if (!["cover", "about-me"].includes(lesson.scene)) {
+      } else if (lesson.scene !== "cover") {
         assert.equal(lesson.title, module.title);
       }
       if (lesson.explanation)
@@ -122,7 +121,7 @@ test("organizer headings and topic order are preserved, with short definitions",
       syllabus.topics.map((_, i) => i + 1),
     );
   }
-  assert.match(BEGINNER_LESSONS[2].explanation!, /shared digital record book/);
+  assert.match(BEGINNER_LESSONS[1].explanation!, /shared digital record book/);
 });
 test("handout, solution excerpts, downloads and platform versions stay aligned", () => {
   const source = readFileSync(

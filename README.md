@@ -4,8 +4,8 @@ A visual, interactive 9:30 a.m.–4:30 p.m. workshop for first- and second-year 
 
 ## Presentation and student resources
 
-- 91 slides across eight modules with presenter notes, audience predictions, reasoning reveals and a four-volunteer network role-play.
-- Opening order: title only; a short presenter introduction; then the first concept on slide 3. Public presenter details and links live in `src/content/presenter.ts`.
+- 90 slides across eight modules with presenter notes, audience predictions, reasoning reveals and a four-volunteer network role-play.
+- Opening order: title only; then “What is Blockchain Technology?” on slide 2.
 - Seven experiments: real SHA-256, linked-block tampering, manual P2P propagation, a real-hashing toy proof-of-work puzzle, real browser ECDSA signatures, a Fabric transaction model, and a clearly labeled credits rehearsal.
 - A complete downloadable Campus Credits project: JavaScript chaincode, starter/solution rule, Node.js/Fabric Gateway backend, HTML/CSS/JavaScript UI, scripts and tests.
 - A numbered student handout, instructor notes, and the compiled Windows/WSL installation PDF.

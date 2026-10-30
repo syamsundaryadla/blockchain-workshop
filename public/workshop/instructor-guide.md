@@ -5,7 +5,7 @@ Use the supplied headings in the supplied order. Define unfamiliar terms in one 
 
 ## Pacing the one-day workshop
 
-The 91 slides are visual steps, not 91 separate lectures. Use the subtopic labels as speaking cues and each on-screen example within the existing explanation time (usually 20–45 seconds). Reuse the same example in the next animation or experiment. Explain each concept once, then ask one short prediction.
+The 90 slides are visual steps, not 90 separate lectures. Use the subtopic labels as speaking cues and each on-screen example within the existing explanation time (usually 20–45 seconds). Reuse the same example in the next animation or experiment. Explain each concept once, then ask one short prediction.
 
 - Morning modules retain their existing time slots. Cap each hashing, propagation, mining and signature experiment at three minutes. Applications use one short example each; avoid extended case-study discussion.
 - 12:15–12:20: limitations, truthful input and database comparison. 12:20–12:30: the 12-question morning quiz, including joining and leaderboard transitions. Create the room before the slot.

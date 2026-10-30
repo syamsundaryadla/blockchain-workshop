@@ -109,14 +109,6 @@ export const BEGINNER_LESSONS: BeginnerLesson[] = [
     labels: [],
   },
   {
-    title: "About me",
-    idea: "Meet your workshop facilitator.",
-    scene: "about-me",
-    notes:
-      "Introduce Syam Sundar Yadla, founder of Risenine Technologies. Briefly share the practical AI focus and Aditya University background from the verified public profile. Invite questions throughout. The first concept starts on slide 3.",
-    labels: [],
-  },
-  {
     title: "What is Blockchain Technology?",
     scene: "blockchain-definition",
     idea: "A blockchain is a shared digital record book. It stores records in linked blocks, and participants use agreed rules to verify new entries.",

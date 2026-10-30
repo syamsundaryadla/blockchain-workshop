@@ -9,7 +9,6 @@ import { WorkshopDiagram } from "./WorkshopDiagrams";
 import { FabricWorkshopDiagram } from "./FabricWorkshopDiagrams";
 import { BEGINNER_LESSONS } from "@/content/beginner-workshop";
 import { LessonPrompt } from "./LessonPrompt";
-import { AboutMeSlide } from "./AboutMeSlide";
 import { FoundationDiagram, isFoundationScene } from "./FoundationDiagrams";
 import { SyllabusDiagram, isSyllabusScene } from "./SyllabusDiagrams";
 import { ConceptAnimation, isConceptAnimationScene } from "./ConceptAnimation";
@@ -86,7 +85,6 @@ export function WorkshopSlide({
   const steps = frame.steps ?? 0,
     isCode = ["code", "code-pair", "terminal"].includes(frame.layout);
   const teaching = TEACHING_CUES[lesson.scene];
-  if (frame.scene === "about-me") return <AboutMeSlide />;
   return (
     <div
       className={`workshop-slide workshop-${frame.layout === "diagram" ? "illustrated" : frame.layout} scene-${frame.scene} ${editorial.title.length > 45 ? "long-heading" : ""}`}
