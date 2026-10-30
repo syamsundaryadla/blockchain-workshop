@@ -51,6 +51,9 @@ if cmd.action == 'advance' then
     room.phase='finished'
   else
     room.index=room.index+1
+    -- Cumulative scores live on players. Old answer receipts are never used
+    -- after advancing; retain only this round to bound work on every poll.
+    room.answers={}
     room.phase='question'
     room.startsAt=now+5000
     room.endsAt=room.startsAt+15000

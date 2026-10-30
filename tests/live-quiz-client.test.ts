@@ -7,6 +7,53 @@ import {
   chromeJoinIntent,
 } from "../src/lib/live-quiz/client";
 
+test("a transient answer failure retries the identical answer without changing its question", async (t) => {
+  const requests: string[] = [];
+  t.mock.method(
+    globalThis,
+    "fetch",
+    async (_url: string, init: RequestInit) => {
+      requests.push(String(init.body));
+      if (requests.length === 1)
+        return Response.json(
+          { error: "Temporary storage failure" },
+          { status: 503 },
+        );
+      return Response.json({ me: { answer: 2 } });
+    },
+  );
+  const result = await quizRequest("participant", {
+    action: "answer",
+    code: "123456",
+    index: 4,
+    option: 2,
+  });
+  assert.equal(requests.length, 2);
+  assert.equal(requests[0], requests[1]);
+  assert.equal(result.me?.answer, 2);
+});
+
+test("a stalled state request releases polling within four seconds", async (t) => {
+  t.mock.method(
+    globalThis,
+    "fetch",
+    async (_url: string, init: RequestInit) =>
+      new Promise((_resolve, reject) => {
+        init.signal!.addEventListener(
+          "abort",
+          () => reject(new DOMException("Aborted", "AbortError")),
+          { once: true },
+        );
+      }),
+  );
+  const started = performance.now();
+  await assert.rejects(
+    quizRequest("participant", { action: "state", code: "123456" }),
+    QuizRequestError,
+  );
+  assert.ok(performance.now() - started < 5500);
+});
+
 test("a dropped join response retries with the same participant credential and request", async (t) => {
   const calls: RequestInit[] = [];
   t.mock.method(

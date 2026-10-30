@@ -209,6 +209,51 @@ async function main() {
     const next = await call(host, { action: "advance", code, index: 0 });
     assert.equal(next.index, 1);
     await call(host, { action: "advance", code, index: 0 }, 409);
+    // Exercise polling throughout a second round, alongside 100 answers.
+    // This catches cumulative-score loss when old round receipts are pruned.
+    let polling = true;
+    let pollCount = 0;
+    const pollers = people.slice(0, 100).map(async (auth, i) => {
+      await sleep(i * 8);
+      while (polling) {
+        await call(auth, { action: "state", code });
+        pollCount++;
+        await sleep(1200 + Math.random() * 300);
+      }
+    });
+    try {
+      await sleep(Math.max(0, next.startsAt - Date.now() + 80));
+      const roundTwo = await Promise.all(
+        people
+          .slice(0, 100)
+          .map((auth) =>
+            call(auth, { action: "answer", code, index: 1, option: 0 }),
+          ),
+      );
+      assert.ok(roundTwo.every((s) => s.me.answer === 0));
+      await call(
+        people[0],
+        { action: "answer", code, index: 0, option: 0 },
+        409,
+      );
+      await sleep(Math.max(0, next.endsAt - Date.now() + 80));
+      const final = await call(host, { action: "export", code });
+      assert.equal(final.phase, "leaderboard");
+      for (const before of exported.standings) {
+        const after = final.standings.find(
+          (p: { id: string }) => p.id === before.id,
+        );
+        assert.ok(
+          after.score >= before.score && after.score <= before.score + 100,
+        );
+      }
+    } finally {
+      polling = false;
+      await Promise.all(pollers);
+    }
+    console.log(
+      `PASS: 100 continuously polling participants alongside answers; ${pollCount} polls; scores preserved across rounds`,
+    );
     console.log(
       "PASS: strict 15-second cutoff, speed scoring, leaderboard, full export and host-controlled advance",
     );

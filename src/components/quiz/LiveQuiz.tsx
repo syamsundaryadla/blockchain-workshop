@@ -185,7 +185,7 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
     const timer = setInterval(() => {
       if (clock.current.time)
         setNow(clock.current.time + performance.now() - clock.current.at);
-    }, 100);
+    }, 250);
     return () => clearInterval(timer);
   }, []);
   useEffect(() => {
@@ -199,7 +199,7 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
     const poll = async () => {
       if (stopped || polling) return;
       polling = true;
-      let delay = 1800;
+      let delay = 1200;
       try {
         const start = performance.now();
         const value = await api(
@@ -213,13 +213,16 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
         if (value.phase === "finished") return;
         delay =
           value.phase === "countdown"
-            ? 400
+            ? Math.max(
+                250,
+                Math.min(1000, value.startsAt - value.serverNow + 40),
+              )
             : value.phase === "question"
               ? Math.max(
                   200,
-                  Math.min(2500, value.endsAt - value.serverNow + 100),
+                  Math.min(2000, value.endsAt - value.serverNow + 40),
                 )
-              : 1800;
+              : 1200;
       } catch (e) {
         if (stopped) return;
         const failure = e as ApiError;
@@ -238,11 +241,11 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
         }
         failures++;
         setConnection("Reconnecting");
-        delay = Math.min(10000, 1800 * failures);
+        delay = Math.min(3000, 500 * failures);
       } finally {
         polling = false;
       }
-      if (!stopped) timer = setTimeout(poll, delay + Math.random() * 150);
+      if (!stopped) timer = setTimeout(poll, delay + Math.random() * 300);
     };
     void poll();
     const onVisible = () => {
@@ -252,11 +255,13 @@ export function LiveQuiz({ host = false }: { host?: boolean }) {
       }
     };
     document.addEventListener("visibilitychange", onVisible);
+    window.addEventListener("online", onVisible);
     return () => {
       stopped = true;
       clearTimeout(timer);
       controller.abort();
       document.removeEventListener("visibilitychange", onVisible);
+      window.removeEventListener("online", onVisible);
     };
   }, [session, host, accept]);
   useEffect(() => {

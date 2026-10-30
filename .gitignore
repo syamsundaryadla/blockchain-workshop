@@ -15,6 +15,7 @@
 /.next-production/
 /.next-workshop-preview/
 /.next-quiz-check/
+/.next-quiz-load/
 /out/
 
 # production
