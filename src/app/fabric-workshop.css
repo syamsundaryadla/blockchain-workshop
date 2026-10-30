@@ -1,12 +1,26 @@
 /* Visual language: ink, ledger blue, certificate teal, restrained error coral. */
 .decision-demo {
-  flex: 1;
-  min-height: 0;
+  flex: 1 0 auto;
+  min-height: min-content;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 10px;
   padding: 12px 0;
+}
+.decision-demo > * {
+  flex-shrink: 0;
+}
+/* Interactive controls need their natural height. Grow the slide on short or
+   zoomed displays instead of centering overflowing content over its neighbours. */
+.studio-fullscreen
+  .lesson-stage:not(.lab-stage):not(.cover-stage):has(.decision-demo) {
+  height: auto;
+  min-height: max(470px, calc(100dvh - 170px));
+}
+.studio-fullscreen .workshop-slide:has(.decision-demo) {
+  height: auto;
+  min-height: inherit;
 }
 .decision-inputs {
   display: flex;
